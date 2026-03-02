@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — peer tutoring, reimagined</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- login page has been moved into its own file (login.html) -->
+<!-- navigate to login.html if you need to sign in -->
+
+<!-- ══════════════════════════════════════════
+     STUDENT DASHBOARD  
+══════════════════════════════════════════ -->
+<div class="view active" id="studentDashboard">
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <div class="nav-brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        </svg>
+      </div>
+      <span class="nav-brand-name">tuit</span>
+    </div>
+    
+    <div class="nav-links">
+      <button class="nav-link active" onclick="switchView('studentDashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        Dashboard
+      </button>
+      <button class="nav-link" onclick="goToPage('allsessions.html')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        All Sessions
+      </button>
+      <button class="nav-link" onclick="goToPage('alldoubts.html')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+          <path d="M12 17h.01"/>
+        </svg>
+        Doubt Board
+      </button>
+      <button class="nav-link" onclick="goToPage('mentorsearch.html')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        Find Mentors
+      </button>
+    </div>
+    
+    <div class="nav-right">
+      <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <div class="nav-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)" onclick="toggleAvatarMenu(event)">A</div>
+    </div>
+  </nav>
+  
+  <div class="dash-body">
+    <div class="greeting">
+      <div class="greeting-meta">
+        <span class="status-pill">
+          <span class="status-dot"></span>
+          Online
+        </span>
+        <span>Sunday, 15 Feb 2026 · Semester 4</span>
+      </div>
+      <h2>Good morning, <span class="name-coral">Alex</span> 👋</h2>
+    </div>
+    
+    <div class="dash-grid">
+      <div class="dash-grid-left">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="sessionsTab">Sessions</button>
+          <button class="tab-btn" data-tab="doubtsTab">Doubts</button>
+          <button class="tab-btn" data-tab="learningPathTab">Learning Path</button>
+        </div>
+        
+        <!-- Sessions Tab -->
+        <div class="tab-content active" id="sessionsTab">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <div class="card-title-icon" style="background:#FFECEC">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#FF5C5C" stroke-width="2.5">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                </div>
+                Your Sessions
+              </span>
+              <button class="card-action" onclick="goToPage('booksession.html')">Book new session</button>
+            </div>
+            
+            <div class="live-widget">
+              <div style="flex:1">
+                <div style="margin-bottom:12px">
+                  <span class="live-badge">
+                    <span class="live-dot"></span>
+                    Live now
+                  </span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px">
+                  <div class="live-avatar" style="background:linear-gradient(135deg,#4DA9FF,#845EF7)">P</div>
+                  <div class="live-info">
+                    <div class="live-title">Data Structures — Trees & Graphs</div>
+                    <div class="live-meta">
+                      <span>with Priya Singh</span>
+                      <span>·</span>
+                      <span>14 min in</span>
+                      <span class="tag tag-ds">DS</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn-join">Rejoin session</button>
+            </div>
+            
+            <div class="session-item">
+              <div class="session-date"><div class="day">Mon</div><div class="dt">17</div></div>
+              <div class="session-info">
+                <div class="session-title">Linear Algebra — Eigenvalues deep dive</div>
+                <div class="session-meta">4:00 PM · Rahul Mehta · 45 min</div>
+              </div>
+              <span class="tag tag-math">Maths</span>
+            </div>
+            
+            <div class="session-item">
+              <div class="session-date"><div class="day">Tue</div><div class="dt">18</div></div>
+              <div class="session-info">
+                <div class="session-title">Sorting Algorithms — Merge, Quick & Heap</div>
+                <div class="session-meta">11:00 AM · Sneha Reddy · 60 min</div>
+              </div>
+              <span class="tag tag-algo">Algo</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Doubts Tab -->
+        <div class="tab-content" id="doubtsTab">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <div class="card-title-icon" style="background:#EEE9FF">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#845EF7" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <path d="M12 17h.01"/>
+                  </svg>
+                </div>
+                Doubt Board
+              </span>
+              <button class="card-action">View all doubts</button>
+            </div>
+            
+            <div class="doubt-input-card">
+              <textarea class="doubt-textarea" placeholder="Ask a doubt — be specific! e.g. 'Why does BFS use a queue instead of a stack?'"></textarea>
+              <div class="doubt-toolbar">
+                <div class="doubt-pills">
+                  <span class="doubt-pill">Data Structures</span>
+                  <span class="doubt-pill">Maths</span>
+                  <span class="doubt-pill">Physics</span>
+                  <span class="doubt-pill">+ More</span>
+                </div>
+                <button class="btn-ask">Ask doubt</button>
+              </div>
+            </div>
+            
+            <div class="doubt-item">
+              <div class="doubt-q">Why does the time complexity of merge sort remain O(n log n) even in the worst case?</div>
+              <div class="doubt-meta">
+                <span class="tag tag-algo">Algo</span>
+                <span class="ml-chip">
+                  <svg viewBox="0 0 24 24" fill="#6D28D9">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                  AI tagged
+                </span>
+                <span class="doubt-meta-txt">by you · 2h ago</span>
+                <div class="doubt-replies">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  3 replies
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Learning Path Tab -->
+        <div class="tab-content" id="learningPathTab">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <div class="card-title-icon" style="background:#F0FFF4">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#6BCB77" stroke-width="2.5">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                  </svg>
+                </div>
+                Learning Path
+              </span>
+            </div>
+            
+            <div class="section-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <path d="M12 17h.01"/>
+              </svg>
+              AI-recommended · CS Semester 4
+            </div>
+            
+            <div class="learning-path-step">
+              <div class="lp-node done">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </div>
+              <div class="lp-content">
+                <div class="lp-title">Arrays & Linked Lists</div>
+                <div class="lp-sub">Completed · 3 sessions</div>
+              </div>
+            </div>
+            
+            <div class="learning-path-step">
+              <div class="lp-node current">2</div>
+              <div class="lp-content">
+                <div class="lp-title">Trees & Graphs</div>
+                <div class="lp-sub">In progress · 2 of 4 sessions done</div>
+                <div class="lp-progress-wrap">
+                  <div class="lp-progress-labels">
+                    <span>Progress</span>
+                    <span>50%</span>
+                  </div>
+                  <div class="lp-progress-bar">
+                    <div class="lp-progress-fill" style="width:50%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="learning-path-step">
+              <div class="lp-node upcoming">3</div>
+              <div class="lp-content">
+                <div class="lp-title">Dynamic Programming</div>
+                <div class="lp-sub">Unlocks after Trees & Graphs</div>
+              </div>
+            </div>
+            
+            <div class="learning-path-step">
+              <div class="lp-node upcoming">4</div>
+              <div class="lp-content">
+                <div class="lp-title">System Design Basics</div>
+                <div class="lp-sub">Recommended for Semester 5 prep</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Sidebar -->
+      <div class="dash-grid-right">
+        <!-- Points Widget -->
+        <div class="points-widget">
+          <div class="points-icon">
+            <svg viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="points-info">
+            <div class="points-val">340 pts</div>
+            <div class="points-label">60 pts to next reward</div>
+            <div class="points-progress">
+              <div class="points-progress-fill" style="width:85%"></div>
+            </div>
+          </div>
+          <button class="btn-shop">Shop</button>
+        </div>
+        
+        <!-- Mentor Recommendations -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <div class="card-title-icon" style="background:#EEE9FF">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#845EF7" stroke-width="2.5">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </div>
+              Mentor Picks
+            </span>
+            <button class="card-action">See all</button>
+          </div>
+          
+          <div class="section-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <path d="M12 17h.01"/>
+            </svg>
+            AI-matched to your profile & subjects
+          </div>
+          
+          <div class="mentor-rec">
+            <div class="mentor-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P</div>
+            <div class="mentor-info">
+              <div class="mentor-name">Priya Singh</div>
+              <div class="mentor-spec">Data Structures · Algorithms</div>
+            </div>
+            <div class="mentor-right">
+              <div class="mentor-rating">★ 4.9</div>
+              <div class="match-badge">98% match</div>
+            </div>
+          </div>
+          
+          <div class="mentor-rec">
+            <div class="mentor-avatar" style="background:linear-gradient(135deg,#6BCB77,#00C9B1)">R</div>
+            <div class="mentor-info">
+              <div class="mentor-name">Rahul Mehta</div>
+              <div class="mentor-spec">Linear Algebra · Calculus</div>
+            </div>
+            <div class="mentor-right">
+              <div class="mentor-rating">★ 4.7</div>
+              <div class="match-badge">91% match</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Broadcast Board -->
+        <div class="broadcast-board">
+          <div class="card-header" style="margin-bottom:20px">
+            <span class="card-title">
+              <div class="card-title-icon" style="background:#EFF6FF">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4DA9FF" stroke-width="2.5">
+                  <path d="M12 2v6m0 4v6M3 12h6m4 0h6"/>
+                  <circle cx="12" cy="12" r="10"/>
+                </svg>
+              </div>
+              Broadcasts
+            </span>
+          </div>
+          
+          <div class="broadcast-item">
+            <div class="broadcast-header">
+              <div class="broadcast-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P</div>
+              <div class="broadcast-author">
+                <div class="broadcast-name">Priya Singh</div>
+                <div class="broadcast-time">2h ago</div>
+              </div>
+              <span class="broadcast-badge">LIVE SESSION</span>
+            </div>
+            <div class="broadcast-content">
+              Starting a live session on Graph Algorithms at 3 PM today! Join if you want to learn DFS & BFS traversals with real examples.
+            </div>
+            <div class="broadcast-actions">
+              <button class="broadcast-action-btn" onclick="reactToBroadcast(1, 'liked')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                24 likes
+              </button>
+              <button class="broadcast-action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                5 comments
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MENTOR DASHBOARD (Preview - similar structure)
+══════════════════════════════════════════ -->
+<div class="view" id="mentorDashboard">
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <div class="nav-brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        </svg>
+      </div>
+      <span class="nav-brand-name">tuit</span>
+    </div>
+    
+    <div class="nav-links">
+      <button class="nav-link active">Dashboard</button>
+      <button class="nav-link" onclick=" goToPage('allsessions.html')">All Sessions</button>
+      <button class="nav-link" onclick=" goToPage('alldoubts.html')">Doubt Board</button>
+      <button class="nav-link">My Students</button>
+    </div>
+    
+    <div class="nav-right">
+      <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <div class="nav-avatar" style="background:linear-gradient(135deg,#6BCB77,#00C9B1)" onclick="toggleAvatarMenu(event)">S</div>
+    </div>
+  </nav>
+  
+  <div class="dash-body">
+    <div class="greeting">
+      <div class="greeting-meta">
+        <span class="status-pill"><span class="status-dot"></span>Online</span>
+        <span>Sunday, 15 Feb 2026 · Verified Mentor</span>
+      </div>
+      <h2>Welcome back, <span class="name-teal">Sneha</span></h2>
+    </div>
+    
+    <div class="dash-grid">
+      <div class="dash-grid-left">
+        <!-- Tab Navigation (Mentor) -->
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="mentorSessionsTab">Sessions</button>
+          <button class="tab-btn" data-tab="mentorDoubtsTab">Doubts</button>
+          <button class="tab-btn" data-tab="mentorLearningPathTab">Broadcasts</button>
+        </div>
+
+        <!-- Sessions Tab (Mentor) -->
+        <div class="tab-content active" id="mentorSessionsTab">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <div class="card-title-icon" style="background:#FFECEC">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#FF5C5C" stroke-width="2.5">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                </div>
+                Your Sessions
+              </span>
+              <button class="card-action" onclick="goToPage('booksession.html')">Manage sessions</button>
+            </div>
+
+            <div class="live-widget">
+              <div style="flex:1">
+                <div style="margin-bottom:12px">
+                  <span class="live-badge">
+                    <span class="live-dot"></span>
+                    Live now
+                  </span>
+                </div>
+                <div style="display:flex; align-items:center; gap:14px">
+                  <div class="live-avatar" style="background:linear-gradient(135deg,#4DA9FF,#845EF7)">P</div>
+                  <div class="live-info">
+                    <div class="live-title">Graph Algorithms — Live Q&amp;A</div>
+                    <div class="live-meta">
+                      <span>with Priya Singh</span>
+                      <span>·</span>
+                      <span>14 min in</span>
+                      <span class="tag tag-ds">DS</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn-join">View session</button>
+            </div>
+
+            <div class="session-item">
+              <div class="session-date"><div class="day">Mon</div><div class="dt">17</div></div>
+              <div class="session-info">
+                <div class="session-title">Office hours — Doubt clearing</div>
+                <div class="session-meta">4:00 PM · 45 min · 6 students</div>
+              </div>
+              <span class="tag tag-math">Mentor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doubts Tab (Mentor) -->
+        <div class="tab-content" id="mentorDoubtsTab">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <div class="card-title-icon" style="background:#EEE9FF">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#845EF7" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <path d="M12 17h.01"/>
+                  </svg>
+                </div>
+                Doubt Queue
+              </span>
+              <button class="card-action">View queue</button>
+            </div>
+
+            <div class="doubt-item">
+              <div class="doubt-q">Student asking: How to optimize merge sort memory?</div>
+              <div class="doubt-meta">
+                <span class="tag tag-algo">Algo</span>
+                <span class="doubt-meta-txt">by Aisha · 30m ago</span>
+                <div class="doubt-replies">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  2 replies
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Broadcasts Tab (Mentor) -->
+        <div class="tab-content" id="mentorLearningPathTab">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <div class="card-title-icon" style="background:#EFF6FF">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#4DA9FF" stroke-width="2.5">
+                    <path d="M12 2v6m0 4v6M3 12h6m4 0h6"/>
+                    <circle cx="12" cy="12" r="10"/>
+                  </svg>
+                </div>
+                Broadcasts
+              </span>
+            </div>
+            <div class="broadcast-item">
+              <div class="broadcast-header">
+                <div class="broadcast-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P</div>
+                <div class="broadcast-author">
+                  <div class="broadcast-name">Priya Singh</div>
+                  <div class="broadcast-time">2h ago</div>
+                </div>
+                <span class="broadcast-badge">LIVE SESSION</span>
+              </div>
+              <div class="broadcast-content">
+                Starting a live session on Graph Algorithms at 3 PM today! Join if you want to learn DFS &amp; BFS traversals with real examples.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dash-grid-right">
+        <!-- Stat Widgets -->
+         <div class="stat-widget earnings">
+          <div class="stat-widget-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="stat-value">1,240</div>
+          <div class="stat-label">Points earned</div>
+          <div class="stat-change up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+            This month
+          </div>
+        </div>
+
+        <div class="stat-widget rating">
+          <div class="stat-widget-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="stat-value">4.9</div>
+          <div class="stat-label">Average rating</div>
+          <div class="stat-change up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+            Top 5% mentor
+          </div>
+        </div>
+        
+        <div class="stat-widget followers">
+          <div class="stat-widget-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="stat-value">124</div>
+          <div class="stat-label">Followers</div>
+          <div class="stat-change up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+            +12 this week
+          </div>
+        </div>
+        
+        <div class="stat-widget hours">
+          <div class="stat-widget-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="stat-value">47h</div>
+          <div class="stat-label">Hours taught</div>
+          <div class="stat-change up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+            +6h this month
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     INSTAGRAM-STYLE DM WIDGET
+══════════════════════════════════════════ -->
+<div class="dm-widget">
+  <button class="dm-widget-btn unread">
+    <svg viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="white"/>
+    </svg>
+    <span class="dm-widget-label">Messages</span>
+    <span class="dm-widget-badge">3</span>
+  </button>
+</div>
+
+<div class="dm-window" id="dmWindow">
+  <div class="dm-window-header">
+    <div class="dm-window-title">Messages</div>
+    <div class="dm-window-controls">
+      <button class="dm-control-btn" data-action="maximize">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 3 21 3 21 9"/>
+          <polyline points="9 21 3 21 3 15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/>
+          <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+      </button>
+      <button class="dm-control-btn" data-action="close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dm-window-body">
+    <div class="dm-conversation-item unread" onclick="openDMConversation('Priya Singh')">
+      <div class="dm-conv-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P
+        <div class="dm-online-indicator"></div>
+      </div>
+      <div class="dm-conv-info">
+        <div class="dm-conv-name">Priya Singh</div>
+        <div class="dm-conv-preview">Check this resource for BFS!</div>
+      </div>
+      <div class="dm-conv-meta">
+        <div class="dm-conv-time">2m</div>
+        <div class="dm-conv-unread"></div>
+      </div>
+    </div>
+    
+    <div class="dm-conversation-item" onclick="openDMConversation('Rahul Mehta')">
+      <div class="dm-conv-avatar" style="background:linear-gradient(135deg,#6BCB77,#00C9B1)">R</div>
+      <div class="dm-conv-info">
+        <div class="dm-conv-name">Rahul Mehta</div>
+        <div class="dm-conv-preview">See you Monday at 4 PM!</div>
+      </div>
+      <div class="dm-conv-meta">
+        <div class="dm-conv-time">1h</div>
+      </div>
+    </div>
+    
+    <div class="dm-conversation-item" onclick="openDMConversation('Karan')">
+      <div class="dm-conv-avatar" style="background:linear-gradient(135deg,#FFD93D,#FF8A65)">K</div>
+      <div class="dm-conv-info">
+        <div class="dm-conv-name">Karan (Batchmate)</div>
+        <div class="dm-conv-preview">Did you get the ML doubt?</div>
+      </div>
+      <div class="dm-conv-meta">
+        <div class="dm-conv-time">3h</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-icon">
+    <svg viewBox="0 0 24 24">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </div>
+  <div style="flex:1">
+    <div class="toast-title">Sign-up coming soon!</div>
+    <div class="toast-sub">This feature is currently under development.</div>
+  </div>
+  <button class="toast-close" onclick="hideToast()">×</button>
+</div>
+
+<!-- avatar dropdown menu -->
+<div id="avatarMenu" class="avatar-menu">
+  <button onclick="logout()">
+    <span>Log out</span>
+    <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- material-style logout arrow -->
+      <path d="M10 17l5-5-5-5v3H3v4h7v3zm9-14v14h2V3h-2z"/>
+    </svg>
+  </button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>All Sessions — tuti</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--coral:#FF5C5C;--peach:#FF8A65;--yellow:#FFD93D;--lime:#6BCB77;--sky:#4DA9FF;--violet:#845EF7;--bg:#FFF8F2;--surface:#FFFFFF;--border:#F0E6DC;--border2:#E0CFC4;--text:#1E1018;--text2:#6B5B52;--muted:#A8938A;--shadow-sm:0 2px 8px rgba(100,60,30,.07);--shadow-md:0 4px 20px rgba(100,60,30,.10);--fd:'Fraunces',serif;--fb:'DM Sans',sans-serif}
+body.dark-mode{--bg:#0F0A14;--surface:#1A141F;--border:#2D2533;--border2:#3A3240;--text:#F5F1F7;--text2:#C4B8CC;--muted:#8B7F94;--shadow-sm:0 2px 8px rgba(0,0,0,.3);--shadow-md:0 4px 20px rgba(0,0,0,.4)}
+body.dark-mode .dnav{background:rgba(26,20,31,.95)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+.dnav{height:62px;background:rgba(255,248,242,.95);backdrop-filter:blur(16px);border-bottom:1.5px solid var(--border);display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:100}
+.nbrand{display:flex;align-items:center;gap:9px;margin-right:32px;text-decoration:none;color:inherit}
+.nbmark{width:32px;height:32px;background:var(--coral);border-radius:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(255,92,92,.3)}
+.nbmark svg{width:16px;height:16px}
+.nbname{font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:-.5px}
+.nlinks{display:flex;gap:2px;flex:1}
+.nlink{padding:7px 13px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .18s;text-decoration:none}
+.nlink:hover{color:var(--text);background:var(--border)}
+.nr{display:flex;align-items:center;gap:8px;margin-left:auto}
+.dark-toggle{width:36px;height:36px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;border:none}
+.dark-toggle:hover{border-color:var(--border2)}
+.dark-toggle svg{width:16px;height:16px;color:var(--text2)}
+.navav{width:36px;height:36px;border-radius:10px;color:white;font-family:var(--fd);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+.container{max-width:1600px;margin:0 auto;padding:36px 40px}
+.page-header{margin-bottom:32px;display:flex;align-items:center;justify-content:space-between}
+.page-title{font-family:var(--fd);font-size:36px;font-weight:900;letter-spacing:-1px}
+.btn-book{padding:12px 24px;background:var(--coral);color:white;border:none;border-radius:12px;font-family:var(--fd);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(255,92,92,.28);transition:all .2s;text-decoration:none;display:inline-block}
+.btn-book:hover{background:#E84F4F;transform:translateY(-1px)}
+
+.filters{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:24px;box-shadow:var(--shadow-sm)}
+.filter-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.search-box{flex:1;min-width:250px;position:relative}
+.search-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:10px 16px 10px 40px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;transition:all .2s}
+.search-input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,92,92,.08)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
+.filter-select{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:10px 36px 10px 14px;color:var(--text);font-family:var(--fb);font-size:13px;font-weight:500;outline:none;cursor:pointer;transition:all .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23A8938A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.filter-select:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,92,92,.08)}
+
+.session-grid{display:grid;gap:16px}
+.session-card{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:20px 24px;box-shadow:var(--shadow-sm);transition:all .2s;display:flex;gap:20px;align-items:center}
+.session-card:hover{border-color:var(--border2);box-shadow:var(--shadow-md)}
+.session-card.live{border-color:var(--coral);background:linear-gradient(135deg,rgba(255,92,92,.04),rgba(255,142,83,.02))}
+.session-date-box{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;text-align:center;min-width:70px;flex-shrink:0}
+.session-date-box .day{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:2px}
+.session-date-box .dt{font-family:var(--fd);font-size:24px;font-weight:900;line-height:1;color:var(--text)}
+.session-time{font-size:12px;color:var(--text2);font-weight:500;margin-top:4px}
+.session-info{flex:1}
+.session-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.live-badge{display:inline-flex;align-items:center;gap:5px;background:var(--coral);color:white;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase}
+.live-dot{width:6px;height:6px;border-radius:50%;background:white;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.session-title{font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
+.session-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--text2)}
+.session-meta svg{width:14px;height:14px;flex-shrink:0}
+.mentor-chip{display:inline-flex;align-items:center;gap:6px}
+.mentor-avatar-sm{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:11px;font-weight:800;color:white;flex-shrink:0}
+.tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.tag-ds{background:#EEF2FF;color:#4F56D4;border:1px solid #C7D0F8}
+.tag-math{background:#FFFBEA;color:#B45309;border:1px solid #FDE68A}
+.tag-algo{background:#F0FFF4;color:#166534;border:1px solid #86EFAC}
+.tag-ml{background:#F5F3FF;color:#6D28D9;border:1px solid #DDD6FE}
+.tag-os{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}
+.session-actions{display:flex;gap:8px;flex-shrink:0}
+.btn-action{padding:10px 20px;border-radius:10px;font-family:var(--fd);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:none}
+.btn-join{background:var(--coral);color:white;box-shadow:0 4px 12px rgba(255,92,92,.25)}
+.btn-join:hover{background:#E84F4F;transform:scale(1.03)}
+.btn-book-slot{background:var(--bg);color:var(--text);border:1.5px solid var(--border)}
+.btn-book-slot:hover{background:var(--surface);border-color:var(--border2)}
+
+.empty-state{text-align:center;padding:60px 20px}
+.empty-icon{width:80px;height:80px;background:var(--bg);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.empty-icon svg{width:40px;height:40px;color:var(--muted)}
+.empty-title{font-family:var(--fd);font-size:22px;font-weight:800;margin-bottom:8px}
+.empty-sub{font-size:15px;color:var(--muted)}
+
+@media(max-width:768px){.container{padding:24px 20px}.page-header{flex-direction:column;align-items:flex-start;gap:16px}.filter-row{flex-direction:column}.filter-row>*{width:100%}.session-card{flex-direction:column;align-items:flex-start}.session-actions{width:100%}.session-actions .btn-action{flex:1}.nlinks{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="dash-nav">
+  <div class="nav-brand">
+    <div class="nav-brand-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+      </svg>
+    </div>
+    <span class="nav-brand-name">tuit</span>
+  </div>
+  
+  <div class="nav-links">
+    <button class="nav-link" onclick="goToPage('index.html')">
+      ← Dashboard
+    </button>
+    <button class="nav-link active" onclick="goToPage('allsessions.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <path d="M16 2v4M8 2v4M3 10h18"/>
+      </svg>
+      All Sessions
+    </button>
+    <button class="nav-link" onclick="goToPage('alldoubts.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+        <path d="M12 17h.01"/>
+      </svg>
+      Doubt Board
+    </button>
+    <button class="nav-link" onclick="goToPage('mentorsearch.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      Find Mentors
+    </button>
+  </div>
+  
+  <div class="nav-right">
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+    <div class="nav-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)" onclick="toggleAvatarMenu(event)">A</div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">All Sessions</h1>
+    <a href="bookSession.html" class="btn-book">+ Book New Session</a>
+  </div>
+
+  <div class="filters">
+    <div class="filter-row">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search sessions by title, mentor, or topic..." oninput="filterSessions()">
+      </div>
+      <select class="filter-select" id="subjectFilter" onchange="filterSessions()">
+        <option value="">All Subjects</option>
+        <option value="ds">Data Structures</option>
+        <option value="algo">Algorithms</option>
+        <option value="math">Mathematics</option>
+        <option value="ml">Machine Learning</option>
+        <option value="os">Operating Systems</option>
+      </select>
+      <select class="filter-select" id="dateFilter" onchange="filterSessions()">
+        <option value="">All Dates</option>
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="week">This Week</option>
+      </select>
+      <select class="filter-select" id="statusFilter" onchange="filterSessions()">
+        <option value="">All Status</option>
+        <option value="live">Live Now</option>
+        <option value="upcoming">Upcoming</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="session-grid" id="sessionGrid">
+    <!-- Live Session -->
+    <div class="session-card live" data-status="live" data-subject="ds" data-date="today">
+      <div class="session-date-box">
+        <div class="day">Now</div>
+        <div class="dt">LIVE</div>
+        <div class="session-time">Started 15m ago</div>
+      </div>
+      <div class="session-info">
+        <div class="session-header">
+          <span class="live-badge"><span class="live-dot"></span>Live now</span>
+        </div>
+        <div class="session-title">Graph Algorithms — BFS & DFS Deep Dive</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P</div>
+            <span>Priya Singh</span>
+          </div>
+          <span>·</span>
+          <span>45 min</span>
+          <span>·</span>
+          <span>12 students</span>
+          <span class="tag tag-ds">DS</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-join" onclick="alert('Joining session...')">Join Session</button>
+      </div>
+    </div>
+
+    <!-- Today Sessions -->
+    <div class="session-card" data-status="upcoming" data-subject="math" data-date="today">
+      <div class="session-date-box">
+        <div class="day">Today</div>
+        <div class="dt">4 PM</div>
+        <div class="session-time">In 2 hours</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">Linear Algebra — Eigenvalues & Eigenvectors</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#6BCB77,#00C9B1)">R</div>
+            <span>Rahul Mehta</span>
+          </div>
+          <span>·</span>
+          <span>60 min</span>
+          <span>·</span>
+          <span>8 students</span>
+          <span class="tag tag-math">Maths</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-book-slot" onclick="window.location.href='bookSession.html'">Book Slot</button>
+      </div>
+    </div>
+
+    <div class="session-card" data-status="upcoming" data-subject="ml" data-date="today">
+      <div class="session-date-box">
+        <div class="day">Today</div>
+        <div class="dt">6 PM</div>
+        <div class="session-time">In 4 hours</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">Introduction to Neural Networks</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#4DA9FF,#845EF7)">A</div>
+            <span>Arjun Kapoor</span>
+          </div>
+          <span>·</span>
+          <span>90 min</span>
+          <span>·</span>
+          <span>15 students</span>
+          <span class="tag tag-ml">ML</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-book-slot" onclick="window.location.href='bookSession.html'">Book Slot</button>
+      </div>
+    </div>
+
+    <!-- Tomorrow Sessions -->
+    <div class="session-card" data-status="upcoming" data-subject="algo" data-date="tomorrow">
+      <div class="session-date-box">
+        <div class="day">Mon</div>
+        <div class="dt">17</div>
+        <div class="session-time">10:00 AM</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">Sorting Algorithms — Quick Sort & Merge Sort</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#FFD93D,#FF8A65)">S</div>
+            <span>Sneha Reddy</span>
+          </div>
+          <span>·</span>
+          <span>60 min</span>
+          <span>·</span>
+          <span>10 students</span>
+          <span class="tag tag-algo">Algo</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-book-slot" onclick="window.location.href='bookSession.html'">Book Slot</button>
+      </div>
+    </div>
+
+    <div class="session-card" data-status="upcoming" data-subject="ds" data-date="tomorrow">
+      <div class="session-date-box">
+        <div class="day">Mon</div>
+        <div class="dt">17</div>
+        <div class="session-time">2:00 PM</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">Binary Search Trees — Implementation & Operations</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P</div>
+            <span>Priya Singh</span>
+          </div>
+          <span>·</span>
+          <span>75 min</span>
+          <span>·</span>
+          <span>6 students</span>
+          <span class="tag tag-ds">DS</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-book-slot" onclick="window.location.href='bookSession.html'">Book Slot</button>
+      </div>
+    </div>
+
+    <!-- This Week -->
+    <div class="session-card" data-status="upcoming" data-subject="os" data-date="week">
+      <div class="session-date-box">
+        <div class="day">Tue</div>
+        <div class="dt">18</div>
+        <div class="session-time">11:00 AM</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">Operating Systems — Processes & Threads</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#6BCB77,#00C9B1)">R</div>
+            <span>Rahul Mehta</span>
+          </div>
+          <span>·</span>
+          <span>60 min</span>
+          <span>·</span>
+          <span>14 students</span>
+          <span class="tag tag-os">OS</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-book-slot" onclick="window.location.href='bookSession.html'">Book Slot</button>
+      </div>
+    </div>
+
+    <div class="session-card" data-status="upcoming" data-subject="algo" data-date="week">
+      <div class="session-date-box">
+        <div class="day">Wed</div>
+        <div class="dt">19</div>
+        <div class="session-time">3:30 PM</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">Dynamic Programming — Introduction & Examples</div>
+        <div class="session-meta">
+          <div class="mentor-chip">
+            <div class="mentor-avatar-sm" style="background:linear-gradient(135deg,#FFD93D,#FF8A65)">S</div>
+            <span>Sneha Reddy</span>
+          </div>
+          <span>·</span>
+          <span>90 min</span>
+          <span>·</span>
+          <span>20 students</span>
+          <span class="tag tag-algo">Algo</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-action btn-book-slot" onclick="window.location.href='bookSession.html'">Book Slot</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="empty-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+    </div>
+    <div class="empty-title">No sessions found</div>
+    <div class="empty-sub">Try adjusting your filters or search query</div>
+  </div>
+</div>
+
+<script>
+
+
+
+
+function filterSessions(){
+  const search=document.getElementById('searchInput').value.toLowerCase();
+  const subject=document.getElementById('subjectFilter').value;
+  const date=document.getElementById('dateFilter').value;
+  const status=document.getElementById('statusFilter').value;
+  const cards=document.querySelectorAll('.session-card');
+  let visibleCount=0;
+  
+  cards.forEach(card=>{
+    const cardSubject=card.dataset.subject;
+    const cardDate=card.dataset.date;
+    const cardStatus=card.dataset.status;
+    const cardText=card.textContent.toLowerCase();
+    
+    const matchSearch=!search||cardText.includes(search);
+    const matchSubject=!subject||cardSubject===subject;
+    const matchDate=!date||cardDate===date||cardDate==='week';
+    const matchStatus=!status||cardStatus===status;
+    
+    if(matchSearch&&matchSubject&&matchDate&&matchStatus){
+      card.style.display='flex';
+      visibleCount++;
+    }else{
+      card.style.display='none';
+    }
+  });
+  
+  document.getElementById('emptyState').style.display=visibleCount===0?'block':'none';
+}
+
+
+</script>
+
+<!-- INSTAGRAM-STYLE DM WIDGET (shared across non-login pages) -->
+<div class="dm-widget">
+  <button class="dm-widget-btn unread">
+    <svg viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="white"/>
+    </svg>
+    <span class="dm-widget-label">Messages</span>
+    <span class="dm-widget-badge">3</span>
+  </button>
+</div>
+
+<div class="dm-window" id="dmWindow">
+  <div class="dm-window-header">
+    <div class="dm-window-title">Messages</div>
+    <div class="dm-window-controls">
+      <button class="dm-control-btn" data-action="maximize">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 3 21 3 21 9"/>
+          <polyline points="9 21 3 21 3 15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/>
+          <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+      </button>
+      <button class="dm-control-btn" data-action="close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dm-window-body">
+    <div class="dm-conversation-item unread" onclick="openDMConversation('Priya Singh')">
+      <div class="dm-conv-avatar" style="background:linear-gradient(135deg,#FF5C5C,#FF8A65)">P
+        <div class="dm-online-indicator"></div>
+      </div>
+      <div class="dm-conv-info">
+        <div class="dm-conv-name">Priya Singh</div>
+        <div class="dm-conv-preview">Check this resource for BFS!</div>
+      </div>
+      <div class="dm-conv-meta">
+        <div class="dm-conv-time">2m</div>
+        <div class="dm-conv-unread"></div>
+      </div>
+    </div>
+    
+    <div class="dm-conversation-item" onclick="openDMConversation('Rahul Mehta')">
+      <div class="dm-conv-avatar" style="background:linear-gradient(135deg,#6BCB77,#00C9B1)">R</div>
+      <div class="dm-conv-info">
+        <div class="dm-conv-name">Rahul Mehta</div>
+        <div class="dm-conv-preview">See you Monday at 4 PM!</div>
+      </div>
+      <div class="dm-conv-meta">
+        <div class="dm-conv-time">1h</div>
+      </div>
+    </div>
+    
+    <div class="dm-conversation-item" onclick="openDMConversation('Karan')">
+      <div class="dm-conv-avatar" style="background:linear-gradient(135deg,#FFD93D,#FF8A65)">K</div>
+      <div class="dm-conv-info">
+        <div class="dm-conv-name">Karan (Batchmate)</div>
+        <div class="dm-conv-preview">Did you get the ML doubt?</div>
+      </div>
+      <div class="dm-conv-meta">
+        <div class="dm-conv-time">3h</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- avatar dropdown menu (shared) -->
+<div id="avatarMenu" class="avatar-menu">
+  <button onclick="logout()">
+    <span>Log out</span>
+    <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 17l5-5-5-5v3H3v4h7v3zm9-14v14h2V3h-2z"/>
+    </svg>
+  </button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

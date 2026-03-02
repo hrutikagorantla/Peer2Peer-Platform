@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="view active" id="loginPage">
+  <div class="login-left">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+    
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        </svg>
+      </div>
+      <span class="brand-name">tuit</span>
+    </div>
+    
+    <div class="login-headline">
+      Learn smarter,<br><span class="pop">together.</span>
+    </div>
+    
+    <p class="login-sub">
+      Peer tutoring powered by intelligent matching. Get unstuck faster, find the right mentor, and build your path through college.
+    </p>
+    
+    <div class="feature-list">
+      <div class="feature-row">
+        <div class="f-icon" style="background:#FFECEC">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF5C5C" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </div>
+        <span class="feature-text">AI-matched mentors based on your subjects & goals</span>
+      </div>
+      <div class="feature-row">
+        <div class="f-icon" style="background:#F0FFF4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6BCB77" stroke-width="2.5">
+            <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+          </svg>
+        </div>
+        <span class="feature-text">Smart doubt board with auto-tagging & duplicate detection</span>
+      </div>
+      <div class="feature-row">
+        <div class="f-icon" style="background:#FFFBEA">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <span class="feature-text">Personalised learning paths recommended just for you</span>
+      </div>
+      <div class="feature-row">
+        <div class="f-icon" style="background:#EEE9FF">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#845EF7" stroke-width="2.5">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <span class="feature-text">Earn points, redeem rewards, climb the leaderboard</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="login-right">
+    <h2>Welcome back</h2>
+    <p>Sign in to continue your learning journey</p>
+    
+    <div class="role-label">I am a</div>
+    <div class="role-selector">
+      <div class="role-card student selected" onclick="selectRole('student', this)">
+        <div class="role-check">
+          <svg viewBox="0 0 10 8" fill="none">
+            <path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="role-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF5C5C" stroke-width="2.5">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="role-title">Student</div>
+        <div class="role-sub">I want to learn</div>
+      </div>
+      
+      <div class="role-card mentor" onclick="selectRole('mentor', this)">
+        <div class="role-check">
+          <svg viewBox="0 0 10 8" fill="none">
+            <path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="role-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#845EF7" stroke-width="2.5">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <div class="role-title">Mentor</div>
+        <div class="role-sub">I want to teach</div>
+      </div>
+    </div>
+    
+    <div class="field">
+      <label>Email or Username</label>
+      <input type="text" id="loginUser" placeholder="you@college.edu" value="alex.sharma">
+    </div>
+    
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="Enter your password" value="password123">
+    </div>
+    
+    <button class="btn-login" onclick="handleLogin()">Sign in to tuit</button>
+    
+    <div class="divider">or</div>
+    
+    <button class="btn-signup" onclick="showSignupToast()">Create a new account</button>
+  </div>
+</div>
+
+<!-- Toast (used by signup and other notifications) -->
+<div class="toast" id="toast">
+  <div class="toast-icon">
+    <svg viewBox="0 0 24 24">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </div>
+  <div style="flex:1">
+    <div class="toast-title">Sign-up coming soon!</div>
+    <div class="toast-sub">This feature is currently under development.</div>
+  </div>
+  <button class="toast-close" onclick="hideToast()">×</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
