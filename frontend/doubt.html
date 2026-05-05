@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Doubt thread</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Thread-specific styles */
+  .thread-layout { max-width: 920px; margin: 0 auto; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink-3); font-size: 13px; font-weight: 500;
+    margin-bottom: 14px; cursor: pointer; transition: color .15s;
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--ink); }
+  .back-link svg { width: 14px; height: 14px; }
+
+  .question-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 24px 28px;
+    margin-bottom: 22px;
+    box-shadow: var(--sh-sm);
+  }
+  .question-card .q-tags { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .question-card .q-title {
+    font-family: var(--fd); font-size: 26px; font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.25; color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .question-card .q-body {
+    font-size: 14.5px; line-height: 1.65; color: var(--ink-2);
+    white-space: pre-wrap; word-wrap: break-word;
+  }
+  .q-meta {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-3);
+  }
+  .q-vote-bar {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px; border-top: 1px solid var(--line);
+  }
+  .vote-btn {
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--surface2); color: var(--ink-2);
+    cursor: pointer; transition: all .15s;
+  }
+  .vote-btn:hover { background: var(--line-2); color: var(--ink); }
+  .vote-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .vote-btn svg { width: 14px; height: 14px; }
+  .vote-count {
+    font-family: var(--fd); font-size: 18px; font-weight: 700;
+    color: var(--accent); min-width: 24px; text-align: center;
+  }
+
+  .answers-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; padding: 0 4px;
+  }
+  .answers-title {
+    font-family: var(--fd); font-size: 17px; font-weight: 600;
+    color: var(--ink);
+  }
+  .sort-tabs { display: flex; gap: 4px; }
+  .sort-tab {
+    padding: 6px 12px; border-radius: 8px;
+    background: transparent; border: 1px solid transparent;
+    font-size: 12.5px; font-weight: 500; color: var(--ink-2);
+    cursor: pointer; transition: all .15s;
+  }
+  .sort-tab.active {
+    background: var(--surface); border-color: var(--line);
+    color: var(--ink); font-weight: 600;
+  }
+
+  .answer-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    display: flex; gap: 16px;
+    box-shadow: var(--sh-sm);
+    transition: border-color .15s;
+  }
+  .answer-card.is-best {
+    border-color: var(--good);
+    background: linear-gradient(180deg, var(--good-soft), var(--surface));
+  }
+  .answer-vote-col {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; flex-shrink: 0; width: 36px;
+  }
+  .answer-vote-col .vote-btn { width: 28px; height: 28px; }
+  .answer-vote-col .vote-count { font-size: 14px; }
+  .answer-body {
+    flex: 1; min-width: 0;
+    font-size: 14px; line-height: 1.65; color: var(--ink);
+    white-space: pre-wrap; word-wrap: break-word;
+  }
+  .answer-meta {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 14px;
+    font-size: 12px; color: var(--ink-3);
+  }
+  .best-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--good); color: #fff;
+    padding: 4px 10px; border-radius: 99px;
+    font-size: 11px; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .best-badge svg { width: 12px; height: 12px; }
+
+  .mark-best-btn {
+    margin-left: auto;
+    background: transparent; border: 1px solid var(--line);
+    color: var(--ink-2); font-size: 12px; font-weight: 500;
+    padding: 5px 11px; border-radius: 8px;
+    cursor: pointer; transition: all .15s;
+  }
+  .mark-best-btn:hover {
+    background: var(--good-soft); color: var(--good); border-color: var(--good);
+  }
+
+  .answer-composer {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 20px;
+    margin-top: 22px;
+    box-shadow: var(--sh-sm);
+  }
+  .answer-composer h3 {
+    font-family: var(--fd); font-size: 16px; font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .answer-composer textarea {
+    width: 100%; min-height: 120px;
+    background: var(--surface2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: var(--fb); font-size: 14px; line-height: 1.6;
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .answer-composer textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,115,46,0.12);
+  }
+  .composer-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 12px;
+  }
+  .composer-tip { font-size: 11.5px; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<div class="app-wrap">
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <main class="main">
+    <div id="loader" class="loader"><div class="loader-ring"></div></div>
+
+    <div id="content" style="display:none;">
+      <div class="thread-layout">
+        <a class="back-link" href="doubts.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to doubt board
+        </a>
+
+        <!-- Question card -->
+        <div class="question-card" id="questionCard">
+          <!-- filled by JS -->
+        </div>
+
+        <!-- Answers section -->
+        <div class="answers-head">
+          <div class="answers-title" id="answersTitle">Answers</div>
+          <div class="sort-tabs">
+            <button class="sort-tab active" data-sort="best" onclick="setAnswerSort('best')">Best</button>
+            <button class="sort-tab" data-sort="newest" onclick="setAnswerSort('newest')">Newest</button>
+            <button class="sort-tab" data-sort="top" onclick="setAnswerSort('top')">Most voted</button>
+          </div>
+        </div>
+
+        <div id="answersList"></div>
+
+        <!-- Answer composer -->
+        <div class="answer-composer" id="composer">
+          <h3>Your answer</h3>
+          <textarea id="answerInput" placeholder="Write your answer. Be clear, walk through reasoning, code blocks welcome."></textarea>
+          <div class="composer-foot">
+            <span class="composer-tip">Earn <b style="color:var(--accent);">+50 points</b> if your answer gets marked as best.</span>
+            <button class="btn btn-primary" id="postBtn" onclick="postAnswer()">Post answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null;
+let doubt = null;
+let answers = [];
+let answerSort = 'best';
+
+const params = new URLSearchParams(window.location.search);
+const doubtId = params.get('id');
+
+async function init() {
+  initDark();
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) { signOut(); return; }
+  document.getElementById('sidebar').innerHTML = buildSidebar(U, 'doubts');
+
+  if (!doubtId) {
+    showToast('Bad link', 'No doubt id in URL.', 'error');
+    setTimeout(() => window.location.href = 'doubts.html', 1500);
+    return;
+  }
+
+  await loadThread();
+  await bumpView();
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}
+
+async function loadThread() {
+  // Fetch the doubt + asker name
+  const { data: d, error } = await db.from('doubts')
+    .select('*, users:asker_id(full_name)')
+    .eq('id', doubtId)
+    .maybeSingle();
+  if (error || !d) {
+    showToast('Doubt not found', '', 'error');
+    setTimeout(() => window.location.href = 'doubts.html', 1500);
+    return;
+  }
+  doubt = d;
+  renderQuestion();
+
+  // Fetch answers + answerer names
+  const { data: ans } = await db.from('doubt_answers')
+    .select('*, users:answerer_id(full_name)')
+    .eq('doubt_id', doubtId);
+  answers = ans || [];
+  renderAnswers();
+}
+
+async function bumpView() {
+  // Increment view count (fire-and-forget)
+  await db.from('doubts').update({ views: (doubt.views || 0) + 1 }).eq('id', doubtId);
+}
+
+function renderQuestion() {
+  const askerName = doubt.users?.full_name || 'Student';
+  const tagsHtml = (doubt.tags || []).map(t => `<span class="chip chip-accent">${t}</span>`).join('');
+  const isAnswered = (doubt.answer_count || 0) > 0;
+  const statusChip = isAnswered ? '<span class="chip chip-good">✓ Answered</span>' : '<span class="chip chip-info">Open</span>';
+
+  document.getElementById('questionCard').innerHTML = `
+    <div class="q-tags">${tagsHtml}${statusChip}</div>
+    <div class="q-title">${escapeHtml(doubt.title)}</div>
+    <div class="q-body">${escapeHtml(doubt.body || '')}</div>
+    <div class="q-vote-bar">
+      <button class="vote-btn" onclick="voteDoubt(1)" title="Upvote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4l8 10h-5v6h-6v-6h-5z"/></svg>
+      </button>
+      <span class="vote-count" id="qUpvotes">${doubt.upvotes || 0}</span>
+      <span style="font-size:12.5px;color:var(--ink-3);margin-left:8px;">${doubt.views || 0} views</span>
+    </div>
+    <div class="q-meta">
+      ${avHTML(askerName, 24, 6)}
+      <span>asked by <b style="color:var(--ink);">${escapeHtml(askerName)}</b> · ${timeAgo(doubt.created_at)}</span>
+      ${doubt.asker_id === U.id ? `<button class="mark-best-btn" style="margin-left:auto;color:var(--danger);border-color:var(--danger-soft);" onclick="deleteThisDoubt()">Delete doubt</button>` : ''}
+    </div>
+  `;
+}
+
+function renderAnswers() {
+  const isAsker = doubt.asker_id === U.id;
+
+  // Sort
+  let list = [...answers];
+  if (answerSort === 'best')   list.sort((a, b) => (b.is_best - a.is_best) || ((b.upvotes||0) - (a.upvotes||0)));
+  if (answerSort === 'newest') list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  if (answerSort === 'top')    list.sort((a, b) => (b.upvotes||0) - (a.upvotes||0));
+
+  document.getElementById('answersTitle').textContent =
+    `${answers.length} answer${answers.length === 1 ? '' : 's'}`;
+
+  const el = document.getElementById('answersList');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty">
+      <div class="empty-icon">${ICO.help}</div>
+      <div class="empty-title">No answers yet</div>
+      <div class="empty-sub">Be the first to help — answers earn points and badges.</div>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = list.map(a => {
+    const name = a.users?.full_name || 'Student';
+    const canMarkBest = isAsker && !a.is_best && a.answerer_id !== U.id;
+    return `<div class="answer-card ${a.is_best ? 'is-best' : ''}">
+      <div class="answer-vote-col">
+        <button class="vote-btn" onclick="voteAnswer('${a.id}', 1)" title="Upvote">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4l8 10h-5v6h-6v-6h-5z"/></svg>
+        </button>
+        <span class="vote-count">${a.upvotes || 0}</span>
+        <button class="vote-btn" onclick="voteAnswer('${a.id}', -1)" title="Downvote">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20l-8-10h5V4h6v6h5z"/></svg>
+        </button>
+      </div>
+      <div style="flex:1;min-width:0;">
+        ${a.is_best ? `<div class="best-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.5 10 17.5 19 7"/></svg>
+          Best answer
+        </div>` : ''}
+        <div class="answer-body">${escapeHtml(a.body)}</div>
+        <div class="answer-meta">
+          ${avHTML(name, 22, 6)}
+          <span>${escapeHtml(name)} · ${timeAgo(a.created_at)}</span>
+          ${canMarkBest ? `<button class="mark-best-btn" onclick="markBest('${a.id}')">Mark as best answer</button>` : ''}
+          ${a.answerer_id === U.id ? `<button class="mark-best-btn" style="color:var(--danger);border-color:var(--danger-soft);" onclick="deleteAnswer('${a.id}')">Delete</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setAnswerSort(s) {
+  answerSort = s;
+  document.querySelectorAll('.sort-tab').forEach(t => t.classList.toggle('active', t.dataset.sort === s));
+  renderAnswers();
+}
+
+async function voteDoubt(delta) {
+  // Simple non-tracked upvote (no per-user vote table yet — see TODO at bottom)
+  const newCount = Math.max(0, (doubt.upvotes || 0) + delta);
+  await db.from('doubts').update({ upvotes: newCount }).eq('id', doubt.id);
+  doubt.upvotes = newCount;
+  document.getElementById('qUpvotes').textContent = newCount;
+}
+
+async function voteAnswer(answerId, delta) {
+  const a = answers.find(x => x.id === answerId);
+  if (!a) return;
+  const newCount = Math.max(0, (a.upvotes || 0) + delta);
+  await db.from('doubt_answers').update({ upvotes: newCount }).eq('id', answerId);
+  a.upvotes = newCount;
+  renderAnswers();
+}
+
+async function markBest(answerId) {
+  if (!confirm('Mark this as the best answer? The author will receive +50 points.')) return;
+
+  // Unset any previous best
+  await db.from('doubt_answers').update({ is_best: false }).eq('doubt_id', doubt.id);
+  // Set the new best
+  const { error } = await db.from('doubt_answers').update({ is_best: true }).eq('id', answerId);
+  if (error) { showToast('Failed', error.message, 'error'); return; }
+  showToast('Marked as best!', '+50 points awarded.', 'success');
+
+  // Update local state
+  for (const a of answers) a.is_best = (a.id === answerId);
+  renderAnswers();
+}
+
+async function deleteThisDoubt() {
+  if (!confirm('Delete this doubt and all its answers? This cannot be undone.')) return;
+  // Delete answers first
+  await db.from('doubt_answers').delete().eq('doubt_id', doubt.id);
+  const { error } = await db.from('doubts').delete().eq('id', doubt.id).eq('asker_id', U.id);
+  if (error) { showToast('Delete failed', error.message, 'error'); return; }
+  showToast('Doubt deleted', '', 'success');
+  setTimeout(() => window.location.href = 'doubts.html', 1000);
+}
+
+async function deleteAnswer(answerId) {
+  if (!confirm('Delete your answer?')) return;
+  const { error } = await db.from('doubt_answers').delete().eq('id', answerId).eq('answerer_id', U.id);
+  if (error) { showToast('Delete failed', error.message, 'error'); return; }
+  answers = answers.filter(a => a.id !== answerId);
+  doubt.answer_count = Math.max(0, (doubt.answer_count || 1) - 1);
+  renderQuestion();
+  renderAnswers();
+  showToast('Answer deleted', '', 'success');
+}
+
+async function postAnswer() {
+  const body = document.getElementById('answerInput').value.trim();
+  if (body.length < 10) {
+    showToast('Too short', 'Please write at least a sentence.', 'error');
+    return;
+  }
+  const btn = document.getElementById('postBtn');
+  setLoading(btn, true, 'Posting…');
+
+  const { data, error } = await db.from('doubt_answers').insert({
+    doubt_id: doubtId,
+    answerer_id: U.id,
+    body,
+    upvotes: 0,
+    is_best: false,
+  }).select('*, users:answerer_id(full_name)').single();
+
+  setLoading(btn, false);
+  if (error) { showToast('Failed to post', error.message, 'error'); return; }
+
+  document.getElementById('answerInput').value = '';
+  answers.push(data);
+  // The DB trigger updates answer_count and status — reload to see fresh data
+  doubt.answer_count = (doubt.answer_count || 0) + 1;
+  doubt.status = 'answered';
+  renderQuestion();
+  renderAnswers();
+  showToast('Answer posted!', '', 'success');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+  return String(str).replace(/[&<>"']/g, m => map[m]);
+}
+
+init();
+</script>
+</body>
+</html>

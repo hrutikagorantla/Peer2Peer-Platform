@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Book a Session</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrap">
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <main class="main">
+    <div id="loader" class="loader"><div class="loader-ring"></div></div>
+
+    <div id="bookView" style="display:none;">
+      <div class="page-eyebrow">&lt; 30 SECOND FLOW</div>
+      <h1 class="page-title">Book a session</h1>
+      <p class="page-sub" style="margin-bottom: 22px;">Step through it — or skip ahead with a recommended mentor.</p>
+
+      <!-- Recommended for you banner -->
+      <div class="rec-banner" id="recBanner" style="display:none;">
+        <div class="rec-banner-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div class="rec-banner-eyebrow">Recommended for you</div>
+          <div class="rec-banner-text" id="recBannerText">—</div>
+        </div>
+        <button class="btn btn-primary" onclick="bookRecommended()">
+          Book in 1 tap
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn btn-secondary" onclick="document.getElementById('recBanner').style.display='none'">Customize</button>
+      </div>
+
+      <div class="book-layout">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <!-- 1. Choose mentor -->
+          <div class="card" style="padding:22px;">
+            <div class="numbered-section-head">
+              <div class="numbered-bubble">1</div>
+              <div class="numbered-section-title">Choose mentor</div>
+              <span class="chip chip-good" id="mentorSelChip" style="display:none;">✓ Selected</span>
+            </div>
+            <div id="mentorGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+              <div><div class="skeleton" style="height:90px;"></div></div>
+              <div><div class="skeleton" style="height:90px;"></div></div>
+              <div><div class="skeleton" style="height:90px;"></div></div>
+            </div>
+          </div>
+
+          <!-- 2. Session type -->
+          <div class="card" style="padding:22px;">
+            <div class="numbered-section-head">
+              <div class="numbered-bubble">2</div>
+              <div class="numbered-section-title">Session type</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div class="type-card-v2 selected" id="t11" onclick="setType('one_on_one')">
+                <div class="type-ico">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                </div>
+                <div class="type-card-v2-body">
+                  <div class="type-card-v2-title">1:1 personal</div>
+                  <div class="type-card-v2-sub" id="price11">Full mentor attention</div>
+                </div>
+                <div class="type-card-v2-radio"></div>
+              </div>
+              <div class="type-card-v2" id="tGr" onclick="setType('group')">
+                <div class="type-ico">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 3.5a4 4 0 0 1 0 7.5"/></svg>
+                </div>
+                <div class="type-card-v2-body">
+                  <div class="type-card-v2-title">Group · up to 4</div>
+                  <div class="type-card-v2-sub" id="priceGr">Lower cost</div>
+                </div>
+                <div class="type-card-v2-radio"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Pick a time -->
+          <div class="card" style="padding:22px;">
+            <div class="numbered-section-head">
+              <div class="numbered-bubble">3</div>
+              <div class="numbered-section-title">Pick a time</div>
+              <span class="tz-pill">Asia/Kolkata</span>
+            </div>
+            <div id="dayRow" class="day-row"></div>
+            <div id="timeGrid" class="time-grid"></div>
+            <div id="timeEmpty" style="font-size:12.5px;color:var(--ink-3);padding:8px 0;display:none;">
+              Pick a mentor first to see open time slots.
+            </div>
+          </div>
+
+          <!-- 4. Topic -->
+          <div class="card" style="padding:22px;">
+            <div class="numbered-section-head">
+              <div class="numbered-bubble">4</div>
+              <div class="numbered-section-title">Topic <span style="color:var(--ink-3);font-weight:400;font-size:14px;">(optional)</span></div>
+            </div>
+            <input class="form-input" id="topicInput" placeholder="e.g. Need help with SQL joins before quiz">
+            <div class="sugg-row">
+              <span class="sugg-chip">Suggested:</span>
+              <button class="sugg-chip" onclick="useTopic('SQL joins')">SQL joins</button>
+              <button class="sugg-chip" onclick="useTopic('Subqueries')">Subqueries</button>
+              <button class="sugg-chip" onclick="useTopic('DBMS basics')">DBMS basics</button>
+              <button class="sugg-chip" onclick="useTopic('Recursion')">Recursion</button>
+              <button class="sugg-chip" onclick="useTopic('Data structures')">Data structures</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: Sticky summary -->
+        <aside>
+          <div class="summary-card">
+            <div class="summary-eyebrow">Booking summary</div>
+            <div class="summary-row-v2"><span class="lbl">Mentor</span><span class="val" id="sumMentor">—</span></div>
+            <div class="summary-row-v2"><span class="lbl">Type</span><span class="val" id="sumType">1:1 personal</span></div>
+            <div class="summary-row-v2"><span class="lbl">When</span><span class="val" id="sumWhen">—</span></div>
+            <div class="summary-row-v2"><span class="lbl">Duration</span><span class="val" id="sumDur">—</span></div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row-v2"><span class="lbl">Subtotal</span><span class="val" id="sumSubtotal">—</span></div>
+            <div class="summary-row-v2" id="discountRow" style="display:none;">
+              <span class="lbl">First-time discount</span>
+              <span class="summary-discount" id="sumDiscount">—</span>
+            </div>
+
+            <div class="summary-total-v2"><span class="lbl">Total</span><span class="val" id="sumTotal">—</span></div>
+
+            <button class="btn btn-primary btn-lg btn-full" id="btnConfirm" onclick="confirmBooking()" style="margin-top:16px;">
+              Confirm booking
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="btn btn-secondary btn-full" style="margin-top:8px;" onclick="window.location.href='index.html'">Save for later</button>
+
+            <div class="summary-foot-note">Free cancellation up to 1 hour before.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div id="successView" style="display:none;">
+      <div class="success-card">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.5 10 17.5 19 7"/></svg>
+        </div>
+        <h2 class="serif" style="font-size:28px;font-weight:600;margin-bottom:10px;">Session booked!</h2>
+        <p style="color:var(--ink-2);margin-bottom:24px;font-size:14px;">Your booking is confirmed. You can find it on your dashboard.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="index.html" class="btn btn-primary">View dashboard</a>
+          <a href="allsessions.html" class="btn btn-secondary">My sessions</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null;
+let allMentors  = [];
+let allSessions = [];
+let selMentor   = null;
+let selSession  = null;
+let selDay      = null;
+let sessionType = 'one_on_one';
+
+async function init() {
+  initDark();
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) { signOut(); return; }
+  if (await ensureOnboarded(U)) return;
+  if (U.role === 'mentor') { window.location.href = 'index.html'; return; }
+
+  document.getElementById('sidebar').innerHTML = buildSidebar(U, 'book');
+  await loadMentors();
+  buildDayRow();
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('bookView').style.display = 'block';
+}
+
+function buildDayRow() {
+  const today = new Date();
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    days.push(d);
+  }
+  selDay = days[0].toISOString().split('T')[0];
+  const el = document.getElementById('dayRow');
+  el.innerHTML = days.map(d => {
+    const iso = d.toISOString().split('T')[0];
+    const dow = d.toLocaleDateString('en', { weekday: 'short' });
+    return `<button class="day-card ${iso === selDay ? 'selected' : ''}" data-day="${iso}" onclick="pickDay('${iso}')">
+      <div class="day-card-dow">${dow}</div>
+      <div class="day-card-dn">${d.getDate()}</div>
+    </button>`;
+  }).join('');
+}
+
+function pickDay(iso) {
+  selDay = iso;
+  selSession = null;
+  document.querySelectorAll('.day-card').forEach(el => {
+    el.classList.toggle('selected', el.dataset.day === iso);
+  });
+  renderTimeGrid();
+  updateSummary();
+}
+
+async function loadMentors() {
+  const { data } = await db.from('users')
+    .select('id, full_name, subjects, hourly_rate, rating')
+    .eq('role', 'mentor').eq('is_active', true)
+    .order('rating', { ascending: false, nullsFirst: false })
+    .limit(6);
+  allMentors = data || [];
+  renderMentorGrid();
+  if (allMentors.length) showRecommended(allMentors[0]);
+}
+
+function renderMentorGrid() {
+  const el = document.getElementById('mentorGrid');
+  if (!allMentors.length) {
+    el.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3);font-size:13px;">No mentors available right now.</div>`;
+    return;
+  }
+  el.innerHTML = allMentors.slice(0, 6).map(m => {
+    const subj = (m.subjects && m.subjects.length) ? m.subjects.slice(0, 2).join(' · ') : 'General';
+    const isSelected = selMentor?.id === m.id;
+    return `<div class="mentor-pick-card-v2 ${isSelected ? 'selected' : ''}" onclick="pickMentor('${m.id}')">
+      <div class="mpv2-row1">
+        ${avHTML(m.full_name, 36, 9)}
+        <div style="flex:1;min-width:0;">
+          <div class="mpv2-name">${m.full_name}</div>
+          <div class="mpv2-sub">${subj}</div>
+        </div>
+        <div class="mpv2-rating">★ ${m.rating || '—'}</div>
+      </div>
+      <div class="mpv2-row2">
+        <div class="mpv2-price">${m.hourly_rate ? `₹${m.hourly_rate}/h` : 'Free'}</div>
+        <div class="mpv2-avail">Available today</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('mentorSelChip').style.display = selMentor ? 'inline-flex' : 'none';
+}
+
+function showRecommended(m) {
+  document.getElementById('recBanner').style.display = 'flex';
+  const subj = (m.subjects && m.subjects[0]) || 'all subjects';
+  document.getElementById('recBannerText').innerHTML =
+    `<b>${m.full_name}</b> · ${subj} · 1:1 · ₹${m.hourly_rate || '—'}`;
+}
+
+async function bookRecommended() {
+  if (!allMentors.length) return;
+  await pickMentor(allMentors[0].id);
+  if (allSessions.length) {
+    pickSlot(allSessions[0].id);
+    setTimeout(() => confirmBooking(), 300);
+  } else {
+    showToast('No open slots', 'This mentor has no available time slots.', 'error');
+  }
+}
+
+async function pickMentor(id) {
+  selMentor  = allMentors.find(m => m.id === id);
+  selSession = null;
+  renderMentorGrid();
+  if (selMentor?.hourly_rate) {
+    document.getElementById('price11').textContent = `Full mentor attention · ₹${selMentor.hourly_rate}/hr`;
+    document.getElementById('priceGr').textContent = `Lower cost · ₹${Math.round(selMentor.hourly_rate * 0.36)}/hr each`;
+  }
+  await loadSessionSlots();
+  updateSummary();
+}
+
+async function loadSessionSlots() {
+  if (!selMentor) return;
+  const { data } = await db.from('sessions')
+    .select('*')
+    .eq('mentor_id', selMentor.id)
+    .eq('session_type', sessionType)
+    .in('status', ['available'])
+    .gte('start_time', new Date().toISOString())
+    .order('start_time')
+    .limit(50);
+  allSessions = data || [];
+  renderTimeGrid();
+}
+
+function renderTimeGrid() {
+  const el = document.getElementById('timeGrid');
+  const empty = document.getElementById('timeEmpty');
+  if (!selMentor) {
+    el.innerHTML = '';
+    empty.style.display = 'block';
+    empty.textContent = 'Pick a mentor first to see open time slots.';
+    return;
+  }
+  empty.style.display = 'none';
+
+  const daySlots = allSessions.filter(s => s.start_time.startsWith(selDay));
+  if (!daySlots.length) {
+    el.innerHTML = '';
+    empty.style.display = 'block';
+    empty.textContent = `No open slots for ${selMentor.full_name} on this day. Try another day.`;
+    return;
+  }
+
+  el.innerHTML = daySlots.map(s => {
+    const d = new Date(s.start_time);
+    const time = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+    const full = (s.current_bookings || 0) >= (s.max_students || 1);
+    const isSel = selSession?.id === s.id;
+    return `<button class="time-pill ${isSel ? 'selected' : ''} ${full ? 'disabled' : ''}"
+      onclick="${full ? '' : `pickSlot('${s.id}')`}" ${full ? 'disabled' : ''}
+      style="${full ? 'text-decoration:line-through;' : ''}">${time}</button>`;
+  }).join('');
+}
+
+function pickSlot(id) {
+  selSession = allSessions.find(s => s.id === id);
+  renderTimeGrid();
+  updateSummary();
+}
+
+function setType(t) {
+  sessionType = t;
+  document.getElementById('t11').classList.toggle('selected', t === 'one_on_one');
+  document.getElementById('tGr').classList.toggle('selected', t === 'group');
+  if (selMentor) {
+    selSession = null;
+    loadSessionSlots();
+    updateSummary();
+  }
+}
+
+function useTopic(t) {
+  document.getElementById('topicInput').value = t;
+}
+
+function updateSummary() {
+  document.getElementById('sumMentor').textContent = selMentor?.full_name || '—';
+  document.getElementById('sumType').textContent = sessionType === 'group' ? 'Group · up to 4' : '1:1 personal';
+
+  if (selSession) {
+    const d = new Date(selSession.start_time);
+    const end = new Date(selSession.end_time);
+    const today = new Date();
+    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+
+    let dayLabel;
+    if (d.toDateString() === today.toDateString()) dayLabel = 'Today';
+    else if (d.toDateString() === tomorrow.toDateString()) dayLabel = 'Tomorrow';
+    else dayLabel = d.toLocaleDateString('en', { weekday: 'short', day: 'numeric', month: 'short' });
+
+    const mins = Math.round((end - d) / 60000);
+    const time = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+    document.getElementById('sumWhen').textContent = `${dayLabel}, ${time}`;
+    document.getElementById('sumDur').textContent = `${mins} min`;
+
+    const price = parseFloat(selSession.price) || 0;
+    document.getElementById('sumSubtotal').textContent = price ? `₹${price}` : 'Free';
+
+    if (price > 0 && (U.completed_sessions || 0) === 0) {
+      const discount = Math.round(price * 0.1);
+      document.getElementById('sumDiscount').textContent = `– ₹${discount}`;
+      document.getElementById('discountRow').style.display = 'flex';
+      document.getElementById('sumTotal').textContent = `₹${price - discount}`;
+    } else {
+      document.getElementById('discountRow').style.display = 'none';
+      document.getElementById('sumTotal').textContent = price ? `₹${price}` : 'Free';
+    }
+  } else {
+    document.getElementById('sumWhen').textContent = '—';
+    document.getElementById('sumDur').textContent = '—';
+    document.getElementById('sumSubtotal').textContent = '—';
+    document.getElementById('sumTotal').textContent = '—';
+    document.getElementById('discountRow').style.display = 'none';
+  }
+}
+
+async function confirmBooking() {
+  if (!selMentor)  { showToast('Pick a mentor first', '', 'error'); return; }
+  if (!selSession) { showToast('Pick a time slot first', '', 'error'); return; }
+
+  const btn = document.getElementById('btnConfirm');
+  const topic = document.getElementById('topicInput').value.trim();
+  setLoading(btn, true, 'Booking…');
+
+  const { data: ex } = await db.from('bookings').select('id')
+    .eq('session_id', selSession.id).eq('student_id', U.id).maybeSingle();
+  if (ex) {
+    setLoading(btn, false);
+    showToast('Already booked!', 'You have already booked this session.', 'error');
+    return;
+  }
+
+  const { data: fresh } = await db.from('sessions')
+    .select('current_bookings, max_students, status')
+    .eq('id', selSession.id).single();
+  if (!fresh || fresh.status !== 'available' || (fresh.current_bookings || 0) >= (fresh.max_students || 1)) {
+    setLoading(btn, false);
+    showToast('No longer available', 'This slot just got booked. Pick another.', 'error');
+    await loadSessionSlots();
+    return;
+  }
+
+  const { error } = await db.from('bookings').insert({
+    session_id:     selSession.id,
+    student_id:     U.id,
+    status:         'confirmed',
+    payment_status: 'unpaid',
+    payment_amount: selSession.price,
+    notes:          topic
+  });
+  if (error) {
+    setLoading(btn, false);
+    showToast('Booking failed', error.message, 'error');
+    return;
+  }
+
+  const newCount = (fresh.current_bookings || 0) + 1;
+  await db.from('sessions').update({
+    current_bookings: newCount,
+    status: newCount >= (fresh.max_students || 1) ? 'full' : 'available'
+  }).eq('id', selSession.id);
+
+  setLoading(btn, false);
+  document.getElementById('bookView').style.display = 'none';
+  document.getElementById('successView').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+init();
+</script>
+</body>
+</html>

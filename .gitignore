@@ -1,0 +1,22 @@
+# Python
+**/__pycache__/
+**/.venv/
+**/*.pyc
+
+# Environment
+**/.env
+.env
+
+# ML artifacts (too large for git)
+ml-service/models/*.joblib
+ml-service/models/*.bin
+ml-service/data/train.jsonl
+ml-service/data/val.jsonl
+ml-service/data/test.jsonl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Doubt Board</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="with-sidebar">
+
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div>
+    <span class="sidebar-name">tuit</span>
+  </div>
+  <div id="navLinks"></div>
+  <div class="sidebar-bottom">
+    <div class="sidebar-user" onclick="toggleAvatarMenu()" id="sidebarUser">
+      <div id="navAvatar" style="width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;font-weight:800;color:#fff;flex-shrink:0;">?</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarName">Loading…</div>
+        <div class="sidebar-user-role" id="sidebarRole">—</div>
+      </div>
+      <div id="avatarDropdown">
+        <button onclick="window.location.href='index.html'">← Dashboard</button>
+        <button onclick="signOut()" style="color:rgba(255,100,100,.8);">Sign out</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;">
+    <div>
+      <div class="page-title">Doubt Board</div>
+      <div class="page-subtitle">Ask questions, get answers from peers and mentors</div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-secondary btn-sm" onclick="toggleDark()">🌙</button>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start;">
+
+    <!-- LEFT: doubts list -->
+    <div>
+      <!-- Filters -->
+      <div class="filters" style="margin-bottom:16px;">
+        <div class="filter-row">
+          <div class="search-wrap" style="flex:1;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input class="search-input" id="doubtSearch" placeholder="Search doubts…" oninput="filterDoubts()">
+          </div>
+          <select class="filter-select" id="doubtFilterSubj" onchange="filterDoubts()">
+            <option value="">All Subjects</option>
+            <option>Data Structures</option><option>Algorithms</option>
+            <option>Mathematics</option><option>Physics</option>
+            <option>Computer Science</option>
+          </select>
+          <select class="filter-select" id="doubtFilterStatus" onchange="filterDoubts()">
+            <option value="">All</option>
+            <option value="open">Open</option>
+            <option value="answered">Answered</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="doubtCards"><div class="page-loader"><div class="loader-ring"></div></div></div>
+    </div>
+
+    <!-- RIGHT: Ask doubt + stats -->
+    <div style="display:flex;flex-direction:column;gap:16px;position:sticky;top:20px;">
+
+      <!-- Ask a doubt -->
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px;">
+          <div class="card-title-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+          Ask a Doubt
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your question</label>
+          <input class="form-input" id="newDoubtTitle" placeholder="e.g. Why does merge sort have O(n log n)?">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Details (optional)</label>
+          <textarea class="form-textarea" id="newDoubtBody" placeholder="Add more context, what you've tried…" style="min-height:80px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <select class="form-select" id="newDoubtSubj">
+            <option value="">Select subject…</option>
+            <option>Data Structures</option><option>Algorithms</option>
+            <option>Mathematics</option><option>Physics</option>
+            <option>Computer Science</option><option>Other</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="width:100%;" onclick="postDoubt()">Post doubt</button>
+      </div>
+
+      <!-- Stats card -->
+      <div class="card" id="doubtStats">
+        <div class="card-title" style="margin-bottom:14px;">
+          <div class="card-title-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          Board Stats
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="text-align:center;padding:12px;background:var(--bg);border-radius:var(--r-sm);">
+            <div style="font-family:var(--fd);font-size:24px;font-weight:900;" id="statTotal">—</div>
+            <div style="font-size:11px;color:var(--text2);">Total doubts</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:var(--bg);border-radius:var(--r-sm);">
+            <div style="font-family:var(--fd);font-size:24px;font-weight:900;color:var(--green);" id="statAnswered">—</div>
+            <div style="font-size:11px;color:var(--text2);">Answered</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- Answer modal -->
+<div id="answerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;">
+  <div style="background:var(--surface);border-radius:var(--r-lg);padding:28px;max-width:520px;width:90%;box-shadow:var(--sh-lg);">
+    <h3 style="font-family:var(--fd);font-size:18px;font-weight:900;margin-bottom:6px;" id="answerDoubtQ"></h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:18px;">Write your answer below</p>
+    <textarea class="form-textarea" id="answerText" style="min-height:120px;margin-bottom:16px;" placeholder="Type your answer…"></textarea>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-secondary" style="flex:1;" onclick="closeAnswerModal()">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;" onclick="submitAnswer()">Post answer</button>
+    </div>
+  </div>
+</div>
+
+<div id="globalToast" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let currentUser = null;
+let allDoubts = [];
+let selectedDoubt = null;
+
+const NAV = (role) => role === 'mentor' ? `
+  <a class="nav-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
+  <a class="nav-item" href="allsessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>My Sessions</a>
+  <a class="nav-item active" href="alldoubts.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Doubt Board</a>` : `
+  <a class="nav-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
+  <a class="nav-item" href="allsessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>All Sessions</a>
+  <a class="nav-item" href="booksession.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Book a Session</a>
+  <a class="nav-item active" href="alldoubts.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Doubt Board</a>
+  <a class="nav-item" href="mentorsearch.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Find Mentors</a>`;
+
+async function init() {
+  initDarkMode();
+  const session = await requireAuth();
+  if (!session) return;
+  currentUser = await getCurrentUser();
+  if (await ensureOnboarded(currentUser)) return;
+  document.getElementById('navLinks').innerHTML = NAV(currentUser.role);
+  document.getElementById('sidebarName').textContent = currentUser.full_name;
+  document.getElementById('sidebarRole').textContent  = currentUser.role;
+  initNavAvatar(currentUser);
+  await loadDoubts();
+}
+
+async function loadDoubts() {
+  const { data } = await db.from('doubts')
+    .select('*, users!doubts_student_id_fkey(full_name)')
+    .order('created_at', { ascending: false });
+
+  allDoubts = data || [];
+  renderDoubts(allDoubts);
+
+  const answered = allDoubts.filter(d => d.status === 'answered').length;
+  document.getElementById('statTotal').textContent    = allDoubts.length;
+  document.getElementById('statAnswered').textContent = answered;
+}
+
+function renderDoubts(doubts) {
+  const el = document.getElementById('doubtCards');
+  if (!doubts.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div><div class="empty-title">No doubts yet</div><div class="empty-sub">Be the first to post a question!</div></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="doubt-cards">${doubts.map(d => `
+    <div class="doubt-card-full ${d.status === 'answered' ? 'answered' : ''}">
+      <div class="doubt-user">
+        ${avatarHTML(d.users?.full_name || 'Student', 34, 9)}
+        <div class="doubt-user-info">
+          <div class="doubt-user-name">${d.users?.full_name || 'Student'}</div>
+          <div class="doubt-user-time">${timeAgo(d.created_at)}</div>
+        </div>
+        ${d.status === 'answered' ? '<span class="badge badge-answered">✓ Answered</span>' : '<span class="badge" style="background:var(--accent-l);color:var(--accent);border:1px solid #FED7AA;">Open</span>'}
+      </div>
+      <div class="doubt-question">${d.title || d.question}</div>
+      ${d.question && d.title && d.question !== d.title ? `<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;">${d.question}</div>` : ''}
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+        <span class="tag tag-ds">${d.subject || 'General'}</span>
+      </div>
+      <div class="doubt-actions-bar">
+        <button class="btn-doubt-action btn-answer" onclick="openAnswerModal('${d.id}', \`${(d.title||d.question||'').replace(/`/g,"'")}\`)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;display:inline;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Answer
+        </button>
+        <button class="btn-doubt-action btn-view-d" onclick="upvoteDoubt('${d.id}')">
+          ↑ ${d.upvotes || 0}
+        </button>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function filterDoubts() {
+  const q    = document.getElementById('doubtSearch').value.toLowerCase();
+  const subj = document.getElementById('doubtFilterSubj').value;
+  const stat = document.getElementById('doubtFilterStatus').value;
+  renderDoubts(allDoubts.filter(d => {
+    const text = (d.title + d.question).toLowerCase();
+    return (!q || text.includes(q)) && (!subj || d.subject === subj) && (!stat || d.status === stat);
+  }));
+}
+
+async function postDoubt() {
+  const title = document.getElementById('newDoubtTitle').value.trim();
+  const body  = document.getElementById('newDoubtBody').value.trim();
+  const subj  = document.getElementById('newDoubtSubj').value;
+
+  if (!title) { showToast('Write your question!', '', 'error'); return; }
+
+  const { error } = await db.from('doubts').insert({
+    student_id: currentUser.id,
+    title, question: body || title,
+    subject: subj || 'General',
+    status: 'open', upvotes: 0
+  });
+
+  if (error) { showToast('Failed to post', error.message, 'error'); return; }
+
+  document.getElementById('newDoubtTitle').value = '';
+  document.getElementById('newDoubtBody').value  = '';
+
+  await db.from('points').insert({ user_id: currentUser.id, amount: 5, reason: 'Posted a doubt' });
+  showToast('Doubt posted! +5 pts', 'Your question is now live.', 'success');
+  loadDoubts();
+}
+
+function openAnswerModal(doubtId, question) {
+  selectedDoubt = doubtId;
+  document.getElementById('answerDoubtQ').textContent = question;
+  document.getElementById('answerText').value = '';
+  const m = document.getElementById('answerModal');
+  m.style.display = 'flex';
+}
+function closeAnswerModal() {
+  document.getElementById('answerModal').style.display = 'none';
+  selectedDoubt = null;
+}
+
+async function submitAnswer() {
+  const text = document.getElementById('answerText').value.trim();
+  if (!text) { showToast('Write your answer!', '', 'error'); return; }
+
+  const { error } = await db.from('answers').insert({
+    doubt_id: selectedDoubt,
+    author_id: currentUser.id,
+    answer_text: text
+  });
+
+  if (error) { showToast('Failed to post answer', error.message, 'error'); return; }
+
+  await db.from('doubts').update({ status: 'answered' }).eq('id', selectedDoubt);
+  await db.from('points').insert({ user_id: currentUser.id, amount: 20, reason: 'Answered a doubt' });
+
+  closeAnswerModal();
+  showToast('Answer posted! +20 pts', 'Great contribution to the board.', 'success');
+  loadDoubts();
+}
+
+async function upvoteDoubt(doubtId) {
+  const doubt = allDoubts.find(d => d.id === doubtId);
+  if (!doubt) return;
+  await db.from('doubts').update({ upvotes: (doubt.upvotes || 0) + 1 }).eq('id', doubtId);
+  loadDoubts();
+}
+
+document.getElementById('answerModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAnswerModal(); });
+
+init();
+</script>
+</body>
+</html>

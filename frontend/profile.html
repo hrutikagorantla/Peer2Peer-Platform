@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Profile</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrap">
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <main class="main">
+    <div id="loader" class="loader"><div class="loader-ring"></div></div>
+
+    <div id="content" style="display:none;">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Profile</h1>
+          <p class="page-sub">Your learning journey, points, and titles.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-secondary" onclick="openEdit()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>
+            Edit profile
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner with avatar overlay -->
+      <div class="profile-banner">
+        <div class="profile-banner-content">
+          <div class="profile-avatar" id="pAvatar">A</div>
+          <div class="profile-info">
+            <div class="profile-name">
+              <span id="pName">—</span>
+              <span class="chip chip-accent" id="pTier">Tier 1 · Beginner</span>
+            </div>
+            <div class="profile-meta" id="pMeta">—</div>
+            <div class="profile-subjects" id="pSubjects">
+              <span class="chip">Loading…</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-shrink:0;">
+            <button class="btn btn-secondary btn-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:13px;height:13px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+              Share
+            </button>
+            <a href="booksession.html" class="btn btn-primary btn-sm">Book a session</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main grid -->
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:14px;align-items:start;">
+
+        <!-- Left col -->
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <!-- Tier card -->
+          <div class="tier-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div style="flex:1;">
+                <div class="tier-eyebrow">Current title</div>
+                <div class="tier-name" id="tName">Beginner</div>
+                <div class="tier-sub" id="tSub">You're 400 points away from Curious.</div>
+              </div>
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(245,239,227,0.06);display:grid;place-items:center;color:rgba(245,239,227,0.6);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:20px;height:20px;"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/><path d="M5 4h3v3a3 3 0 0 1-3-3zM19 4h-3v3a3 3 0 0 0 3-3z"/><path d="M10 16h4v3h-4zM8 21h8"/></svg>
+              </div>
+            </div>
+            <div class="tier-progress"><div class="tier-progress-fill" id="tBar" style="width:0%;"></div></div>
+            <div class="tier-progress-meta">
+              <span id="tCur">0 pts</span>
+              <span id="tCap">400 pts</span>
+            </div>
+            <div class="tier-row">
+              <div class="tier-pill current" id="tPill0">
+                <div class="tier-pill-num">Tier 1</div>
+                <div class="tier-pill-name">Beginner</div>
+              </div>
+              <div class="tier-pill" id="tPill1">
+                <div class="tier-pill-num">Tier 2</div>
+                <div class="tier-pill-name">Curious</div>
+              </div>
+              <div class="tier-pill" id="tPill2">
+                <div class="tier-pill-num">Tier 3</div>
+                <div class="tier-pill-name">Pro</div>
+              </div>
+              <div class="tier-pill" id="tPill3">
+                <div class="tier-pill-num">Tier 4</div>
+                <div class="tier-pill-name">Mentor</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Badges -->
+          <div class="card" style="padding:20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:14px;height:14px;color:var(--accent);"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/></svg>
+                <div style="font-weight:700;font-size:14px;">Badges</div>
+              </div>
+              <div style="font-size:12px;color:var(--ink-3);" id="badgeCount">0 / 8 unlocked</div>
+            </div>
+            <div class="badge-grid" id="badgeGrid">
+              <div class="badge-tile" data-id="first_session">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">First Session</div>
+                <div class="badge-tile-sub">Book your 1st</div>
+              </div>
+              <div class="badge-tile" data-id="helper">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">Helper</div>
+                <div class="badge-tile-sub">1 best answer</div>
+              </div>
+              <div class="badge-tile" data-id="streak_7">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">Streak 7</div>
+                <div class="badge-tile-sub">7-day streak</div>
+              </div>
+              <div class="badge-tile" data-id="curious">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">Curious</div>
+                <div class="badge-tile-sub">10 doubts</div>
+              </div>
+              <div class="badge-tile" data-id="dsa_solid">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">DSA Solid</div>
+                <div class="badge-tile-sub">5 DSA sessions</div>
+              </div>
+              <div class="badge-tile" data-id="night_owl">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">Night Owl</div>
+                <div class="badge-tile-sub">After 10pm</div>
+              </div>
+              <div class="badge-tile" data-id="top_pct">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">Top 1%</div>
+                <div class="badge-tile-sub">Weekly</div>
+              </div>
+              <div class="badge-tile" data-id="mentor_bound">
+                <div class="badge-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/></svg></div>
+                <div class="badge-tile-name">Mentor-bound</div>
+                <div class="badge-tile-sub">Apply to mentor</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right col -->
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <!-- Lifetime stats -->
+          <div class="card" style="padding:20px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;color:var(--accent);"><path d="M12 2c2 4 5 5 5 9a5 5 0 1 1-10 0c0-2 1-3 1-5 1 1 2 2 4 0z"/></svg>
+              <div style="font-weight:700;font-size:14px;">Lifetime</div>
+            </div>
+            <div class="lifetime-grid">
+              <div class="lifetime-tile">
+                <div class="lifetime-val" id="lifeSessions">0</div>
+                <div class="lifetime-lbl">Sessions</div>
+              </div>
+              <div class="lifetime-tile">
+                <div class="lifetime-val" id="lifeHours">0h</div>
+                <div class="lifetime-lbl">Hours learned</div>
+              </div>
+              <div class="lifetime-tile">
+                <div class="lifetime-val" id="lifeAsked">0</div>
+                <div class="lifetime-lbl">Doubts asked</div>
+              </div>
+              <div class="lifetime-tile">
+                <div class="lifetime-val" id="lifeAnswers">0</div>
+                <div class="lifetime-lbl">Helpful answers</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent activity -->
+          <div class="card" style="padding:20px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <div style="font-weight:700;font-size:14px;">Recent activity</div>
+            </div>
+            <div id="activity">
+              <div class="empty">
+                <div class="empty-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <div class="empty-title">No activity yet</div>
+                <div class="empty-sub">Once you book a session or answer a doubt, your activity will appear here.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Edit modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <div class="modal-title">Edit profile</div>
+    <div class="modal-sub">Add subjects, write a short bio.</div>
+    <div class="form-group">
+      <label class="form-label">Bio</label>
+      <textarea class="form-textarea" id="eBio" placeholder="One sentence about yourself"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Subjects (comma separated)</label>
+      <input class="form-input" id="eSubjects" placeholder="e.g. DSA, ML, DBMS">
+    </div>
+    <div id="mentorOnly" style="display:none;">
+      <div class="form-group">
+        <label class="form-label">Hourly rate (₹)</label>
+        <input class="form-input" type="number" id="eRate" min="0" placeholder="500">
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-secondary" style="flex:1;" onclick="document.getElementById('editModal').classList.remove('open')">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;" id="saveProfile" onclick="saveProfile()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null;
+
+async function init() {
+  initDark();
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) { signOut(); return; }
+  document.getElementById('sidebar').innerHTML = buildSidebar(U, 'profile');
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  renderProfile();
+  await Promise.all([loadLifetime(), loadActivity(), checkBadges()]);
+}
+
+function renderProfile() {
+  const av = document.getElementById('pAvatar');
+  av.style.background = avGrad(U.full_name);
+  av.textContent = avInit(U.full_name);
+
+  document.getElementById('pName').textContent = U.full_name;
+  const tier = pointsToTier(U.points || 0);
+  document.getElementById('pTier').textContent = `Tier ${tier.idx + 1} · ${tier.name}`;
+
+  const created = new Date(U.created_at).toLocaleDateString('en', { month: 'long', year: 'numeric' });
+  document.getElementById('pMeta').innerHTML =
+    `${U.role === 'mentor' ? 'Mentor' : 'Student'} · Joined ${created}`;
+
+  const subjEl = document.getElementById('pSubjects');
+  if (U.subjects && U.subjects.length) {
+    subjEl.innerHTML = U.subjects.map(s => `<span class="chip">${s}</span>`).join('') +
+      `<span class="chip" style="cursor:pointer;" onclick="openEdit()">+ Add subject</span>`;
+  } else {
+    subjEl.innerHTML = `<span class="chip" style="cursor:pointer;" onclick="openEdit()">+ Add subject</span>`;
+  }
+
+  // Tier card
+  document.getElementById('tName').textContent = tier.name;
+  if (tier.next) {
+    document.getElementById('tSub').innerHTML = `You're <b>${tier.toNext} points</b> away from <b>${tier.next}</b>.`;
+  } else {
+    document.getElementById('tSub').textContent = 'Top tier reached.';
+  }
+  document.getElementById('tBar').style.width = tier.pct + '%';
+  document.getElementById('tCur').textContent = `${U.points || 0} pts`;
+  const caps = [400, 1500, 5000];
+  document.getElementById('tCap').textContent = `${caps[tier.idx] || '∞'} pts`;
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('tPill' + i).classList.toggle('current', i === tier.idx);
+  }
+}
+
+async function loadLifetime() {
+  const [bk, asks, ans] = await Promise.all([
+    db.from('bookings').select('id, status, sessions(start_time, end_time)').eq('student_id', U.id),
+    db.from('doubts').select('id', { count: 'exact', head: true }).eq('asker_id', U.id),
+    db.from('doubt_answers').select('id', { count: 'exact', head: true }).eq('answerer_id', U.id),
+  ]);
+  const completed = (bk.data || []).filter(b => b.status === 'completed');
+  const hours = completed.reduce((s, b) => {
+    if (!b.sessions) return s;
+    const ms = new Date(b.sessions.end_time) - new Date(b.sessions.start_time);
+    return s + ms / 3_600_000;
+  }, 0);
+  document.getElementById('lifeSessions').textContent = completed.length;
+  document.getElementById('lifeHours').textContent = `${Math.round(hours)}h`;
+  document.getElementById('lifeAsked').textContent = asks.count || 0;
+  document.getElementById('lifeAnswers').textContent = ans.count || 0;
+}
+
+async function loadActivity() {
+  // Pull recent bookings + doubts + answers, mix by time
+  const [bk, dbts] = await Promise.all([
+    db.from('bookings').select('id, status, booked_at, sessions(title)').eq('student_id', U.id).order('booked_at', { ascending: false }).limit(5),
+    db.from('doubts').select('id, title, created_at').eq('asker_id', U.id).order('created_at', { ascending: false }).limit(5),
+  ]);
+  const items = [
+    ...(bk.data || []).map(b => ({ type: 'booking', title: b.sessions?.title || 'Session', at: b.booked_at, status: b.status })),
+    ...(dbts.data || []).map(d => ({ type: 'doubt', title: d.title, at: d.created_at })),
+  ].sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 6);
+
+  if (!items.length) return; // keep empty state
+  document.getElementById('activity').innerHTML = items.map(it => `
+    <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center;">
+      <div class="card-icon ${it.type === 'booking' ? 'amber' : 'blue'}" style="width:28px;height:28px;border-radius:8px;">
+        ${it.type === 'booking' ? ICO.cal : ICO.help}
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);">${it.type === 'booking' ? 'Booked' : 'Asked'}: ${it.title}</div>
+        <div style="font-size:11.5px;color:var(--ink-3);">${timeAgo(it.at)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function checkBadges() {
+  // Naive: unlock based on simple counts
+  const [bk, ans] = await Promise.all([
+    db.from('bookings').select('id', { count: 'exact', head: true }).eq('student_id', U.id),
+    db.from('doubt_answers').select('id', { count: 'exact', head: true }).eq('answerer_id', U.id),
+  ]);
+  const unlocks = {
+    first_session: (bk.count || 0) >= 1,
+    helper:        (ans.count || 0) >= 1,
+    curious:       (U.points || 0) >= 100,
+  };
+  let count = 0;
+  document.querySelectorAll('.badge-tile').forEach(t => {
+    if (unlocks[t.dataset.id]) {
+      t.classList.add('unlocked');
+      count++;
+    }
+  });
+  document.getElementById('badgeCount').textContent = `${count} / 8 unlocked`;
+}
+
+function openEdit() {
+  document.getElementById('eBio').value = U.bio || '';
+  document.getElementById('eSubjects').value = (U.subjects || []).join(', ');
+  document.getElementById('mentorOnly').style.display = U.role === 'mentor' ? 'block' : 'none';
+  document.getElementById('eRate').value = U.hourly_rate || '';
+  document.getElementById('editModal').classList.add('open');
+}
+
+async function saveProfile() {
+  const bio = document.getElementById('eBio').value.trim();
+  const subjects = document.getElementById('eSubjects').value.split(',').map(s => s.trim()).filter(Boolean);
+  const updates = { bio, subjects };
+  if (U.role === 'mentor') {
+    updates.hourly_rate = parseFloat(document.getElementById('eRate').value) || null;
+  }
+  const btn = document.getElementById('saveProfile');
+  setLoading(btn, true, 'Saving…');
+  const { error } = await db.from('users').update(updates).eq('id', U.id);
+  setLoading(btn, false);
+  if (error) { showToast('Save failed', error.message, 'error'); return; }
+  document.getElementById('editModal').classList.remove('open');
+  showToast('Saved!', '', 'success');
+  Object.assign(U, updates);
+  renderProfile();
+}
+
+init();
+</script>
+</body>
+</html>

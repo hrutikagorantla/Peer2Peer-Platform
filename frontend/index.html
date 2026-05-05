@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrap">
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <main class="main">
+    <div id="loader" class="loader"><div class="loader-ring"></div></div>
+
+    <!-- student dashboard -->
+    <div id="studentView" style="display:none;">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow" id="sDate">—</div>
+          <h1 class="page-title">Good day, <span class="hi" id="sName">—</span></h1>
+          <div class="page-sub">Here's what to do next.</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-secondary btn-sm" style="height:38px;width:38px;padding:0;" title="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+          </button>
+          <a href="booksession.html" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Book a session
+          </a>
+        </div>
+      </div>
+
+      <!-- Smart nudge banner -->
+      <div class="smart-banner" id="sNudge">
+        <div class="smart-banner-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="smart-banner-eyebrow" id="nudgeEyebrow">What should I do next?</div>
+          <div class="smart-banner-title" id="nudgeTitle">Browse mentors and book your first session.</div>
+          <div class="smart-banner-sub" id="nudgeSub">Setting up your subjects unlocks personalized mentor matches.</div>
+        </div>
+        <a href="profile.html" class="btn btn-primary" id="nudgeBtn">Set my subjects
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="btn btn-secondary btn-sm" style="height:32px;width:32px;padding:0;" onclick="document.getElementById('sNudge').style.display='none'">×</button>
+      </div>
+
+      <!-- KPIs -->
+      <div class="stat-grid">
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico accent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <span class="kpi-sub">this week</span>
+          </div>
+          <div>
+            <div class="kpi-val" id="sStat1">—</div>
+            <div class="kpi-lbl">Upcoming sessions</div>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico info">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 3.5a4 4 0 0 1 0 7.5"/></svg>
+            </div>
+            <span class="kpi-sub">matched</span>
+          </div>
+          <div>
+            <div class="kpi-val" id="sStat2">—</div>
+            <div class="kpi-lbl">Mentors available</div>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico good">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+            </div>
+            <span class="kpi-sub">lifetime</span>
+          </div>
+          <div>
+            <div class="kpi-val" id="sStat3">—</div>
+            <div class="kpi-lbl">Sessions completed</div>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico neutral">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/><path d="M5 4h3v3a3 3 0 0 1-3-3zM19 4h-3v3a3 3 0 0 0 3-3z"/><path d="M10 16h4v3h-4zM8 21h8"/></svg>
+            </div>
+            <span class="kpi-sub" id="kpiTier">Tier 1</span>
+          </div>
+          <div>
+            <div class="kpi-val" id="sStat4">—</div>
+            <div class="kpi-lbl">Points earned</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- For You — ML-powered section -->
+      <div class="foryou-card" style="margin-bottom:18px;">
+        <div class="foryou-head">
+          <div class="foryou-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/></svg>
+            For You
+            <span class="foryou-pill">ML-powered</span>
+          </div>
+        </div>
+        <div class="foryou-grid" id="foryouGrid">
+          <div class="foryou-tile">
+            <span class="foryou-tag continue">Continue learning</span>
+            <div class="foryou-tile-title">Loading your last topic…</div>
+          </div>
+          <div class="foryou-tile">
+            <span class="foryou-tag topic">Recommended topic</span>
+            <div class="foryou-tile-title">Loading…</div>
+          </div>
+          <div class="foryou-tile">
+            <span class="foryou-tag mentor">Mentor you may like</span>
+            <div class="foryou-tile-title">Loading…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two-column lower -->
+      <div class="dash-grid">
+        <div class="dash-main">
+
+          <!-- Upcoming sessions -->
+          <div class="card" style="padding:22px;">
+            <div class="card-head">
+              <div class="card-title-wrap">
+                <div class="card-icon amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </div>
+                <span class="card-title">Upcoming sessions</span>
+              </div>
+              <a href="allsessions.html" class="card-link">View all →</a>
+            </div>
+            <div id="sSessions"><div class="loader"><div class="loader-ring"></div></div></div>
+          </div>
+        </div>
+
+        <!-- Side rail -->
+        <div class="dash-side">
+          <!-- Mentor picks -->
+          <div class="card" style="padding:20px;">
+            <div class="card-head">
+              <div class="card-title-wrap">
+                <div class="card-icon blue">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 3.5a4 4 0 0 1 0 7.5"/></svg>
+                </div>
+                <span class="card-title">Mentor picks</span>
+              </div>
+              <a href="mentorsearch.html" class="card-link">See all →</a>
+            </div>
+            <div style="font-size:11.5px;color:var(--ink-3);margin-bottom:10px;">Top-rated for your subjects</div>
+            <div id="sMentors"><div class="loader"><div class="loader-ring"></div></div></div>
+          </div>
+
+          <!-- Smart nudges card (right rail) -->
+          <div class="card" style="padding:20px;">
+            <div class="card-head" style="margin-bottom:12px;">
+              <div class="card-title-wrap">
+                <div class="card-icon amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+                </div>
+                <span class="card-title">Smart nudges</span>
+              </div>
+            </div>
+            <div id="nudgeList">
+              <div style="background:var(--info-soft);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--info);margin-bottom:8px;">
+                <b>Try a free intro.</b> First session with new mentors is 50% off.
+              </div>
+              <div style="background:var(--good-soft);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--good);">
+                <b>Earn 50 pts.</b> Answer your first doubt this week.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- mentor dashboard -->
+    <div id="mentorView" style="display:none;">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow" id="mDate">—</div>
+          <h1 class="page-title">Welcome back, <span class="hi" id="mName">—</span></h1>
+          <div class="page-sub">Your teaching snapshot, fresh from this morning.</div>
+        </div>
+        <div class="page-actions">
+          <a href="allsessions.html" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Manage sessions
+          </a>
+          <a href="allsessions.html#add" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add session
+          </a>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <span class="kpi-sub">today</span>
+          </div>
+          <div><div class="kpi-val" id="mStat1">—</div><div class="kpi-lbl">Sessions today</div></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/></svg></div>
+            <span class="kpi-sub">total</span>
+          </div>
+          <div><div class="kpi-val" id="mStat2">—</div><div class="kpi-lbl">Total bookings</div></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico neutral"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l3.1 6.3 7 1-5 4.9 1.2 6.9L12 18.3l-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg></div>
+            <span class="kpi-sub">avg</span>
+          </div>
+          <div><div class="kpi-val" id="mStat3">—</div><div class="kpi-lbl">Rating</div></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-row">
+            <div class="kpi-ico good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12M6 8h12M6 13l9 8M6 13c0-3 0-3 6-3"/></svg></div>
+            <span class="kpi-sub">lifetime</span>
+          </div>
+          <div><div class="kpi-val" id="mStat4">—</div><div class="kpi-lbl">Earnings</div></div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-main">
+          <div class="card" style="padding:22px;">
+            <div class="card-head">
+              <div class="card-title-wrap">
+                <div class="card-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg></div>
+                <span class="card-title">Recent bookings</span>
+              </div>
+              <a href="allsessions.html" class="card-link">View all →</a>
+            </div>
+            <div id="mBookings"><div class="loader"><div class="loader-ring"></div></div></div>
+          </div>
+
+          <div class="card" style="padding:22px;">
+            <div class="card-head">
+              <div class="card-title-wrap">
+                <div class="card-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+                <span class="card-title">Today's schedule</span>
+              </div>
+              <a href="allsessions.html" class="card-link">Open calendar →</a>
+            </div>
+            <div id="mSessions"><div class="loader"><div class="loader-ring"></div></div></div>
+          </div>
+        </div>
+
+        <div class="dash-side">
+          <div class="card" style="background:var(--acc-soft);border-color:transparent;padding:20px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+              <div style="width:40px;height:40px;border-radius:11px;background:var(--accent);color:#fff;display:grid;place-items:center;flex-shrink:0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:20px;height:20px;"><path d="M14 13a4 4 0 0 1-4 4l-3-3a4 4 0 0 1 4-4 8 8 0 0 1 8-8 8 8 0 0 1-5 11z"/></svg>
+              </div>
+              <div>
+                <div class="serif" style="font-size:17px;font-weight:600;color:var(--ink);">Get booked faster</div>
+                <div style="font-size:12px;color:var(--ink-2);margin-top:2px;">Mentors with 5+ slots get booked 3.4× more.</div>
+              </div>
+            </div>
+            <a href="allsessions.html#add" class="btn btn-primary btn-sm btn-full">Add session</a>
+          </div>
+
+          <div class="card" style="padding:20px;">
+            <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.1em;">Mentor notes</div>
+            <div style="font-size:12.5px;color:var(--ink-2);line-height:1.7;">
+              <div style="margin-bottom:6px;">✓ New bookings show here in real-time</div>
+              <div style="margin-bottom:6px;">✓ Add sessions from My Sessions page</div>
+              <div>✓ Students see your available slots instantly</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null;
+
+async function init() {
+  initDark();
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) {
+    showToast('Could not load profile', 'Please try signing in again.', 'error');
+    setTimeout(signOut, 1500);
+    return;
+  }
+
+  document.getElementById('sidebar').innerHTML = buildSidebar(U, 'dashboard');
+  document.getElementById('loader').style.display = 'none';
+
+  const today = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+
+  if (U.role === 'mentor') {
+    document.getElementById('mentorView').style.display = 'block';
+    document.getElementById('mDate').textContent = today.toUpperCase();
+    document.getElementById('mName').textContent = U.full_name.split(' ')[0];
+    await Promise.all([loadMentorStats(), loadMentorBookings(), loadMentorSessions()]);
+    subscribeToBookings();
+  } else {
+    document.getElementById('studentView').style.display = 'block';
+    document.getElementById('sDate').textContent = today.toUpperCase();
+    document.getElementById('sName').textContent = U.full_name.split(' ')[0];
+    const tier = pointsToTier(U.points || 0);
+    document.getElementById('kpiTier').textContent = `Tier ${tier.idx + 1}`;
+    await Promise.all([loadStudentStats(), loadStudentSessions(), loadStudentMentors(), loadForYou()]);
+    updateNudge();
+  }
+}
+
+// student dashboard loaders
+async function loadStudentStats() {
+  const { data: bk } = await db.from('bookings')
+    .select('id, sessions!inner(start_time, status)')
+    .eq('student_id', U.id)
+    .gte('sessions.start_time', new Date().toISOString());
+
+  const { count: mCount } = await db.from('users')
+    .select('id', { count: 'exact', head: true })
+    .eq('role', 'mentor').eq('is_active', true);
+
+  const { count: doneCount } = await db.from('bookings')
+    .select('id', { count: 'exact', head: true })
+    .eq('student_id', U.id).eq('status', 'completed');
+
+  document.getElementById('sStat1').textContent = bk?.length || 0;
+  document.getElementById('sStat2').textContent = mCount || 0;
+  document.getElementById('sStat3').textContent = doneCount || 0;
+  document.getElementById('sStat4').textContent = U.points || 0;
+}
+
+async function loadStudentSessions() {
+  const { data } = await db.from('bookings')
+    .select('id, status, sessions!inner(id, title, subject, start_time, end_time, session_type, mentor_id)')
+    .eq('student_id', U.id)
+    .gte('sessions.start_time', new Date().toISOString())
+    .order('sessions(start_time)', { ascending: true })
+    .limit(4);
+
+  const el = document.getElementById('sSessions');
+  if (!data?.length) {
+    el.innerHTML = `<div class="empty" style="padding:20px;">
+      <div class="empty-icon">${ICO.cal}</div>
+      <div class="empty-title">No upcoming sessions</div>
+      <div class="empty-sub">Once you book a session, your schedule and join links appear here.</div>
+      <a href="mentorsearch.html" class="btn btn-primary btn-sm" style="margin-top:14px;">Browse mentors</a>
+    </div>`;
+    return;
+  }
+
+  const mentorIds = [...new Set(data.map(b => b.sessions.mentor_id))];
+  const { data: mentors } = await db.from('users').select('id, full_name').in('id', mentorIds);
+  const mMap = Object.fromEntries((mentors || []).map(m => [m.id, m.full_name]));
+
+  el.innerHTML = data.map(b => {
+    const s = b.sessions;
+    const d = new Date(s.start_time);
+    const mentorName = mMap[s.mentor_id] || 'Mentor';
+    return `<div class="session-item">
+      <div class="session-datebox">
+        <div class="sd">${d.toLocaleDateString('en', { weekday: 'short' })}</div>
+        <div class="dn">${d.getDate()}</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">${s.title}</div>
+        <div class="session-meta">
+          <span>${fmtTime(s.start_time)}</span>·
+          <span>${mentorName}</span>·
+          <span class="badge badge-blue">${s.session_type === 'group' ? 'Group' : '1:1'}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function loadStudentMentors() {
+  const { data } = await db.from('users')
+    .select('id, full_name, hourly_rate, rating, subjects')
+    .eq('role', 'mentor').eq('is_active', true)
+    .order('rating', { ascending: false, nullsFirst: false })
+    .limit(4);
+
+  const el = document.getElementById('sMentors');
+  if (!data?.length) {
+    el.innerHTML = `<div style="font-size:12.5px;color:var(--ink-3);padding:8px 0;">No mentors available right now.</div>`;
+    return;
+  }
+
+  el.innerHTML = data.map((m, i) => {
+    const subj = (m.subjects && m.subjects.length) ? m.subjects.slice(0, 2).join(' · ') : 'General';
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;${i ? 'border-top:1px solid var(--line);' : ''}">
+      ${avHTML(m.full_name, 32, 8)}
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);">${m.full_name}</div>
+        <div style="font-size:11.5px;color:var(--ink-3);">${subj}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:11.5px;color:var(--accent);font-weight:600;">${m.rating ? `★ ${m.rating}` : '—'}</div>
+        <div style="font-size:11.5px;color:var(--ink-3);">₹${m.hourly_rate || '—'}/h</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// "For You" tiles — try the ML recommender, fall back to a local heuristic
+async function loadForYou() {
+  const grid = document.getElementById('foryouGrid');
+
+  // Try ML recommender first
+  const recs = await ml('/recommend', { user_id: U.id });
+
+  if (recs && (recs.weakness_focus.length || recs.strength_extend.length || recs.mentor_matches.length)) {
+    renderMlRecommendations(grid, recs);
+    return;
+  }
+
+  // Fallback: heuristic version (works without the ML service)
+  await loadForYouHeuristic(grid);
+}
+
+function renderMlRecommendations(grid, recs) {
+  // Pick the best item from each bucket for the 3 tiles
+  const w = recs.weakness_focus[0];
+  const t = recs.topic_picks[0];
+  const m = recs.mentor_matches[0];
+
+  // Tile 1: Weakness-focus resource (or strength_extend if no weakness)
+  const focusItem = w || recs.strength_extend[0];
+  const tile1 = focusItem ? `
+    <div class="foryou-tile">
+      <span class="foryou-tag continue">${w ? 'Strengthen' : 'Continue learning'}</span>
+      <div class="foryou-tile-title">${focusItem.title}</div>
+      <div class="foryou-tile-sub">${focusItem.reason} · ${focusItem.source || focusItem.subject}</div>
+      <div class="foryou-tile-foot">
+        <span>${focusItem.type}${focusItem.duration_min ? ` · ${focusItem.duration_min} min` : ''}</span>
+        <a href="${focusItem.url}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Open →</a>
+      </div>
+    </div>
+  ` : `
+    <div class="foryou-tile">
+      <span class="foryou-tag continue">Get started</span>
+      <div class="foryou-tile-title">Complete onboarding</div>
+      <div class="foryou-tile-sub">Tell us your subjects to unlock recommendations.</div>
+      <div class="foryou-tile-foot">
+        <span>2 min</span>
+        <a href="onboarding.html" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Start →</a>
+      </div>
+    </div>`;
+
+  // Tile 2: Topic pick
+  const tile2 = t ? `
+    <div class="foryou-tile">
+      <span class="foryou-tag topic">Recommended topic</span>
+      <div class="foryou-tile-title">${t.subject}</div>
+      <div class="foryou-tile-sub">
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;">
+          <span class="chip chip-accent">${t.subject}</span>
+          <span class="chip">${t.active_doubts} doubts</span>
+        </div>
+      </div>
+      <div class="foryou-tile-foot">
+        <span>${t.reason}</span>
+        <a href="doubts.html" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Browse →</a>
+      </div>
+    </div>
+  ` : recs.strength_extend[1] ? `
+    <div class="foryou-tile">
+      <span class="foryou-tag topic">Push deeper</span>
+      <div class="foryou-tile-title">${recs.strength_extend[1].title}</div>
+      <div class="foryou-tile-sub">${recs.strength_extend[1].reason}</div>
+      <div class="foryou-tile-foot">
+        <span>${recs.strength_extend[1].subject}</span>
+        <a href="${recs.strength_extend[1].url}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Open →</a>
+      </div>
+    </div>
+  ` : `
+    <div class="foryou-tile">
+      <span class="foryou-tag topic">Recommended</span>
+      <div class="foryou-tile-title">Browse mentors</div>
+      <div class="foryou-tile-sub">Find a mentor that matches your subjects.</div>
+      <div class="foryou-tile-foot">
+        <span></span>
+        <a href="mentorsearch.html" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Browse →</a>
+      </div>
+    </div>`;
+
+  // Tile 3: Mentor match
+  const tile3 = m ? `
+    <div class="foryou-tile">
+      <span class="foryou-tag mentor">Mentor you may like</span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        ${avHTML(m.full_name, 28, 7)}
+        <div style="min-width:0;">
+          <div style="font-size:13.5px;font-weight:700;color:var(--ink);">${m.full_name}</div>
+          <div style="font-size:11.5px;color:var(--ink-3);">★ ${m.rating || '—'} · ₹${m.hourly_rate || '—'}/h</div>
+        </div>
+      </div>
+      <div class="foryou-tile-sub">${m.reason}</div>
+      <a href="booksession.html" class="btn btn-primary btn-sm" style="margin-top:auto;height:30px;font-size:12px;">Quick book</a>
+    </div>
+  ` : `<div class="foryou-tile"><div class="foryou-tile-sub">No mentor matches yet.</div></div>`;
+
+  grid.innerHTML = tile1 + tile2 + tile3;
+}
+
+// Fallback when the ML service is offline
+async function loadForYouHeuristic(grid) {
+  // 1. Continue learning — last booking
+  const { data: lastBk } = await db.from('bookings')
+    .select('sessions(title, subject), notes, booked_at')
+    .eq('student_id', U.id)
+    .order('booked_at', { ascending: false }).limit(1);
+  const last = lastBk?.[0];
+
+  // 2. Recommended topic — most-asked tag intersected with user subjects
+  const { data: doubts } = await db.from('doubts').select('tags').limit(50);
+  const tagCounts = {};
+  for (const d of doubts || []) {
+    for (const t of (d.tags || [])) tagCounts[t] = (tagCounts[t] || 0) + 1;
+  }
+  const userSubj = U.subjects || [];
+  let recTopic = userSubj[0] || Object.keys(tagCounts).sort((a,b) => tagCounts[b]-tagCounts[a])[0] || 'DSA';
+  const recTopicCount = tagCounts[recTopic] || 0;
+  const { count: recMentors } = await db.from('users').select('id', { count: 'exact', head: true })
+    .eq('role', 'mentor').eq('is_active', true)
+    .contains('subjects', [recTopic]);
+
+  // 3. Mentor pick — best match for user subjects
+  let mentorPick;
+  if (userSubj.length) {
+    const { data: matched } = await db.from('users')
+      .select('id, full_name, rating, hourly_rate, subjects, bio')
+      .eq('role', 'mentor').eq('is_active', true)
+      .contains('subjects', [userSubj[0]])
+      .order('rating', { ascending: false, nullsFirst: false })
+      .limit(1);
+    mentorPick = matched?.[0];
+  }
+  if (!mentorPick) {
+    const { data: top } = await db.from('users')
+      .select('id, full_name, rating, hourly_rate, subjects, bio')
+      .eq('role', 'mentor').eq('is_active', true)
+      .order('rating', { ascending: false, nullsFirst: false })
+      .limit(1);
+    mentorPick = top?.[0];
+  }
+
+  grid.innerHTML = `
+    <div class="foryou-tile">
+      <span class="foryou-tag continue">Continue learning</span>
+      <div class="foryou-tile-title">${last?.sessions?.title || 'No prior sessions'}</div>
+      <div class="foryou-tile-sub">${last ? `Picked up from your last session` : 'Book your first session to get personalized picks.'}</div>
+      <div class="foryou-tile-foot">
+        <span>${last ? `Suggested · 45 min` : 'Get started'}</span>
+        ${last
+          ? `<a href="booksession.html" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Resume →</a>`
+          : `<a href="mentorsearch.html" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Browse →</a>`
+        }
+      </div>
+    </div>
+
+    <div class="foryou-tile">
+      <span class="foryou-tag topic">Recommended topic</span>
+      <div class="foryou-tile-title">${recTopic} basics</div>
+      <div class="foryou-tile-sub">
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;">
+          <span class="chip chip-accent">${recTopic}</span>
+          <span class="chip">Beginner</span>
+          <span class="chip">${recMentors || 0} mentors</span>
+        </div>
+      </div>
+      <div class="foryou-tile-foot">
+        <span>${recTopicCount} doubts on board</span>
+        <a href="mentorsearch.html" class="btn btn-secondary btn-sm" style="height:28px;padding:0 12px;font-size:11.5px;">Find mentors →</a>
+      </div>
+    </div>
+
+    <div class="foryou-tile">
+      <span class="foryou-tag mentor">Mentor you may like</span>
+      ${mentorPick ? `
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${avHTML(mentorPick.full_name, 28, 7)}
+          <div style="min-width:0;">
+            <div style="font-size:13.5px;font-weight:700;color:var(--ink);">${mentorPick.full_name}</div>
+            <div style="font-size:11.5px;color:var(--ink-3);">★ ${mentorPick.rating || '—'} · ₹${mentorPick.hourly_rate || '—'}/h</div>
+          </div>
+        </div>
+        <div class="foryou-tile-sub">${mentorPick.bio ? mentorPick.bio.slice(0, 80) : `Strong match for ${(mentorPick.subjects || ['general'])[0]}`}</div>
+        <a href="booksession.html" class="btn btn-primary btn-sm" style="margin-top:auto;height:30px;font-size:12px;">Quick book</a>
+      ` : `<div class="foryou-tile-sub">No mentors yet.</div>`}
+    </div>
+  `;
+}
+
+function updateNudge() {
+  const banner = document.getElementById('sNudge');
+  // If user has no subjects, prompt them to set them
+  if (!U.subjects || !U.subjects.length) {
+    document.getElementById('nudgeEyebrow').textContent = 'WHAT SHOULD I DO NEXT?';
+    document.getElementById('nudgeTitle').textContent = 'Pick up where you left off — book your first session.';
+    document.getElementById('nudgeSub').textContent = 'Setting up your subjects unlocks personalized mentor matches.';
+    document.getElementById('nudgeBtn').innerHTML = `Set my subjects
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    document.getElementById('nudgeBtn').href = 'profile.html';
+  } else {
+    document.getElementById('nudgeTitle').textContent = `Ready for your next session?`;
+    document.getElementById('nudgeSub').textContent  = `Your top-matched mentors have open slots today.`;
+    document.getElementById('nudgeBtn').innerHTML = `Book now
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    document.getElementById('nudgeBtn').href = 'booksession.html';
+  }
+}
+
+// mentor dashboard loaders
+async function loadMentorStats() {
+  const start = new Date().toISOString().split('T')[0] + 'T00:00:00';
+  const end   = new Date().toISOString().split('T')[0] + 'T23:59:59';
+  const { count: todayCount } = await db.from('sessions')
+    .select('id', { count: 'exact', head: true })
+    .eq('mentor_id', U.id).gte('start_time', start).lte('start_time', end);
+
+  const { data: bk } = await db.from('bookings')
+    .select('status, payment_amount, sessions!inner(mentor_id)')
+    .eq('sessions.mentor_id', U.id);
+
+  const earnings = (bk || []).filter(b => b.status === 'completed').reduce((s, b) => s + (parseFloat(b.payment_amount) || 0), 0);
+
+  document.getElementById('mStat1').textContent = todayCount || 0;
+  document.getElementById('mStat2').textContent = (bk || []).length;
+  document.getElementById('mStat3').textContent = U.rating ? `${U.rating}★` : '—';
+  document.getElementById('mStat4').textContent = `₹${earnings.toLocaleString('en-IN')}`;
+}
+
+async function loadMentorBookings() {
+  const { data } = await db.from('bookings')
+    .select('*, sessions!inner(title, subject, mentor_id), users!bookings_student_id_fkey(full_name)')
+    .eq('sessions.mentor_id', U.id)
+    .order('booked_at', { ascending: false }).limit(5);
+
+  const el = document.getElementById('mBookings');
+  if (!data?.length) {
+    el.innerHTML = emptyState('No bookings yet', 'When students book your sessions, they appear here.', ICO.users);
+    return;
+  }
+
+  el.innerHTML = data.map(b => {
+    const studentName = b.users?.full_name || 'Student';
+    const status = b.status || 'confirmed';
+    const badgeCls = status === 'confirmed' ? 'badge-green' : status === 'completed' ? 'badge-blue' : 'badge-amber';
+    return `<div class="session-item">
+      ${avHTML(studentName, 36, 9)}
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:14px;font-weight:600;color:var(--ink);">${studentName}</div>
+        <div style="font-size:12px;color:var(--ink-2);">${b.sessions?.title || 'Session'} · ${timeAgo(b.booked_at)}</div>
+      </div>
+      <span class="badge ${badgeCls}">${status}</span>
+    </div>`;
+  }).join('');
+}
+
+async function loadMentorSessions() {
+  const { data } = await db.from('sessions').select('*')
+    .eq('mentor_id', U.id)
+    .gte('start_time', new Date().toISOString())
+    .order('start_time').limit(4);
+
+  const el = document.getElementById('mSessions');
+  if (!data?.length) {
+    el.innerHTML = emptyState('No sessions scheduled', 'Add availability slots to start teaching.', ICO.cal);
+    return;
+  }
+
+  el.innerHTML = data.map(s => {
+    const d = new Date(s.start_time);
+    return `<div class="session-item">
+      <div class="session-datebox">
+        <div class="sd">${d.toLocaleDateString('en', { weekday: 'short' })}</div>
+        <div class="dn">${d.getDate()}</div>
+      </div>
+      <div class="session-info">
+        <div class="session-title">${s.title}</div>
+        <div class="session-meta">
+          <span>${fmtTime(s.start_time)}</span>·
+          <span>${s.session_type === 'group' ? 'Group' : '1-on-1'}</span>·
+          <span class="badge badge-amber">${s.current_bookings || 0}/${s.max_students || 1}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function subscribeToBookings() {
+  if (U?.role !== 'mentor') return;
+  db.channel('bookings-channel')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'bookings' }, () => {
+      loadMentorBookings();
+      loadMentorStats();
+      showToast('New booking!', 'A student just booked your session.', 'success');
+    })
+    .subscribe();
+}
+
+init();
+</script>
+</body>
+</html>

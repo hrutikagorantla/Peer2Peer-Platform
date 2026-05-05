@@ -1,0 +1,19 @@
+{
+  "version": "v1",
+  "trained_at": "2026-04-26T18:37:09.674977",
+  "n_train": 383,
+  "n_val": 47,
+  "n_test": 49,
+  "tags": [
+    "Algorithms",
+    "DBMS",
+    "DSA",
+    "ML",
+    "Math",
+    "SQL",
+    "System Design",
+    "Web Dev"
+  ],
+  "val_macro_f1": 0.6274751188354128,
+  "test_macro_f1": 0.5905754163426797
+}

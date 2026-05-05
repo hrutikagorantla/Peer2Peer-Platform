@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Find Mentors</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrap">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="main">
+    <div id="loader" class="loader"><div class="loader-ring"></div></div>
+
+    <div id="content" style="display:none;">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Browse</div>
+          <h1 class="page-title">Find mentors</h1>
+          <div class="page-sub">Browse peer mentors and book a session.</div>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="filter-row">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="search-input" id="ms" placeholder="Search by name or subject…" oninput="doFilter()">
+          </div>
+          <select class="filter-select" id="mf" onchange="doFilter()">
+            <option value="">All subjects</option>
+            <!-- populated dynamically from loaded mentors' subjects -->
+          </select>
+          <select class="filter-select" id="ms2" onchange="doFilter()">
+            <option value="rating">Top rated</option>
+            <option value="low">Price: low → high</option>
+            <option value="high">Price: high → low</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="mentorGrid" class="mentor-grid">
+        <div class="loader"><div class="loader-ring"></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null, allM = [];
+
+async function init() {
+  initDark();
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) { signOut(); return; }
+  if (await ensureOnboarded(U)) return;
+  document.getElementById('sidebar').innerHTML = buildSidebar(U, 'mentors');
+  initSidebarUser(U);
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  await loadMentors();
+}
+
+async function loadMentors() {
+  const { data } = await db.from('users')
+    .select('*').eq('role', 'mentor').eq('is_active', true);
+  allM = data || [];
+  populateSubjectFilter();
+  renderMentors(allM);
+}
+
+function populateSubjectFilter() {
+  const subjects = new Set();
+  for (const m of allM) {
+    for (const s of (m.subjects || [])) subjects.add(s);
+  }
+  const sorted = [...subjects].sort();
+  const sel = document.getElementById('mf');
+  sel.innerHTML = '<option value="">All subjects</option>' +
+    sorted.map(s => `<option>${s}</option>`).join('');
+}
+
+function doFilter() {
+  const q     = document.getElementById('ms').value.toLowerCase();
+  const subj  = document.getElementById('mf').value;
+  const sort  = document.getElementById('ms2').value;
+
+  let list = [...allM];
+  if (q) {
+    list = list.filter(m =>
+      m.full_name?.toLowerCase().includes(q) ||
+      (m.subjects || []).some(s => s.toLowerCase().includes(q)) ||
+      (m.bio || '').toLowerCase().includes(q)
+    );
+  }
+  if (subj) {
+    list = list.filter(m => (m.subjects || []).includes(subj));
+  }
+  if (sort === 'rating') list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  if (sort === 'low')    list.sort((a, b) => (a.hourly_rate || 0) - (b.hourly_rate || 0));
+  if (sort === 'high')   list.sort((a, b) => (b.hourly_rate || 0) - (a.hourly_rate || 0));
+
+  renderMentors(list);
+}
+
+function renderMentors(list) {
+  const el = document.getElementById('mentorGrid');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty" style="grid-column:1/-1;">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div class="empty-title">No mentors found</div>
+      <div class="empty-sub">Try different filters or search terms.</div>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = list.map(m => `
+    <div class="mcard">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        ${avHTML(m.full_name, 52, 12)}
+        <div style="flex:1;min-width:0;">
+          <div class="serif" style="font-size:17px;font-weight:600;color:var(--ink);">${m.full_name}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;">
+            <span style="font-size:13px;font-weight:600;color:var(--accent);">★ ${m.rating || '—'}</span>
+            ${m.is_verified ? '<span class="badge badge-green">✓ Verified</span>' : ''}
+          </div>
+        </div>
+        <div class="serif" style="font-size:17px;font-weight:600;color:var(--accent);flex-shrink:0;">₹${m.hourly_rate || '—'}/h</div>
+      </div>
+      ${m.bio ? `<div style="font-size:13px;color:var(--ink-2);line-height:1.55;">${m.bio}</div>` : ''}
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${(m.subjects || []).map(s => `<span class="chip chip-info">${s}</span>`).join('')}
+        ${!(m.subjects || []).length ? '<span style="font-size:12px;color:var(--ink-3);">No subjects listed</span>' : ''}
+      </div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <a href="booksession.html" class="btn btn-primary" style="flex:1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Book session
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+init();
+</script>
+</body>
+</html>

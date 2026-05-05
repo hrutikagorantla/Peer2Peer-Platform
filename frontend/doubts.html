@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Doubt Board</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrap">
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <main class="main">
+    <div id="loader" class="loader"><div class="loader-ring"></div></div>
+
+    <div id="content" style="display:none;">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Doubt board</h1>
+          <p class="page-sub">Ask, answer, and earn points. <span id="avgReply">Average reply time today: 12 min.</span></p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+            Filter
+          </button>
+          <button class="btn btn-primary" onclick="openAsk()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ask a doubt
+          </button>
+        </div>
+      </div>
+
+      <div class="doubts-layout">
+
+        <!-- LEFT: Tag list (dynamic) -->
+        <aside class="tag-list">
+          <div class="tag-list-head">Tags</div>
+          <div class="tag-row active" data-tag="" onclick="filterByTag('')">
+            <span>All doubts</span>
+            <span class="ct" id="tagCountAll">0</span>
+          </div>
+          <div id="tagListDynamic"></div>
+
+          <div class="earn-card">
+            <div class="earn-card-title">Earn points</div>
+            <div class="earn-card-text">Answers marked <b>"best"</b> get <b>+50 pts</b> and unlock the <b>Helper</b> badge.</div>
+          </div>
+        </aside>
+
+        <!-- CENTER: Tabs + doubts list -->
+        <div>
+          <div class="tabs">
+            <div class="tab active" data-sort="top" onclick="setSort('top')">Top this week</div>
+            <div class="tab" data-sort="newest" onclick="setSort('newest')">Newest</div>
+            <div class="tab" data-sort="unanswered" onclick="setSort('unanswered')">Unanswered</div>
+            <div class="tab" data-sort="mine" onclick="setSort('mine')">My questions</div>
+          </div>
+
+          <div id="doubtList">
+            <div class="loader"><div class="loader-ring"></div></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Your contribution + leaderboard -->
+        <aside style="display:flex;flex-direction:column;gap:14px;">
+          <div class="card" style="padding:18px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;color:var(--accent);"><path d="M12 2c2 4 5 5 5 9a5 5 0 1 1-10 0c0-2 1-3 1-5 1 1 2 2 4 0z"/></svg>
+              <div style="font-weight:700;font-size:14px;">Your contribution</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="text-align:center;padding:12px;background:var(--surface2);border-radius:10px;border:1px solid var(--line);">
+                <div class="serif" style="font-size:24px;font-weight:700;color:var(--ink);" id="myAsked">0</div>
+                <div style="font-size:11.5px;color:var(--ink-2);">asked</div>
+              </div>
+              <div style="text-align:center;padding:12px;background:var(--surface2);border-radius:10px;border:1px solid var(--line);">
+                <div class="serif" style="font-size:24px;font-weight:700;color:var(--ink);" id="myAnswered">0</div>
+                <div style="font-size:11.5px;color:var(--ink-2);">answered</div>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--ink-2);margin-top:12px;line-height:1.5;">
+              Answer one doubt this week to earn the <b>Helper</b> badge.
+            </div>
+          </div>
+
+          <div class="card" style="padding:18px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 3.5a4 4 0 0 1 0 7.5"/></svg>
+              <div style="font-weight:700;font-size:14px;">Top answerers</div>
+            </div>
+            <div id="topAnswerers">
+              <div style="font-size:12px;color:var(--ink-3);padding:8px 0;">Loading…</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Ask modal -->
+<div class="modal-overlay" id="askModal">
+  <div class="modal-box">
+    <div class="modal-title">Ask a doubt</div>
+    <div class="modal-sub">Be specific. The clearer your question, the faster you'll get a great answer.</div>
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="form-input" id="askTitle" placeholder="e.g. Why does my recursive memoization solution still TLE?" oninput="onAskInput()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Body</label>
+      <textarea class="form-textarea" id="askBody" placeholder="Add details, code snippets, what you tried…" style="min-height:120px;" oninput="onAskInput()"></textarea>
+    </div>
+
+    <!-- Auto-suggested tags -->
+    <div id="aiTagsBlock" style="display:none;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:12px;height:12px;color:var(--accent);"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/></svg>
+        <span style="font-size:11.5px;font-weight:600;color:var(--accent-2);text-transform:uppercase;letter-spacing:0.08em;">AI-suggested tags</span>
+        <span id="tagsLoading" style="font-size:11.5px;color:var(--ink-3);display:none;">analyzing…</span>
+      </div>
+      <div id="aiTagsRow" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+    </div>
+
+    <!-- Tags input (manual) -->
+    <div class="form-group">
+      <label class="form-label">Tags (comma separated, optional)</label>
+      <input class="form-input" id="askTags" placeholder="Override auto-tags here">
+    </div>
+
+    <!-- Duplicate warning -->
+    <div id="dupWarning" style="display:none;background:var(--warn-soft);border:1px solid var(--warn);border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;color:var(--warn);flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13px;font-weight:700;color:var(--warn);margin-bottom:6px;">Similar question already exists</div>
+          <div id="dupList"></div>
+          <div style="font-size:11.5px;color:var(--ink-2);margin-top:8px;">Check if your answer is already there. Otherwise, you can post anyway.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-secondary" style="flex:1;" onclick="document.getElementById('askModal').classList.remove('open')">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;" id="askSave" onclick="postDoubt()">Post doubt</button>
+    </div>
+  </div>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null;
+let allDoubts = [];
+let curTag = '';
+let curSort = 'top';
+
+async function init() {
+  initDark();
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) { signOut(); return; }
+  document.getElementById('sidebar').innerHTML = buildSidebar(U, 'doubts');
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  await Promise.all([loadDoubts(), loadMyContribution(), loadTopAnswerers()]);
+}
+
+async function loadDoubts() {
+  const { data, error } = await db.from('doubts')
+    .select('*, users:asker_id(full_name)')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    document.getElementById('doubtList').innerHTML =
+      `<div class="empty"><div class="empty-icon">${ICO.help}</div><div class="empty-title">Could not load doubts</div><div class="empty-sub">${error.message}. Make sure you ran the v2 SQL migration.</div></div>`;
+    return;
+  }
+
+  allDoubts = data || [];
+  updateTagCounts();
+  render();
+}
+
+function updateTagCounts() {
+  const counts = {};
+  for (const d of allDoubts) {
+    for (const t of (d.tags || [])) counts[t] = (counts[t] || 0) + 1;
+  }
+  // Add user's own subjects with 0 count if missing — so they always see their topics
+  const userSubjects = (U.subjects || []);
+  for (const s of userSubjects) {
+    if (!(s in counts)) counts[s] = 0;
+  }
+
+  document.getElementById('tagCountAll').textContent = allDoubts.length;
+
+  // Sort tags by count descending, then alphabetically. Hide tags with 0 unless
+  // they're one of the user's subjects.
+  const tagList = Object.entries(counts)
+    .filter(([t, n]) => n > 0 || userSubjects.includes(t))
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+  const dyn = document.getElementById('tagListDynamic');
+  dyn.innerHTML = tagList.map(([tag, n]) => {
+    const isYours = userSubjects.includes(tag);
+    const safe = tag.replace(/'/g, "\\'");
+    return `<div class="tag-row ${tag === curTag ? 'active' : ''}" data-tag="${tag}" onclick="filterByTag('${safe}')">
+      <span>${tag}${isYours ? ' <span style="font-size:10px;color:var(--accent);">●</span>' : ''}</span>
+      <span class="ct">${n}</span>
+    </div>`;
+  }).join('');
+}
+
+function setSort(s) {
+  curSort = s;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.sort === s));
+  render();
+}
+
+function filterByTag(tag) {
+  curTag = tag;
+  document.querySelectorAll('.tag-row').forEach(t => t.classList.toggle('active', t.dataset.tag === tag));
+  render();
+}
+
+function render() {
+  let list = [...allDoubts];
+  if (curTag) list = list.filter(d => (d.tags || []).includes(curTag));
+  if (curSort === 'newest') list.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+  else if (curSort === 'unanswered') list = list.filter(d => (d.answer_count || 0) === 0);
+  else if (curSort === 'top') list.sort((a,b) => (b.upvotes || 0) - (a.upvotes || 0));
+  else if (curSort === 'mine') list = list.filter(d => d.asker_id === U.id);
+
+  const el = document.getElementById('doubtList');
+  if (!list.length) {
+    const msg = curSort === 'mine'
+      ? 'You haven\'t asked any doubts yet. Click "Ask a doubt" to get started.'
+      : 'Be the first to ask — top answerers earn points.';
+    el.innerHTML = `<div class="empty">
+      <div class="empty-icon">${ICO.help}</div>
+      <div class="empty-title">No doubts here</div>
+      <div class="empty-sub">${msg}</div>
+    </div>`;
+    return;
+  }
+
+  // Top this week feature
+  let html = '';
+  if (curSort === 'top' && list[0]) {
+    const f = list[0];
+    const askerName = f.users?.full_name || 'Student';
+    html += `<div class="doubt-feature" onclick="window.location.href='doubt.html?id=${f.id}'" style="cursor:pointer;">
+      <div class="doubt-feature-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:11px;height:11px;"><path d="M12 2c2 4 5 5 5 9a5 5 0 1 1-10 0c0-2 1-3 1-5 1 1 2 2 4 0z"/></svg>
+        Top answer of the week
+      </div>
+      <div style="display:flex;gap:14px;">
+        <div class="doubt-votes">
+          <div style="font-size:14px;color:var(--ink-3);">▲</div>
+          <div class="vn">${f.upvotes || 0}</div>
+          <div style="font-size:14px;color:var(--ink-3);">▼</div>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div class="doubt-tags">
+            ${(f.tags || []).map(t => `<span class="chip ${t === 'DSA' ? 'chip-accent' : 'chip-info'}">${t}</span>`).join('')}
+            ${(f.answer_count || 0) > 0 ? '<span class="chip chip-good">✓ Solved</span>' : ''}
+          </div>
+          <div class="doubt-title">${f.title}</div>
+          <div style="font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:10px;">${(f.body || '').slice(0, 220)}${(f.body || '').length > 220 ? '…' : ''}</div>
+          <div style="display:flex;align-items:center;gap:14px;font-size:11.5px;color:var(--ink-3);">
+            ${avHTML(askerName, 22, 6)}
+            <span>${askerName} · ${timeAgo(f.created_at)}</span>
+            <span>· ${f.answer_count || 0} answers</span>
+            <span>· ${f.views || 0} views</span>
+            <span style="margin-left:auto;color:var(--accent);font-weight:600;">Read thread →</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+    list = list.slice(1);
+  }
+
+  html += list.map(d => {
+    const askerName = d.users?.full_name || 'Student';
+    const isAnswered = (d.answer_count || 0) > 0;
+    return `<div class="doubt-row" onclick="window.location.href='doubt.html?id=${d.id}'" style="cursor:pointer;">
+      <div class="doubt-votes">
+        <div class="vn">${d.upvotes || 0}</div>
+        <div class="vl">upvotes</div>
+        <div class="an">${d.answer_count || 0}</div>
+        <div class="vl">answers</div>
+      </div>
+      <div class="doubt-body">
+        <div class="doubt-tags">
+          ${(d.tags || []).slice(0,2).map(t => `<span class="chip chip-accent">${t}</span>`).join('')}
+          ${isAnswered
+            ? '<span class="chip chip-good">✓ Answered</span>'
+            : '<span class="chip chip-info">Open</span>'}
+        </div>
+        <div class="doubt-title">${d.title}</div>
+        <div class="doubt-meta">asked by ${askerName} · ${timeAgo(d.created_at)}</div>
+      </div>
+      <div class="doubt-action" onclick="event.stopPropagation()" style="display:flex;flex-direction:column;gap:6px;">
+        <a href="doubt.html?id=${d.id}" class="btn btn-secondary btn-sm">Answer</a>
+        ${d.asker_id === U.id ? `<button class="btn btn-sm" style="color:var(--danger);border-color:var(--danger-soft);font-size:11.5px;" onclick="deleteDoubt('${d.id}')">Delete</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = html;
+}
+
+async function deleteDoubt(id) {
+  if (!confirm('Delete this doubt? This cannot be undone.')) return;
+  // Delete answers first (cascade should handle it, but be safe)
+  await db.from('doubt_answers').delete().eq('doubt_id', id);
+  const { error } = await db.from('doubts').delete().eq('id', id).eq('asker_id', U.id);
+  if (error) { showToast('Delete failed', error.message, 'error'); return; }
+  showToast('Doubt deleted', '', 'success');
+  allDoubts = allDoubts.filter(d => d.id !== id);
+  updateTagCounts();
+  render();
+  loadMyContribution();
+}
+
+async function loadMyContribution() {
+  const { count: askedCount } = await db.from('doubts').select('id', { count: 'exact', head: true }).eq('asker_id', U.id);
+  const { count: ansCount } = await db.from('doubt_answers').select('id', { count: 'exact', head: true }).eq('answerer_id', U.id);
+  document.getElementById('myAsked').textContent = askedCount || 0;
+  document.getElementById('myAnswered').textContent = ansCount || 0;
+}
+
+async function loadTopAnswerers() {
+  const { data } = await db.from('users').select('id, full_name, points').gt('points', 0).order('points', { ascending: false }).limit(3);
+  const el = document.getElementById('topAnswerers');
+  if (!data?.length) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--ink-3);padding:8px 0;">No answerers yet.</div>`;
+    return;
+  }
+  el.innerHTML = data.map((u, i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;${i ? 'border-top:1px solid var(--line);' : ''}">
+      <span style="font-size:11.5px;color:var(--ink-3);font-weight:600;width:18px;">#${i+1}</span>
+      ${avHTML(u.full_name, 28, 7)}
+      <div style="flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--ink);">${u.full_name}</div>
+      <div style="font-size:12px;color:var(--accent);font-weight:600;">${u.points} pts</div>
+    </div>
+  `).join('');
+}
+
+function openAsk() {
+  document.getElementById('askModal').classList.add('open');
+  resetAskState();
+}
+
+// stuff for the ML-suggested tags + duplicate warning shown in the ask form
+let askDebounce = null;
+let aiTags = [];          // [{tag, confidence}]
+let dupMatches = [];      // [{doubt_id, title, similarity, asker_name}]
+let userOverroadeDup = false;   // true once they hit "post anyway"
+
+function resetAskState() {
+  aiTags = [];
+  dupMatches = [];
+  userOverroadeDup = false;
+  document.getElementById('aiTagsBlock').style.display = 'none';
+  document.getElementById('aiTagsRow').innerHTML = '';
+  document.getElementById('dupWarning').style.display = 'none';
+}
+
+function onAskInput() {
+  const title = document.getElementById('askTitle').value.trim();
+  const body  = document.getElementById('askBody').value.trim();
+  if (title.length < 12) {
+    resetAskState();
+    return;
+  }
+  // Debounce: wait 600ms after user stops typing
+  clearTimeout(askDebounce);
+  askDebounce = setTimeout(() => runMlAnalysis(title, body), 600);
+}
+
+async function runMlAnalysis(title, body) {
+  document.getElementById('tagsLoading').style.display = 'inline';
+  document.getElementById('aiTagsBlock').style.display = 'block';
+
+  // Run tag + dupe in parallel
+  const [tagRes, dupRes] = await Promise.all([
+    ml('/tag-doubt', { title, body, top_k: 3 }),
+    ml('/check-duplicate', { title, body, threshold: 0.40, top_k: 3 }),
+  ]);
+
+  document.getElementById('tagsLoading').style.display = 'none';
+
+  // Render predicted tags
+  if (tagRes?.tags?.length) {
+    aiTags = tagRes.tags;
+    document.getElementById('aiTagsRow').innerHTML = aiTags.map(t =>
+      `<span class="chip chip-accent">${t.tag} <span style="opacity:0.6;font-size:10.5px;">${Math.round(t.confidence * 100)}%</span></span>`
+    ).join('');
+  } else {
+    // ML service down — hide the AI suggestions block silently
+    document.getElementById('aiTagsBlock').style.display = 'none';
+  }
+
+  // Render duplicate warning
+  if (dupRes?.has_duplicates && dupRes.matches.length) {
+    dupMatches = dupRes.matches;
+    document.getElementById('dupList').innerHTML = dupMatches.map(d =>
+      `<div style="font-size:12.5px;padding:6px 0;border-top:1px solid rgba(184,107,46,0.2);">
+        <div style="font-weight:600;color:var(--ink);">${d.title}</div>
+        <div style="font-size:11px;color:var(--ink-3);margin-top:2px;">
+          asked by ${d.asker_name} · ${Math.round(d.similarity * 100)}% similar
+        </div>
+      </div>`
+    ).join('');
+    document.getElementById('dupWarning').style.display = 'block';
+  } else {
+    document.getElementById('dupWarning').style.display = 'none';
+    dupMatches = [];
+  }
+}
+
+async function postDoubt() {
+  const title = document.getElementById('askTitle').value.trim();
+  const tagsStr = document.getElementById('askTags').value.trim();
+  const body  = document.getElementById('askBody').value.trim();
+  if (!title) { showToast('Title required', '', 'error'); return; }
+
+  // If duplicates exist and user hasn't acknowledged, ask them
+  if (dupMatches.length && !userOverroadeDup) {
+    const proceed = confirm(
+      `Looks like a similar question already exists (${Math.round(dupMatches[0].similarity * 100)}% similar):\n\n` +
+      `"${dupMatches[0].title}"\n\n` +
+      `Post anyway?`
+    );
+    if (!proceed) return;
+    userOverroadeDup = true;
+  }
+
+  // Use manually-entered tags if provided, otherwise use AI tags
+  let tags = tagsStr.split(',').map(t => t.trim()).filter(Boolean);
+  if (!tags.length && aiTags.length) {
+    tags = aiTags.filter(t => t.confidence >= 0.4).map(t => t.tag);
+  }
+
+  const btn = document.getElementById('askSave');
+  setLoading(btn, true, 'Posting…');
+
+  const { data: doubtRow, error } = await db.from('doubts').insert({
+    asker_id: U.id, title, body, tags,
+    upvotes: 0, answer_count: 0, views: 0,
+    status: 'open'
+  }).select().single();
+
+  if (error) {
+    setLoading(btn, false);
+    showToast('Failed to post', error.message, 'error');
+    return;
+  }
+
+  // Persist embedding so future dupe checks see it
+  if (doubtRow && aiTags.length) {
+    ml('/store-embedding', {
+      doubt_id: doubtRow.id,
+      title,
+      body,
+      predicted_tags: aiTags.map(t => t.tag),
+      confidence: aiTags[0]?.confidence || 0,
+    });   // fire-and-forget
+  }
+
+  setLoading(btn, false);
+  document.getElementById('askModal').classList.remove('open');
+  ['askTitle', 'askTags', 'askBody'].forEach(id => document.getElementById(id).value = '');
+  resetAskState();
+  showToast('Doubt posted!', 'Helpers will see it on the board.', 'success');
+  await loadDoubts();
+  await loadMyContribution();
+}
+
+init();
+</script>
+</body>
+</html>

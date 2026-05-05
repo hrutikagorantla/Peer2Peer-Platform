@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tuit — Welcome</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background: var(--bg); }
+  .ob-page {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .ob-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 36px 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: var(--sh-md);
+  }
+  .ob-progress {
+    display: flex; gap: 6px; margin-bottom: 24px;
+  }
+  .ob-step {
+    flex: 1; height: 4px; background: var(--line-2); border-radius: 2px;
+    transition: background .25s;
+  }
+  .ob-step.active { background: var(--accent); }
+  .ob-step.done { background: var(--accent-2); }
+  .ob-eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-2); font-weight: 600; margin-bottom: 8px;
+  }
+  .ob-h {
+    font-family: var(--fd); font-size: 28px; font-weight: 600;
+    letter-spacing: -0.02em; color: var(--ink); margin-bottom: 6px;
+  }
+  .ob-sub { font-size: 14px; color: var(--ink-2); margin-bottom: 22px; }
+
+  .chip-pick {
+    padding: 9px 14px; border-radius: 99px;
+    background: var(--surface2); border: 1.5px solid var(--line);
+    font-size: 13px; font-weight: 500; color: var(--ink-2);
+    cursor: pointer; transition: all .15s;
+    user-select: none;
+  }
+  .chip-pick:hover { border-color: var(--border2); }
+  .chip-pick.selected {
+    background: var(--acc-soft); border-color: var(--accent);
+    color: var(--accent-2); font-weight: 600;
+  }
+  .chip-row {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+  }
+
+  .rank-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    margin-bottom: 8px;
+  }
+  .rank-name { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  .rank-stars { display: flex; gap: 4px; }
+  .rank-star {
+    width: 26px; height: 26px; border-radius: 7px;
+    border: 1.5px solid var(--line);
+    display: grid; place-items: center;
+    cursor: pointer; transition: all .12s;
+    background: var(--surface);
+    color: var(--ink-3);
+  }
+  .rank-star svg { width: 13px; height: 13px; }
+  .rank-star:hover { border-color: var(--border2); }
+  .rank-star.filled {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+
+  .nav-row {
+    display: flex; justify-content: space-between; gap: 10px;
+    margin-top: 24px;
+  }
+  .skip-link {
+    font-size: 12px; color: var(--ink-3);
+    cursor: pointer; padding: 8px;
+    align-self: center;
+  }
+  .skip-link:hover { color: var(--ink-2); }
+
+  .seg {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .seg-btn {
+    padding: 9px 16px; border-radius: var(--r-sm);
+    border: 1.5px solid var(--line); background: var(--surface2);
+    font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+    cursor: pointer; transition: all .15s;
+  }
+  .seg-btn:hover { border-color: var(--border2); }
+  .seg-btn.selected {
+    background: var(--ink); border-color: var(--ink); color: #f5efe3;
+  }
+</style>
+</head>
+<body>
+<div class="ob-page">
+  <div class="ob-card">
+
+    <div class="ob-progress">
+      <div class="ob-step active" id="ob1"></div>
+      <div class="ob-step" id="ob2"></div>
+      <div class="ob-step" id="ob3"></div>
+      <div class="ob-step" id="ob4"></div>
+    </div>
+
+    <!-- step 1: semester + branch -->
+    <div class="ob-pane" id="pane1">
+      <div class="ob-eyebrow">Step 1 of 4</div>
+      <h1 class="ob-h">Quick context</h1>
+      <p class="ob-sub">A few details so tuit can match you with the right mentors and resources.</p>
+
+      <div class="form-group">
+        <label class="form-label">Which branch?</label>
+        <div class="seg" id="branchPicker">
+          <button class="seg-btn" data-v="CSE">CSE</button>
+          <button class="seg-btn" data-v="ECE">ECE</button>
+          <button class="seg-btn" data-v="EEE">EEE</button>
+          <button class="seg-btn" data-v="ME">Mech</button>
+          <button class="seg-btn" data-v="CE">Civil</button>
+          <button class="seg-btn" data-v="IT">IT</button>
+          <button class="seg-btn" data-v="Other">Other</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What semester are you in?</label>
+        <div class="seg" id="semPicker">
+          <button class="seg-btn" data-v="1">1st</button>
+          <button class="seg-btn" data-v="2">2nd</button>
+          <button class="seg-btn" data-v="3">3rd</button>
+          <button class="seg-btn" data-v="4">4th</button>
+          <button class="seg-btn" data-v="5">5th</button>
+          <button class="seg-btn" data-v="6">6th</button>
+          <button class="seg-btn" data-v="7">7th</button>
+          <button class="seg-btn" data-v="8">8th</button>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <span class="skip-link" onclick="skipAll()">Skip — I'll set this later</span>
+        <button class="btn btn-primary" onclick="nextStep(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- step 2: subjects -->
+    <div class="ob-pane" id="pane2" style="display:none;">
+      <div class="ob-eyebrow">Step 2 of 4</div>
+      <h1 class="ob-h">What are you studying?</h1>
+      <p class="ob-sub">Pick all subjects you're currently working on. We'll use these to surface mentors and notes.</p>
+
+      <div class="chip-row" id="subjectPicker">
+        <!-- filled by JS -->
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- step 3: confidence ranking -->
+    <div class="ob-pane" id="pane3" style="display:none;">
+      <div class="ob-eyebrow">Step 3 of 4</div>
+      <h1 class="ob-h">How confident in each?</h1>
+      <p class="ob-sub">1 = needs help · 5 = could teach it. Honest answers get better recommendations.</p>
+
+      <div id="rankList"></div>
+
+      <div class="nav-row">
+        <button class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- step 4: goals + weekly study time -->
+    <div class="ob-pane" id="pane4" style="display:none;">
+      <div class="ob-eyebrow">Step 4 of 4</div>
+      <h1 class="ob-h">What are you working towards?</h1>
+      <p class="ob-sub">Helps us prioritize the right resources first.</p>
+
+      <div class="form-group">
+        <label class="form-label">Goals (pick any)</label>
+        <div class="chip-row" id="goalPicker">
+          <button class="chip-pick" data-v="Crack placements">Crack placements</button>
+          <button class="chip-pick" data-v="Improve CGPA">Improve CGPA</button>
+          <button class="chip-pick" data-v="GATE prep">GATE prep</button>
+          <button class="chip-pick" data-v="Side projects">Side projects</button>
+          <button class="chip-pick" data-v="Internship">Internship hunt</button>
+          <button class="chip-pick" data-v="Higher studies">Higher studies (MS/PhD)</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">When do you usually study?</label>
+        <div class="seg" id="timePicker">
+          <button class="seg-btn" data-v="morning">Morning (6am–12pm)</button>
+          <button class="seg-btn" data-v="evening">Evening (4pm–9pm)</button>
+          <button class="seg-btn" data-v="late_night">Late night (9pm–2am)</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Hours per week (estimate)</label>
+        <input class="form-input" type="number" id="hours" min="1" max="80" placeholder="e.g. 15">
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-secondary" onclick="prevStep(4)">← Back</button>
+        <button class="btn btn-primary" id="btnFinish" onclick="finish()">
+          Finish onboarding
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5 10 17.5 19 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="gt" class="g-toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+let U = null;
+const ALL_SUBJECTS = [
+  'DSA', 'Algorithms', 'OOP', 'DBMS', 'SQL', 'Operating Systems',
+  'Computer Networks', 'Web Dev', 'ML', 'System Design',
+  'Math', 'Linear Algebra', 'Calculus', 'Discrete Math',
+  'Physics', 'Chemistry', 'Biology', 'English',
+  'Aptitude', 'Theory of Computation',
+];
+
+// Onboarding state
+const state = {
+  branch: null,
+  semester: null,
+  subjects: [],
+  ranks: {},        // { "DSA": 3, ... }
+  goals: [],
+  preferred_time: null,
+  hours: null,
+};
+
+async function init() {
+  if (!await requireAuth()) return;
+  U = await getCurrentUser();
+  if (!U) { signOut(); return; }
+  if (U.role === 'mentor') { window.location.href = 'index.html'; return; }
+
+  // Skip if already onboarded
+  if (U.onboarding_completed === true) { window.location.href = 'index.html'; return; }
+
+  buildSubjectPicker();
+  wirePickers();
+}
+
+function buildSubjectPicker() {
+  document.getElementById('subjectPicker').innerHTML = ALL_SUBJECTS.map(s =>
+    `<button class="chip-pick" data-v="${s}">${s}</button>`
+  ).join('');
+}
+
+function wirePickers() {
+  // Single-select pickers
+  document.querySelectorAll('#branchPicker .seg-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('#branchPicker .seg-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.branch = btn.dataset.v;
+    };
+  });
+  document.querySelectorAll('#semPicker .seg-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('#semPicker .seg-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.semester = parseInt(btn.dataset.v);
+    };
+  });
+  document.querySelectorAll('#timePicker .seg-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('#timePicker .seg-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.preferred_time = btn.dataset.v;
+    };
+  });
+
+  // Multi-select pickers
+  document.getElementById('subjectPicker').addEventListener('click', (e) => {
+    if (!e.target.classList.contains('chip-pick')) return;
+    const v = e.target.dataset.v;
+    if (state.subjects.includes(v)) {
+      state.subjects = state.subjects.filter(s => s !== v);
+      e.target.classList.remove('selected');
+    } else {
+      state.subjects.push(v);
+      e.target.classList.add('selected');
+    }
+  });
+
+  document.getElementById('goalPicker').addEventListener('click', (e) => {
+    if (!e.target.classList.contains('chip-pick')) return;
+    const v = e.target.dataset.v;
+    if (state.goals.includes(v)) {
+      state.goals = state.goals.filter(g => g !== v);
+      e.target.classList.remove('selected');
+    } else {
+      state.goals.push(v);
+      e.target.classList.add('selected');
+    }
+  });
+}
+
+function buildRankList() {
+  const el = document.getElementById('rankList');
+  if (!state.subjects.length) {
+    el.innerHTML = `<div style="font-size:13px;color:var(--ink-3);text-align:center;padding:20px;">
+      No subjects selected — go back and pick at least one.</div>`;
+    return;
+  }
+  el.innerHTML = state.subjects.map(s => `
+    <div class="rank-row">
+      <span class="rank-name">${s}</span>
+      <div class="rank-stars" data-subj="${s}">
+        ${[1,2,3,4,5].map(n => `
+          <button class="rank-star" data-v="${n}" onclick="setRank('${s}', ${n}, this)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l3.1 6.3 7 1-5 4.9 1.2 6.9L12 18.3l-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  // Re-apply already-set ranks
+  for (const [s, r] of Object.entries(state.ranks)) {
+    const stars = document.querySelectorAll(`.rank-stars[data-subj="${s}"] .rank-star`);
+    stars.forEach((st, i) => st.classList.toggle('filled', i < r));
+  }
+}
+
+function setRank(subj, n, el) {
+  state.ranks[subj] = n;
+  const stars = el.parentElement.querySelectorAll('.rank-star');
+  stars.forEach((st, i) => st.classList.toggle('filled', i < n));
+}
+
+function showPane(n) {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('pane' + i).style.display = i === n ? 'block' : 'none';
+    const step = document.getElementById('ob' + i);
+    step.classList.toggle('active', i === n);
+    step.classList.toggle('done', i < n);
+  }
+  if (n === 3) buildRankList();
+}
+
+function nextStep(cur) {
+  if (cur === 1 && (!state.branch || !state.semester)) {
+    showToast('Please pick branch and semester', '', 'error'); return;
+  }
+  if (cur === 2 && !state.subjects.length) {
+    showToast('Pick at least one subject', '', 'error'); return;
+  }
+  if (cur === 3) {
+    // Auto-derive weaknesses (≤2) and strengths (≥4) from ranks
+    state.weaknesses = Object.entries(state.ranks).filter(([_,r]) => r <= 2).map(([s,_]) => s);
+    state.strengths  = Object.entries(state.ranks).filter(([_,r]) => r >= 4).map(([s,_]) => s);
+  }
+  showPane(cur + 1);
+}
+
+function prevStep(cur) { showPane(cur - 1); }
+
+async function finish() {
+  if (!state.preferred_time) {
+    showToast('Pick when you usually study', '', 'error'); return;
+  }
+  state.hours = parseInt(document.getElementById('hours').value) || null;
+
+  const btn = document.getElementById('btnFinish');
+  setLoading(btn, true, 'Saving…');
+
+  const session = await getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+
+  const { error } = await db.from('users').update({
+    branch: state.branch,
+    semester: state.semester,
+    subjects: state.subjects,
+    subject_ranks: state.ranks,
+    weaknesses: state.weaknesses || [],
+    strengths: state.strengths || [],
+    goals: state.goals,
+    preferred_time: state.preferred_time,
+    hours_per_week: state.hours,
+    onboarding_completed: true,
+  }).eq('id', session.user.id);
+
+  setLoading(btn, false);
+
+  if (error) {
+    showToast('Could not save', error.message, 'error');
+    return;
+  }
+
+  showToast('All set!', 'Loading your personalized dashboard…', 'success');
+  setTimeout(() => { window.location.href = 'index.html?fresh=1'; }, 800);
+}
+
+async function skipAll() {
+  if (!confirm('Skip onboarding? You can always set this later in your profile.')) return;
+  // Mark onboarded with empty data so we don't re-prompt
+  await db.from('users').update({ onboarding_completed: true }).eq('id', U.id);
+  window.location.href = 'index.html';
+}
+
+init();
+</script>
+</body>
+</html>

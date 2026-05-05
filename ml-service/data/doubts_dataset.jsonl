@@ -1,0 +1,479 @@
+{"title": "Why does my recursive memoization solution still TLE on LeetCode 322 (Coin Change)?", "body": "I'm using a Map for caching but the bottom-up tabulation runs in 12 ms vs my 1800 ms recursion. Trying to understand the constant-factor cost of function frames vs the iteration loop.", "tags": ["DSA", "Algorithms"]}
+{"title": "Bias-variance tradeoff intuition for tree depth?", "body": "Trying to build mental model for when deeper decision trees overfit vs underfit. Is there a rule of thumb for max depth based on training set size?", "tags": ["ML"]}
+{"title": "Difference between WHERE and HAVING with GROUP BY", "body": "I keep mixing them up. When does each one apply? Specifically if I want to filter aggregates vs filter rows before grouping.", "tags": ["DBMS", "SQL"]}
+{"title": "useEffect runs twice in dev — is this expected?", "body": "Strict mode is on. Just want to confirm before I refactor my data fetching.", "tags": ["Web Dev"]}
+{"title": "Stuck on linear algebra eigenvectors visualization", "body": "I get the equations Av = lambda v but I cannot see what an eigenvector is doing geometrically. Any intuition?", "tags": ["Math"]}
+{"title": "How do I prevent N+1 queries in a Postgres + Express app?", "body": "I'm fetching users then their posts in a loop. I know about JOINs but my ORM is not using them. Should I switch to raw SQL?", "tags": ["DBMS", "SQL", "Web Dev"]}
+{"title": "What's the actual time complexity of Python's sort?", "body": "Read it's Timsort but what's the real-world n log n constant? My 10M element array takes 6 seconds.", "tags": ["DSA", "Algorithms"]}
+{"title": "Logistic regression vs SVM for binary classification — when to use which?", "body": "Dataset is 50k rows, 30 features, mostly numeric. Class imbalance about 80/20.", "tags": ["ML"]}
+{"title": "B+ trees vs hash indexes in Postgres", "body": "Why is B+ tree the default? I read hash indexes are O(1) lookup but rarely used in practice.", "tags": ["DBMS"]}
+{"title": "How does CAP theorem apply to my microservices?", "body": "Building a small e-commerce backend with 3 services. Trying to figure out which side I'm sacrificing and whether I have to.", "tags": ["System Design"]}
+{"title": "Dynamic programming on trees — root vs leaf direction?", "body": "Some problems compute from leaf to root, others from root to leaf. Is there a trick to figure out which?", "tags": ["DSA", "Algorithms"]}
+{"title": "React useState vs useReducer — when does the complexity flip?", "body": "I have a form with 8 fields and lots of conditional logic. useState is getting messy.", "tags": ["Web Dev"]}
+{"title": "What's an embedding really?", "body": "I keep reading about word embeddings, sentence embeddings, image embeddings. Is it just a vector? What makes it 'good'?", "tags": ["ML"]}
+{"title": "JOIN syntax confusion: INNER vs LEFT vs CROSS", "body": "I draw venn diagrams every time. Is there a faster mental model that works for 4-5 way joins?", "tags": ["SQL", "DBMS"]}
+{"title": "Probability question: Bayes theorem with overlapping events", "body": "If P(A|B) = 0.6 and P(B|A) = 0.4, can I compute P(A and B)? I keep getting stuck.", "tags": ["Math"]}
+{"title": "Sliding window technique — when to expand vs shrink?", "body": "I get the idea but always mess up the boundary conditions. Any clean template?", "tags": ["DSA", "Algorithms"]}
+{"title": "PCA vs t-SNE for visualization — which one for what?", "body": "I have 200-dim word vectors and want to plot clusters. Both seem to work.", "tags": ["ML", "Math"]}
+{"title": "Database normalization 3NF vs BCNF — practical difference?", "body": "Theoretically I get it but in real schemas I never seem to need BCNF. Is it worth enforcing?", "tags": ["DBMS"]}
+{"title": "How does TCP backpressure work in a Node.js stream?", "body": "I'm piping a 4 GB file and memory keeps growing. Thought streams handled this automatically.", "tags": ["Web Dev", "System Design"]}
+{"title": "Time vs space tradeoff in matrix multiplication", "body": "Strassen's algorithm is O(n^2.81) but uses more memory. Is it actually faster on modern CPUs?", "tags": ["Algorithms", "Math"]}
+{"title": "What does normalization do for neural network training?", "body": "Batch norm vs layer norm vs no norm — I get wildly different convergence. Why?", "tags": ["ML"]}
+{"title": "Is REST really dead? Should I be learning gRPC?", "body": "Every blog says REST is old. But every job ad says REST. I'm confused.", "tags": ["Web Dev", "System Design"]}
+{"title": "Two-pointer technique for sorted arrays", "body": "Three-sum, container with most water, etc. — I solve them but feel like I'm pattern-matching, not understanding.", "tags": ["DSA", "Algorithms"]}
+{"title": "Connection pooling: how big should the pool be?", "body": "Postgres docs say num_cpus * 2 but my app crashes with 'too many connections' at that level.", "tags": ["DBMS", "System Design"]}
+{"title": "Calculus chain rule for backprop — why does it work?", "body": "I can compute gradients mechanically but the proof of why this gives the right direction is fuzzy.", "tags": ["Math", "ML"]}
+{"title": "When would you use a heap over a sorted array?", "body": "Insertion is O(log n) for both. The constant factor seems to favor sorted arrays for small n.", "tags": ["DSA"]}
+{"title": "Index on (a, b) vs separate indexes on a and b — what's the difference?", "body": "Query planner picks one but not the other. When is composite better?", "tags": ["DBMS", "SQL"]}
+{"title": "WebSocket vs Server-Sent Events for live updates", "body": "I just need server -> client updates. SSE is simpler. Why does everyone use WS?", "tags": ["Web Dev", "System Design"]}
+{"title": "Gradient descent vs Newton's method — practical differences", "body": "Newton converges in fewer steps but requires the Hessian. When is the cost worth it?", "tags": ["ML", "Math", "Algorithms"]}
+{"title": "Big O of Python list.append in worst case?", "body": "Amortized O(1) I know, but what's the worst single call?", "tags": ["DSA"]}
+{"title": "Triggers vs application logic for derived data?", "body": "Should current_bookings be maintained by a DB trigger or by my Express app?", "tags": ["DBMS", "System Design"]}
+{"title": "How do I structure a Vite + React + TypeScript project?", "body": "Coming from CRA. Folder layout I had doesn't feel right anymore.", "tags": ["Web Dev"]}
+{"title": "Why does my model accuracy drop on test set?", "body": "Train acc 95%, test acc 64%. Tried regularization, didn't help much.", "tags": ["ML"]}
+{"title": "Recursion vs iteration — is there ever a perf reason to prefer one?", "body": "Apart from stack overflow risk, are there cases recursion is genuinely faster?", "tags": ["DSA", "Algorithms"]}
+{"title": "Set vs HashSet vs unordered_set in C++", "body": "Library docs are confusing. When does each behave differently?", "tags": ["DSA"]}
+{"title": "ACID vs BASE — what does my use case need?", "body": "Building a food delivery clone. Order state machine vs reviews — same database?", "tags": ["DBMS", "System Design"]}
+{"title": "Linear regression assumptions — which can I violate?", "body": "Independence, homoscedasticity, normality of residuals. Real data never satisfies all of them.", "tags": ["ML", "Math"]}
+{"title": "Race condition in my booking flow", "body": "Two students click 'Book' at the same time and both get the slot. Is a UNIQUE constraint enough?", "tags": ["DBMS", "System Design"]}
+{"title": "What's a good first portfolio project for a backend role?", "body": "Bored of CRUD apps. Want something I can talk about in interviews.", "tags": ["Web Dev"]}
+{"title": "Permutations vs combinations confusion", "body": "I always pick the wrong formula in interview problems. Is there a decision tree?", "tags": ["Math"]}
+{"title": "Why does my CSS Grid layout break on mobile?", "body": "auto-fit minmax(300px, 1fr) — works on desktop, breaks on iPhone Safari.", "tags": ["Web Dev"]}
+{"title": "Minimum spanning tree — Prim vs Kruskal", "body": "Both are O(E log V). Why would I ever pick one over the other?", "tags": ["DSA", "Algorithms"]}
+{"title": "Confusion matrix interpretation for imbalanced classes", "body": "99% accuracy on a 99/1 split is trivial. What metric should I trust?", "tags": ["ML"]}
+{"title": "How do I version a public API gracefully?", "body": "v1, v2 in URL? Headers? Content negotiation? My team disagrees.", "tags": ["Web Dev", "System Design"]}
+{"title": "Big numbers in JavaScript — BigInt or library?", "body": "Need to do factorial of 100. JS numbers lose precision way before that.", "tags": ["Web Dev", "Math"]}
+{"title": "Convex vs non-convex optimization — does it matter for ML?", "body": "Most loss functions in DL are non-convex. So why do we still call this optimization?", "tags": ["ML", "Math"]}
+{"title": "When to use Redis as a cache vs as primary?", "body": "I see both patterns. What's the rule?", "tags": ["DBMS", "System Design"]}
+{"title": "Topological sort intuition for build systems", "body": "I get the algorithm but not why it always exists for valid build graphs.", "tags": ["DSA", "Algorithms"]}
+{"title": "Stuck on Bayesian inference — prior, posterior, likelihood?", "body": "I can plug into the formula but I don't have intuition. When does each piece matter most?", "tags": ["Math", "ML"]}
+{"title": "Postgres vs MongoDB for nested data?", "body": "I keep flip-flopping. JSONB in Postgres is great. But Mongo is simpler.", "tags": ["DBMS"]}
+{"title": "Why is my React component re-rendering 3 times?", "body": "Pure functional component, no context. Profiler shows 3 renders per state change.", "tags": ["Web Dev"]}
+{"title": "Greedy vs DP — how do you know greedy works?", "body": "Activity selection is greedy. Knapsack is DP. Both feel similar to me.", "tags": ["DSA", "Algorithms"]}
+{"title": "Random forest — how many trees is enough?", "body": "Default is 100 in sklearn. I tried 1000 and got marginal improvement. What's the principled answer?", "tags": ["ML"]}
+{"title": "Foreign key with ON DELETE CASCADE — when is this dangerous?", "body": "Convenient but I've heard horror stories. Should I do soft deletes instead?", "tags": ["DBMS"]}
+{"title": "Load balancer choice for a small startup?", "body": "Nginx, HAProxy, AWS ALB. I just have 3 servers. Is this overkill?", "tags": ["System Design"]}
+{"title": "Sort stability — when do I actually need it?", "body": "Quicksort isn't stable, mergesort is. When does it bite me in practice?", "tags": ["DSA", "Algorithms"]}
+{"title": "Linear algebra for ML — what's the minimum I need?", "body": "I have rusty linear algebra. Want to start ML without a 6-month detour.", "tags": ["Math", "ML"]}
+{"title": "How do I shard a Postgres database?", "body": "Single instance is hitting limits. Citus? Vitess? Pg_bouncer? Confused.", "tags": ["DBMS", "System Design"]}
+{"title": "Tailwind vs vanilla CSS for a portfolio site?", "body": "Read both extremes online. What actually matters for a small project?", "tags": ["Web Dev"]}
+{"title": "Why does training loss go up then down with Adam?", "body": "First 100 steps loss spikes. Then settles. Is this normal?", "tags": ["ML"]}
+{"title": "Cycle detection in a directed graph", "body": "DFS with colors works but I keep messing up the back-edge logic.", "tags": ["DSA", "Algorithms"]}
+{"title": "Probability of at least one collision in a hash function?", "body": "Birthday paradox style. For 1M inputs into a 64-bit hash, what's the expected collision count?", "tags": ["Math", "Algorithms"]}
+{"title": "GraphQL N+1 problem — does DataLoader actually fix it?", "body": "I use DataLoader but my logs still show N queries. What am I missing?", "tags": ["Web Dev", "DBMS"]}
+{"title": "Cross-validation: k-fold vs leave-one-out vs stratified?", "body": "On a small medical dataset (200 samples). Default 5-fold or something else?", "tags": ["ML"]}
+{"title": "What's an idempotent endpoint and how do I make POST one?", "body": "Stripe uses idempotency keys. How does that actually work under the hood?", "tags": ["Web Dev", "System Design"]}
+{"title": "Heap sort — why is it not the default sort anywhere?", "body": "Worst case O(n log n), in-place. What's the catch?", "tags": ["DSA", "Algorithms"]}
+{"title": "Information theory: entropy intuition", "body": "Entropy as 'surprise'. For a coin flip vs a die roll. Why is one log2 and ML uses log_e?", "tags": ["Math", "ML"]}
+{"title": "Read replicas — when should I add one?", "body": "App is fast but I read read replicas are common. What's the threshold?", "tags": ["DBMS", "System Design"]}
+{"title": "TypeScript generics — practical use vs ceremony", "body": "I know the syntax but my code rarely needs them. Am I missing the point?", "tags": ["Web Dev"]}
+{"title": "Trie vs HashMap for autocomplete", "body": "HashMap with prefix lookup feels equivalent. Why is trie the textbook answer?", "tags": ["DSA", "Algorithms"]}
+{"title": "ROC curve vs precision-recall curve — when does each matter?", "body": "Default tutorial shows ROC. But for fraud detection, PR curve seems better?", "tags": ["ML"]}
+{"title": "How do I test a query plan in Postgres?", "body": "EXPLAIN ANALYZE shows numbers but I don't know what's good or bad.", "tags": ["DBMS", "SQL"]}
+{"title": "Eventual consistency — when is it ok and when is it a bug?", "body": "DynamoDB defaults to it. My app feels weird sometimes. Is that the cause?", "tags": ["DBMS", "System Design"]}
+{"title": "Master theorem — practical use beyond exams", "body": "I learned it in college but never apply it to real recurrences. Should I?", "tags": ["Algorithms", "Math"]}
+{"title": "How do I debug a memory leak in a long-running Node service?", "body": "RAM grows over 24 hours then OOMs. Tried heap snapshots, can't tell what's retained.", "tags": ["Web Dev", "System Design"]}
+{"title": "Activation functions: ReLU vs GELU vs Swish", "body": "Transformers all use GELU now. Is ReLU just outdated?", "tags": ["ML"]}
+{"title": "Subqueries vs JOINs — performance and readability", "body": "EXPLAIN says they're equivalent for my query. Which is more idiomatic?", "tags": ["SQL", "DBMS"]}
+{"title": "Bit manipulation tricks — am I supposed to memorize these?", "body": "n & (n-1), n & -n, etc. Interview problems use them. Is there an underlying logic?", "tags": ["DSA"]}
+{"title": "REST API rate limiting — token bucket vs leaky bucket?", "body": "I want to allow burst but cap sustained rate. Which fits?", "tags": ["System Design", "Web Dev"]}
+{"title": "Why do we need both training and validation sets?", "body": "I have 1000 samples. Splitting 60/20/20 leaves so little training data.", "tags": ["ML"]}
+{"title": "Modular arithmetic for hashing — why prime modulus?", "body": "Every hash function uses a prime. What goes wrong with composite?", "tags": ["Math", "Algorithms"]}
+{"title": "OAuth 2.0 flow — confused about authorization code vs implicit", "body": "Spent 3 hours and still don't get when to use which.", "tags": ["Web Dev", "System Design"]}
+{"title": "Counting sort — when is it actually useful?", "body": "O(n + k) sounds great but k can be huge. Real use cases?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does my SQL query sometimes use the index and sometimes not?", "body": "Same query, same data, different plan. Frustrating.", "tags": ["DBMS", "SQL"]}
+{"title": "Feature engineering vs deep learning — is feature engineering dead?", "body": "Tabular data ML competitions still favor feature engineering. Why hasn't DL taken over there?", "tags": ["ML"]}
+{"title": "How do I design a chat app that scales to 100k concurrent?", "body": "WebSockets, presence, message ordering. Where do I start?", "tags": ["System Design", "Web Dev"]}
+{"title": "Recursion to iteration conversion — is it always possible?", "body": "Some recursive code is hard to convert. Tail recursion is easy. What about non-tail?", "tags": ["DSA", "Algorithms"]}
+{"title": "Polynomial vs exponential — why is the line so important?", "body": "P vs NP. n^100 is polynomial but worse than 2^n for small n. Why is this the threshold?", "tags": ["Algorithms", "Math"]}
+{"title": "When should I denormalize for read performance?", "body": "JOINs are expensive. Some teams denormalize aggressively. What's the heuristic?", "tags": ["DBMS"]}
+{"title": "Service worker caching strategies — which for what?", "body": "Cache-first, network-first, stale-while-revalidate. I implemented all three on different routes.", "tags": ["Web Dev"]}
+{"title": "Naive Bayes — why does the 'naive' assumption work?", "body": "Features are obviously not independent. So why does it perform OK?", "tags": ["ML", "Math"]}
+{"title": "How are UUIDs generated and are they truly unique?", "body": "Random 128 bits. Probability of collision in 1B IDs?", "tags": ["Algorithms", "DBMS"]}
+{"title": "Memoization vs tabulation — is one always better?", "body": "Top-down feels intuitive. Bottom-up feels efficient. Why are both taught?", "tags": ["DSA", "Algorithms"]}
+{"title": "When does CSS specificity bite vs help me?", "body": "I keep losing battles with !important. Trying to understand the system.", "tags": ["Web Dev"]}
+{"title": "Why does dropout hurt at test time?", "body": "We turn it off at test time. But I tried turning it on and accuracy crashed. Why?", "tags": ["ML"]}
+{"title": "Transactions: read committed vs serializable isolation", "body": "Postgres default is read committed. What goes wrong if I never use serializable?", "tags": ["DBMS"]}
+{"title": "DNS, CDN, edge — actually what does each do?", "body": "All three sit between user and server. Confused about who is responsible for what.", "tags": ["System Design", "Web Dev"]}
+{"title": "Knapsack vs unbounded knapsack — recurrence relation difference", "body": "I always get the loop bounds wrong on unbounded. Is there a clean way to remember?", "tags": ["DSA", "Algorithms"]}
+{"title": "Determinant of a matrix — what does it actually mean?", "body": "I can compute it but I don't know what it represents geometrically.", "tags": ["Math"]}
+{"title": "Connection draining during deploys — how does my LB do this?", "body": "Some users get 502 during rolling updates. Health checks pass. Don't know what's wrong.", "tags": ["System Design"]}
+{"title": "Why does my unit test pass locally and fail in CI?", "body": "Always something about timing. Mocha. Fix one, another breaks.", "tags": ["Web Dev"]}
+{"title": "Gradient boosting vs random forest — when each wins", "body": "Both are tree ensembles. XGBoost wins competitions. Why isn't RF dead?", "tags": ["ML"]}
+{"title": "Question about big-Theta vs big-O in interview answers", "body": "Interviewer marked me down for saying O(n) when answer was Theta(n). Is this picky or important?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Soft delete vs hard delete in production?", "body": "GDPR says delete. Audit says keep. What pattern actually scales?", "tags": ["DBMS", "System Design"]}
+{"title": "When is a Bloom filter the right choice?", "body": "Probabilistic 'might contain' check. Cool. But for what?", "tags": ["DSA", "Algorithms", "DBMS"]}
+{"title": "How do I learn ML without a math degree?", "body": "Calculus and linear algebra are gappy. Should I do Khan Academy first or learn ML and patch holes?", "tags": ["ML", "Math"]}
+{"title": "Window functions: ROW_NUMBER vs RANK vs DENSE_RANK", "body": "I keep getting the wrong one in interview problems. Quick mental model?", "tags": ["SQL"]}
+{"title": "How do I write a recursive CTE?", "body": "Need to traverse a comment tree. Saw recursive CTE syntax but can't get it to terminate.", "tags": ["SQL", "DBMS"]}
+{"title": "EXISTS vs IN vs JOIN for filtering", "body": "Same query three ways. EXPLAIN says they're equivalent. Style only?", "tags": ["SQL"]}
+{"title": "PIVOT in standard SQL — possible?", "body": "Excel has PIVOT, Postgres doesn't natively. What's the canonical way?", "tags": ["SQL"]}
+{"title": "Why doesn't my GROUP BY include all non-aggregated columns?", "body": "MySQL lets me, Postgres doesn't. What's the right behavior?", "tags": ["SQL", "DBMS"]}
+{"title": "Why is my Postgres query slow with 10M rows?", "body": "EXPLAIN says seq scan even though I have an index on the filtered column. What am I missing?", "tags": ["DBMS", "SQL"]}
+{"title": "Tail recursion in JS — does V8 actually optimize it?", "body": "MDN says yes but my stack still overflows on n=100000.", "tags": ["DSA", "Web Dev"]}
+{"title": "Cosine similarity vs dot product for embeddings", "body": "When does normalization matter? My results differ depending on which I use.", "tags": ["ML", "Math"]}
+{"title": "Detecting cycles in undirected graph — DFS approach?", "body": "I know how to do it for directed but undirected confuses me with parent tracking.", "tags": ["DSA", "Algorithms"]}
+{"title": "When do I really need a message queue?", "body": "My side project has 50 users. Is RabbitMQ overkill or am I building debt?", "tags": ["System Design"]}
+{"title": "JSONB vs JSON in Postgres — which to use?", "body": "Building a schema-on-read style table for product attributes. Speed vs flexibility.", "tags": ["DBMS"]}
+{"title": "How to compute confidence intervals from bootstrap?", "body": "I have 1000 bootstrap means. Percentile method vs BCa?", "tags": ["Math", "ML"]}
+{"title": "Sticky sessions vs JWT for auth", "body": "Scaling beyond 1 server. Stateless looks cleaner but JWTs feel risky.", "tags": ["Web Dev", "System Design"]}
+{"title": "Quicksort: Lomuto vs Hoare partition", "body": "Lomuto is simpler. Hoare is faster. Why isn't Lomuto just the standard?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does softmax need temperature?", "body": "Reading about LLM sampling. Lower temp = more confident. What's the math?", "tags": ["ML", "Math"]}
+{"title": "Window function partition by — is it always sorted?", "body": "Trying to compute running totals. ORDER BY makes a difference inside the OVER clause.", "tags": ["SQL"]}
+{"title": "TLS handshake — what actually happens?", "body": "Read about it 5 times, still can't remember the order of certificate exchange.", "tags": ["System Design", "Web Dev"]}
+{"title": "Hash map collision — what's the realistic worst case?", "body": "Java uses balanced trees after threshold. What about Python dicts?", "tags": ["DSA", "Algorithms"]}
+{"title": "Mean squared error vs cross entropy for regression", "body": "Both are loss functions. When does cross entropy make sense for regression?", "tags": ["ML"]}
+{"title": "How does pg_dump handle massive tables?", "body": "100GB table. Will pg_dump time out? Should I use COPY instead?", "tags": ["DBMS"]}
+{"title": "Promise.all vs Promise.allSettled — what's the gotcha?", "body": "all rejects on first failure. allSettled waits for all. What if I want both?", "tags": ["Web Dev"]}
+{"title": "Floyd-Warshall vs Dijkstra — practical choice", "body": "All-pairs shortest path. Both work. What's the threshold?", "tags": ["DSA", "Algorithms"]}
+{"title": "Linear vs polynomial regression on noisy data", "body": "When does adding higher-order terms help vs overfit?", "tags": ["ML", "Math"]}
+{"title": "Materialized view refresh strategies", "body": "Eager vs lazy vs scheduled. My dashboard takes 8s to load.", "tags": ["DBMS", "System Design"]}
+{"title": "What does mass-assignment mean in security?", "body": "Saw a CVE about it. Worried about my Express app.", "tags": ["Web Dev", "System Design"]}
+{"title": "Why is shell sort still taught?", "body": "Worse than mergesort, more complex than insertion. Just history?", "tags": ["DSA"]}
+{"title": "Adam vs AdamW — practical difference", "body": "Trained same model with both. AdamW slightly better. Why?", "tags": ["ML"]}
+{"title": "INTERSECT vs INNER JOIN with DISTINCT", "body": "Both seem to do the same thing. Are they really equivalent?", "tags": ["SQL"]}
+{"title": "Service mesh vs API gateway", "body": "Both seem to handle inter-service comms. Where do they overlap?", "tags": ["System Design"]}
+{"title": "Topological sort uses cases beyond build order?", "body": "I learned it for build systems. What else uses it in real systems?", "tags": ["DSA", "Algorithms"]}
+{"title": "When does L2 regularization fail?", "body": "Sometimes my L2-regularized model is worse than plain. Possible?", "tags": ["ML", "Math"]}
+{"title": "How to architect a notification system?", "body": "In-app, email, push. Should they all go through the same queue?", "tags": ["System Design"]}
+{"title": "PARTITION BY without ORDER BY in window functions", "body": "Some queries work, others don't. When is order required?", "tags": ["SQL", "DBMS"]}
+{"title": "Bash redirect 2>&1 — why this order?", "body": "Reversed order doesn't work. Read about it but the why escapes me.", "tags": ["Web Dev"]}
+{"title": "Linked list vs array for cache locality", "body": "Big O is same, but real performance differs hugely. Just cache?", "tags": ["DSA"]}
+{"title": "Hyperparameter tuning — Bayesian vs grid?", "body": "Sklearn has both. Bayesian seems smarter. Why isn't it default?", "tags": ["ML"]}
+{"title": "Numerical stability in cross-entropy loss", "body": "log(0) shows up. How does PyTorch avoid it under the hood?", "tags": ["ML", "Math"]}
+{"title": "DELETE vs TRUNCATE in Postgres", "body": "Need to wipe a 100M row table. Speed and rollback differ — by how much?", "tags": ["DBMS", "SQL"]}
+{"title": "Why does floating point fail at 0.1 + 0.2?", "body": "Famously not 0.3. I get IEEE 754 abstractly. Need the actual binary picture.", "tags": ["Math"]}
+{"title": "RBAC vs ABAC for app permissions", "body": "Building a B2B tool. Roles seem simpler. Attributes seem flexible.", "tags": ["System Design", "Web Dev"]}
+{"title": "Skip lists vs balanced BSTs", "body": "Redis uses skip lists. What's the tradeoff vs red-black tree?", "tags": ["DSA"]}
+{"title": "Vanishing gradients in deep networks", "body": "I see it in tutorials. How do I diagnose it in my own model?", "tags": ["ML", "Math"]}
+{"title": "Schema migrations safely in production", "body": "Adding a column to a 50M row table. Lock or not?", "tags": ["DBMS"]}
+{"title": "Why do I need both useEffect and useLayoutEffect?", "body": "Docs say one is sync, one async. What's a concrete case I'd use Layout?", "tags": ["Web Dev"]}
+{"title": "Dijkstra with negative weights — why fails?", "body": "The algorithm doesn't terminate or gives wrong answer. Mathematically why?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Pretrained vs fine-tuned vs from scratch", "body": "Custom NER task with 500 labeled examples. Where do I start?", "tags": ["ML"]}
+{"title": "Optimistic vs pessimistic locking", "body": "Booking system. Concurrent edits rare but costly. Which fits?", "tags": ["DBMS", "System Design"]}
+{"title": "Webhooks: how to handle retries?", "body": "Receiver crashes. Sender retries. How do I idempotently process?", "tags": ["Web Dev", "System Design"]}
+{"title": "Counting bits — Brian Kernighan trick", "body": "n &= (n-1) clears lowest 1. Why? Tracing through doesn't enlighten me.", "tags": ["DSA", "Math"]}
+{"title": "Class imbalance: oversample vs undersample vs SMOTE", "body": "1:99 split. SMOTE seems popular. Are there real downsides?", "tags": ["ML"]}
+{"title": "Postgres GiST vs GIN indexes", "body": "Building full-text search. Docs are dense. Which one when?", "tags": ["DBMS"]}
+{"title": "CSP headers — practical setup for my SPA", "body": "Restrictive CSP breaks my analytics. Permissive feels insecure.", "tags": ["Web Dev", "System Design"]}
+{"title": "Rolling hash for substring search", "body": "Rabin-Karp. Why does the rolling property work?", "tags": ["Algorithms", "Math"]}
+{"title": "How to evaluate a clustering result?", "body": "No labels. Silhouette, Davies-Bouldin. They disagree.", "tags": ["ML", "Math"]}
+{"title": "What's a vacuum in Postgres?", "body": "Auto vacuum is on. Why do I still need to think about it?", "tags": ["DBMS"]}
+{"title": "Server timing API — how to use", "body": "I see headers in DevTools. Want my Node server to emit them.", "tags": ["Web Dev"]}
+{"title": "BFS vs DFS — when does the choice matter?", "body": "I usually pick whichever I find easier to write. Are there cases only one works?", "tags": ["DSA", "Algorithms"]}
+{"title": "Information gain in decision tree splits", "body": "Why is it formula-d that way? Is there an intuition beyond the math?", "tags": ["ML", "Math"]}
+{"title": "Composite indexes — leftmost prefix rule", "body": "INDEX(a, b, c). Query on (b, c) won't use it. Why this rule?", "tags": ["DBMS", "SQL"]}
+{"title": "Throttling vs debouncing in JS", "body": "Both limit rate. But what's the right one for typeahead vs scroll?", "tags": ["Web Dev"]}
+{"title": "P, NP, NP-complete — gentle explanation?", "body": "Comp sci undergrad. Lectures lost me. Looking for a redo.", "tags": ["Algorithms", "Math"]}
+{"title": "Best practice for storing user passwords?", "body": "I've heard bcrypt, argon2, scrypt. Which actually for 2026?", "tags": ["Web Dev", "System Design"]}
+{"title": "Sliding window maximum in O(n)", "body": "Brute force is O(nk). Deque-based solution makes my head spin.", "tags": ["DSA", "Algorithms"]}
+{"title": "Why batch normalization helps generalization", "body": "Mostly normalizes but it also regularizes? Same mechanism?", "tags": ["ML"]}
+{"title": "Database connection lifetime — too short or long?", "body": "Random 'connection refused' errors. Pool config or app bug?", "tags": ["DBMS", "Web Dev"]}
+{"title": "Idempotency key generation strategies", "body": "Stripe-style. Should I let client send or server generate?", "tags": ["Web Dev", "System Design"]}
+{"title": "Manacher's algorithm — what's intuition?", "body": "Linear-time longest palindrome. The expansion trick fascinates me but I can't recreate it.", "tags": ["Algorithms", "DSA"]}
+{"title": "Time series train/test split", "body": "Random shuffle would leak future. What's the right cross-validation?", "tags": ["ML"]}
+{"title": "WAL vs Redo log — same thing?", "body": "Postgres WAL, MySQL redo. Different names for same idea?", "tags": ["DBMS"]}
+{"title": "Long polling vs WebSocket — performance", "body": "Both push updates. WS is more efficient but harder to scale. Numbers?", "tags": ["Web Dev", "System Design"]}
+{"title": "When does memoization help versus hurt?", "body": "Cache is fast. But cache lookup has overhead. When does it not pay off?", "tags": ["DSA", "Algorithms"]}
+{"title": "What are gradients in non-differentiable models like trees?", "body": "XGBoost talks about gradient boosting. But trees don't have gradients?", "tags": ["ML", "Math"]}
+{"title": "Cascading updates — gotchas?", "body": "ON UPDATE CASCADE feels safe. But I've seen warnings.", "tags": ["DBMS"]}
+{"title": "How does react reconciliation actually work?", "body": "I know it diffs the virtual DOM. What's the algorithm complexity?", "tags": ["Web Dev"]}
+{"title": "Median maintenance with two heaps", "body": "Min-heap + max-heap. The balance condition is fiddly. Clean explanation?", "tags": ["DSA"]}
+{"title": "Federated learning — when is it actually useful?", "body": "Beyond mobile keyboards, are there practical apps?", "tags": ["ML", "System Design"]}
+{"title": "Composite primary key vs surrogate key", "body": "Many-to-many table. Both options seem fine. What scales?", "tags": ["DBMS", "SQL"]}
+{"title": "Server-side rendering vs static generation in Next.js", "body": "SSR vs SSG vs ISR. My head spins. When does each fit?", "tags": ["Web Dev"]}
+{"title": "What's a heap invariant exactly?", "body": "I know parent <= children. But how is the structure maintained?", "tags": ["DSA"]}
+{"title": "Stochastic vs batch vs mini-batch gradient descent", "body": "Why not always batch? Memory, sure. But also generalization?", "tags": ["ML", "Math"]}
+{"title": "Self-join for hierarchical data", "body": "Employee/manager. Self-join works for fixed depth. What about arbitrary trees?", "tags": ["SQL", "DBMS"]}
+{"title": "Latency vs throughput — tradeoffs in real systems", "body": "Higher batch = better throughput, worse latency. What's the framework?", "tags": ["System Design"]}
+{"title": "Two's complement representation", "body": "Why is it the standard for signed integers? Sign bit alternative seems cleaner.", "tags": ["Math"]}
+{"title": "RxJS — am I supposed to use this?", "body": "Angular pushes it. React doesn't. Is it just convention or substance?", "tags": ["Web Dev"]}
+{"title": "Greedy choice property — proof technique", "body": "How do I prove a greedy algorithm is correct? Always exchange argument?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why are random forests robust to outliers?", "body": "Decision boundaries don't seem to care about extreme values. Why?", "tags": ["ML"]}
+{"title": "Read-modify-write race in SQL", "body": "Increment a counter. Two clients. SELECT ... UPDATE has TOCTOU. Solutions?", "tags": ["DBMS", "SQL"]}
+{"title": "How do I structure microservices for a small team?", "body": "3 devs. Splitting feels premature. But monolith is rumored to scale poorly.", "tags": ["System Design"]}
+{"title": "Karatsuba multiplication — why faster?", "body": "Recurrence T(n) = 3T(n/2) + O(n) gives O(n^log2(3)). Where does the 3 come from?", "tags": ["Algorithms", "Math"]}
+{"title": "How does t-SNE actually preserve distances?", "body": "I run it. It works. But the math behind 'preserving local structure' is fuzzy.", "tags": ["ML", "Math"]}
+{"title": "Foreign key constraints — performance impact?", "body": "I've seen advice both ways. Is it worth disabling for bulk inserts?", "tags": ["DBMS"]}
+{"title": "Cross-origin requests with cookies", "body": "withCredentials true and CORS allowOrigin not '*'. Why this rule?", "tags": ["Web Dev"]}
+{"title": "Persistent data structures — what for?", "body": "Functional programming has them. When does a normal language need them?", "tags": ["DSA"]}
+{"title": "Why is dropout less effective in CNN than FC layers?", "body": "Read this in a paper. Confused. CNNs share weights — does that explain it?", "tags": ["ML"]}
+{"title": "Locking strategies: row vs table vs page", "body": "Postgres uses row locks. SQL Server seems different. Performance implications?", "tags": ["DBMS"]}
+{"title": "Express middleware order — does it matter?", "body": "Auth before logger. Or logger before auth. Both work?", "tags": ["Web Dev"]}
+{"title": "Convex hull — when do I need it in practice?", "body": "Outside computational geometry classes, do real apps use this?", "tags": ["DSA", "Algorithms"]}
+{"title": "Curse of dimensionality — beyond the meme?", "body": "Heard the phrase a hundred times. What does it concretely mean for my workflow?", "tags": ["ML", "Math"]}
+{"title": "PostgreSQL row-level security — overhead?", "body": "I want to enable RLS. Will this slow my queries by a lot?", "tags": ["DBMS", "System Design"]}
+{"title": "REST vs RPC vs GraphQL — pick one for a startup?", "body": "Building a new API. Which one ages best for a small team?", "tags": ["Web Dev", "System Design"]}
+{"title": "How does heapify work in O(n) not O(n log n)?", "body": "Bubble down each element, sum is O(n)? My calculus broke.", "tags": ["DSA", "Math"]}
+{"title": "MLOps tooling — minimum viable setup?", "body": "MLflow? DVC? Just folders? I'm a solo data scientist.", "tags": ["ML", "System Design"]}
+{"title": "Subquery vs CTE — readability vs performance?", "body": "CTEs are clearer but I've heard they're a perf wall in Postgres.", "tags": ["SQL", "DBMS"]}
+{"title": "When does CDN caching hurt?", "body": "Stale data. Cookies. Personalization. What patterns break with CDN?", "tags": ["Web Dev", "System Design"]}
+{"title": "Boyer-Moore string search — practical use", "body": "Why is it faster on natural language? Bad character vs good suffix?", "tags": ["Algorithms"]}
+{"title": "Logits vs probabilities — when to use each", "body": "Models output logits. Then softmax. When do I want one over the other?", "tags": ["ML", "Math"]}
+{"title": "Database sharding key selection", "body": "User ID? Geography? Hash? What if I need to re-shard later?", "tags": ["DBMS", "System Design"]}
+{"title": "JS modules: ESM vs CommonJS in 2026", "body": "Node finally supports ESM well. Do I migrate or stay on CJS?", "tags": ["Web Dev"]}
+{"title": "Counting inversions in O(n log n)", "body": "Mergesort variant. Why does counting work during merge?", "tags": ["DSA", "Algorithms"]}
+{"title": "Activation function choice for output layer", "body": "Sigmoid for binary, softmax for multiclass, none for regression. But why these mappings?", "tags": ["ML"]}
+{"title": "Postgres explain — what does 'cost' actually mean?", "body": "Numbers are arbitrary units. How do I read them as a beginner?", "tags": ["DBMS", "SQL"]}
+{"title": "Why does my service worker not register?", "body": "https, valid path, console shows nothing. Cache busted. What else?", "tags": ["Web Dev"]}
+{"title": "Suffix arrays vs suffix trees", "body": "Same use cases, different memory profiles. When does suffix array win?", "tags": ["DSA", "Algorithms"]}
+{"title": "Causal vs correlational features in ML", "body": "Spurious correlations everywhere. How do I find the actual causes?", "tags": ["ML", "Math"]}
+{"title": "Connection pooling at the load balancer level", "body": "PgBouncer in transaction mode. Do my session vars survive?", "tags": ["DBMS", "System Design"]}
+{"title": "Web Worker vs Service Worker — confusion", "body": "Names are similar. I keep using the wrong one in articles.", "tags": ["Web Dev"]}
+{"title": "How does insertion sort beat quicksort for small n?", "body": "Constant factor. But what's the crossover and why?", "tags": ["DSA", "Algorithms"]}
+{"title": "Dropout rate selection", "body": "0.5 is a common default. Why? When should I deviate?", "tags": ["ML"]}
+{"title": "Triggers performance impact on writes", "body": "I have an audit log via trigger. Inserts feel slow. Is the trigger really the cause?", "tags": ["DBMS"]}
+{"title": "How to migrate from REST to GraphQL incrementally", "body": "Existing API serves 50 endpoints. Don't want a full rewrite.", "tags": ["Web Dev", "System Design"]}
+{"title": "Articulation points in graphs", "body": "Tarjan's algorithm. Low-link values. The 'aha' moment escapes me.", "tags": ["DSA", "Algorithms"]}
+{"title": "When does bagging hurt vs help?", "body": "Random forests use it. But I've seen examples where it's worse than single tree.", "tags": ["ML"]}
+{"title": "Composite key with millions of rows — index size?", "body": "Two-column composite. Will the index be 2x the size of single?", "tags": ["DBMS"]}
+{"title": "Browser caching strategy for SPA", "body": "Cache-Control headers. ETags. SWR. Which combination is current best practice?", "tags": ["Web Dev"]}
+{"title": "How to actually understand a transformer", "body": "I read 'Attention Is All You Need' three times. Still don't grok it.", "tags": ["ML"]}
+{"title": "Database migration tools — Liquibase vs Flyway?", "body": "Picking one for a Java team. What's the practical difference?", "tags": ["DBMS"]}
+{"title": "GraphQL schema design for relationships", "body": "Comment->Post->User. Naive joins kill perf. Patterns?", "tags": ["Web Dev"]}
+{"title": "What is amortized complexity exactly?", "body": "Vector push is amortized O(1). Worst case O(n). The 'amortized' term confuses me.", "tags": ["DSA", "Math"]}
+{"title": "Curriculum learning — does it actually work?", "body": "Easy examples first, hard later. Sounds intuitive. Empirical results?", "tags": ["ML"]}
+{"title": "PostgreSQL roles vs users", "body": "Both can log in. The conceptual difference?", "tags": ["DBMS"]}
+{"title": "Server actions in Next.js — how do they work?", "body": "Magic 'use server'. I want to know what the bundler does.", "tags": ["Web Dev"]}
+{"title": "Strongly connected components — Kosaraju vs Tarjan", "body": "Both are O(V+E). I can implement Kosaraju. Tarjan is denser. Worth learning?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does layer normalization help transformers", "body": "BatchNorm doesn't work well in transformers. LayerNorm does. The why?", "tags": ["ML", "Math"]}
+{"title": "Postgres LISTEN/NOTIFY vs Kafka", "body": "Cheap pub/sub at small scale. When do I outgrow LISTEN/NOTIFY?", "tags": ["DBMS", "System Design"]}
+{"title": "Express error handling middleware ordering", "body": "Error middleware comes last? Or first? Docs unclear.", "tags": ["Web Dev"]}
+{"title": "Disjoint set union — when is path compression worth it?", "body": "Without it: union is O(log n). With it: nearly O(1). Always use?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why are LLMs better than smaller models for instruction following", "body": "Emergent capabilities. Is there a satisfying explanation?", "tags": ["ML"]}
+{"title": "Backup strategies for Postgres at small scale", "body": "Solo project. WAL archiving feels like overkill. pg_dump enough?", "tags": ["DBMS"]}
+{"title": "JWT refresh token rotation pattern", "body": "Short-lived access + refresh. But how to revoke without state?", "tags": ["Web Dev", "System Design"]}
+{"title": "RANK() OVER vs ROW_NUMBER() — when do they differ?", "body": "Tied values. RANK skips, ROW_NUMBER doesn't. But there's also DENSE_RANK.", "tags": ["SQL"]}
+{"title": "How does autograd build a graph?", "body": "PyTorch tracks operations. But how does it know what to track?", "tags": ["ML", "Math"]}
+{"title": "Database connection per request vs pool", "body": "PHP-style new connection vs Node-style pool. Tradeoffs?", "tags": ["Web Dev", "DBMS"]}
+{"title": "What's a B-tree vs B+ tree in practice?", "body": "Both are databases' favorite. Postgres uses B-tree (named B-tree but actually B+).", "tags": ["DBMS", "DSA"]}
+{"title": "Cache invalidation strategies in distributed systems", "body": "Two of the hard problems. Time-based, write-through, write-back. Real-world picks?", "tags": ["System Design"]}
+{"title": "Recursion depth limit — why this number?", "body": "Python's 1000. Why not bigger? Just memory?", "tags": ["DSA"]}
+{"title": "When to use logistic regression vs neural net", "body": "Tabular data. Linear vs deep. Feature interactions?", "tags": ["ML"]}
+{"title": "MERGE statement in Postgres 17", "body": "Finally have it. When is it better than INSERT ON CONFLICT?", "tags": ["SQL", "DBMS"]}
+{"title": "Web vitals: LCP, FID, CLS — quick mnemonics", "body": "I keep forgetting which is which. Anyone got a mental model?", "tags": ["Web Dev"]}
+{"title": "Topological sort with cycle detection", "body": "If graph has a cycle, sort doesn't exist. How to detect during the sort?", "tags": ["DSA", "Algorithms"]}
+{"title": "Shapley values — interpretable ML?", "body": "I've heard of SHAP. The math behind Shapley values seems heavy. Worth learning?", "tags": ["ML", "Math"]}
+{"title": "Postgres parallel queries — when do they fire?", "body": "Big queries should auto-parallelize. Mine don't. Why?", "tags": ["DBMS"]}
+{"title": "When to choose monolithic vs micro frontend", "body": "Multiple teams, multiple apps under one domain. Module federation?", "tags": ["Web Dev", "System Design"]}
+{"title": "Knapsack 0/1 vs fractional", "body": "Greedy works for fractional, DP for 0/1. Why this distinction?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Ridge vs lasso regression — when does sparsity matter?", "body": "Lasso zeros some coefs. Ridge shrinks. What problem requires zeros?", "tags": ["ML", "Math"]}
+{"title": "Database transactions — what does isolation level affect?", "body": "READ COMMITTED, REPEATABLE READ, etc. Beyond locking, what's user-visible?", "tags": ["DBMS"]}
+{"title": "Dynamic imports in JS — when are they evaluated?", "body": "import('./mod') is a Promise. When does the code actually run?", "tags": ["Web Dev"]}
+{"title": "Maximum bipartite matching — Hungarian algorithm?", "body": "Hungarian is O(n^3). For maximum matching specifically, simpler approaches exist?", "tags": ["DSA", "Algorithms"]}
+{"title": "Embedding dimension — what's a good number?", "body": "Word2vec used 300. BERT uses 768. How do these get chosen?", "tags": ["ML"]}
+{"title": "Why is INSERT ... RETURNING useful?", "body": "Get the new row back without a second SELECT. I keep forgetting it exists.", "tags": ["SQL", "DBMS"]}
+{"title": "How do I structure a polyglot persistence app?", "body": "Postgres for transactional, Redis for cache, ES for search. Code-level orchestration?", "tags": ["System Design"]}
+{"title": "Linked list reversal — iterative vs recursive", "body": "Recursive feels elegant but uses stack. Iterative is the norm. Why teach both?", "tags": ["DSA"]}
+{"title": "Beam search vs greedy decoding", "body": "Used in seq2seq. Beam is better. But how much better, and at what cost?", "tags": ["ML", "Algorithms"]}
+{"title": "ALTER TABLE ADD COLUMN — locking?", "body": "Adding nullable column to 100M row table. Does it block reads?", "tags": ["DBMS"]}
+{"title": "Comparing arrays in JS — by value", "body": "[1] === [1] is false. JSON.stringify? Lodash? Anything cleaner?", "tags": ["Web Dev"]}
+{"title": "Tree traversals: preorder vs inorder vs postorder mnemonic", "body": "Always blank on which is which during interviews. Trick to remember?", "tags": ["DSA"]}
+{"title": "Generative vs discriminative models — practical impact?", "body": "Logistic regression discriminative, naive bayes generative. Beyond theory, what changes?", "tags": ["ML"]}
+{"title": "Postgres table partitioning — when worth it?", "body": "100M rows. Logs table. Time-based partitioning helps?", "tags": ["DBMS", "System Design"]}
+{"title": "Why does Vite dev server feel faster than Webpack", "body": "ESM in dev. Bundle in prod. The difference is huge. Why?", "tags": ["Web Dev"]}
+{"title": "Edit distance Levenshtein DP — base cases", "body": "I always mess up the base cases. The cell at [0][j] is just j. Why?", "tags": ["DSA", "Algorithms"]}
+{"title": "Adversarial examples — why do they exist?", "body": "Tiny pixel changes flip predictions. What does this say about how models 'see'?", "tags": ["ML"]}
+{"title": "How to handle CSV import of 1M rows in Express", "body": "Memory blows up. Streaming the parse helps but still slow. DB bulk insert?", "tags": ["Web Dev", "DBMS"]}
+{"title": "Closures and memory leaks", "body": "I closed over a big object accidentally. GC doesn't free it. Mental model?", "tags": ["Web Dev"]}
+{"title": "Tower of Hanoi — derive the recurrence", "body": "T(n) = 2T(n-1) + 1. Why exactly? Walk through the structure please.", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Why do we square errors in MSE?", "body": "Absolute would also penalize. Why squared specifically?", "tags": ["ML", "Math"]}
+{"title": "Database deadlock — how to debug", "body": "Logs say deadlock detected. But which query is the culprit?", "tags": ["DBMS"]}
+{"title": "When does a CDN improve worse than help?", "body": "TTL too long → stale. Wrong region → slower. Real misconfigurations?", "tags": ["Web Dev", "System Design"]}
+{"title": "Inverse matrix — when does it not exist?", "body": "Singular matrix. Determinant zero. What real-world data leads to this?", "tags": ["Math"]}
+{"title": "Exploring data with histograms vs box plots", "body": "I default to histogram. When does box plot tell me something it can't?", "tags": ["ML", "Math"]}
+{"title": "Postgres autovacuum tuning", "body": "Default settings. Tables have lots of dead tuples. What knobs to turn?", "tags": ["DBMS"]}
+{"title": "What is hydration in React/Next?", "body": "Heard it many times. The actual process unclear. Browser side specifically.", "tags": ["Web Dev"]}
+{"title": "Maximum subarray sum — Kadane's intuition", "body": "I memorized it. Want to derive it from scratch.", "tags": ["DSA", "Algorithms"]}
+{"title": "Why mean-pooling over max-pooling for sentence embeddings?", "body": "Both work. Papers prefer mean. Concrete reason?", "tags": ["ML"]}
+{"title": "Trigger-based audit logging — alternatives?", "body": "Triggers are simple but slow writes. Logical replication? CDC?", "tags": ["DBMS", "System Design"]}
+{"title": "How to test middleware in Express", "body": "Want unit tests for middleware. Mock req/res?", "tags": ["Web Dev"]}
+{"title": "Coin change — DP vs greedy", "body": "Coins (1, 5, 10, 25). Greedy works. (1, 3, 4)? Not sure.", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Tokenization: BPE vs WordPiece vs SentencePiece", "body": "GPT uses BPE. BERT WordPiece. Why are there competing algorithms?", "tags": ["ML"]}
+{"title": "ANALYZE in Postgres — what does it actually do?", "body": "Updates statistics. But what statistics, and how does the planner use them?", "tags": ["DBMS", "SQL"]}
+{"title": "What's the actual difference between DELETE, REMOVE, DROP?", "body": "Different SQL keywords. Different operations. Quick reference?", "tags": ["SQL"]}
+{"title": "Z-algorithm for string matching — why O(n)?", "body": "I implemented it. It's clean but the linearity proof is non-obvious.", "tags": ["DSA", "Algorithms"]}
+{"title": "Generative AI for product roadmaps", "body": "PMs ask me to use LLMs. Beyond brainstorming, what's actually useful?", "tags": ["ML"]}
+{"title": "Hosting Postgres yourself vs managed (RDS)", "body": "Costs are very different. What do you really get from managed?", "tags": ["DBMS", "System Design"]}
+{"title": "Why does my unhandled promise rejection silently fail?", "body": "Node 22. Used to crash. Now just logs. Best practice for catching?", "tags": ["Web Dev"]}
+{"title": "Reservoir sampling — k from a stream", "body": "Single pass, k samples uniformly. Understand it for k=1. Generalization?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "PCA — why do we center the data?", "body": "First step is subtract the mean. What goes wrong if I skip?", "tags": ["ML", "Math"]}
+{"title": "Postgres FOR UPDATE — when do I need it?", "body": "Read-then-update flow. SELECT FOR UPDATE blocks others. Performance?", "tags": ["DBMS", "SQL"]}
+{"title": "Frontend monorepo: pnpm workspaces vs Nx vs Turborepo", "body": "5 packages. Pick one. Bias against complexity.", "tags": ["Web Dev", "System Design"]}
+{"title": "Integer overflow detection in algorithms", "body": "n * n in C++ for n = 50000. Easy to miss. How to defend systematically?", "tags": ["DSA", "Math"]}
+{"title": "Why do GANs train two networks simultaneously?", "body": "Generator vs discriminator. The minimax framing. Why is this stable at all?", "tags": ["ML", "Math"]}
+{"title": "Postgres logical replication for read scaling", "body": "Streaming replication is for failover. Logical for selective tables. Mix them?", "tags": ["DBMS", "System Design"]}
+{"title": "Should I write tests before or after the code?", "body": "TDD says before. Most of my coworkers write after. Discuss?", "tags": ["Web Dev"]}
+{"title": "Two heaps vs balanced BST for median maintenance", "body": "Both are O(log n). When would I pick BST?", "tags": ["DSA"]}
+{"title": "Online vs offline learning", "body": "Online updates per example. Useful for non-stationary data. Production patterns?", "tags": ["ML"]}
+{"title": "Window functions ORDER BY — performance impact", "body": "OVER (ORDER BY ...). Adds an explicit sort. How to optimize?", "tags": ["SQL", "DBMS"]}
+{"title": "Frontend bundle size — when does it really matter?", "body": "All blogs say small bundle. My MVP is fine at 2MB. When does it bite?", "tags": ["Web Dev"]}
+{"title": "Floyd's cycle detection — tortoise and hare", "body": "Why does the meeting point math work? Why not lap-aware?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Underfitting vs overfitting — diagnosis tree?", "body": "Train loss high → underfit. Train low, val high → overfit. But what about both high?", "tags": ["ML"]}
+{"title": "Postgres EXTENSIONS — useful ones?", "body": "Beyond pg_trgm and uuid-ossp, what should I know about?", "tags": ["DBMS"]}
+{"title": "When does immer help vs hurt", "body": "Immutable updates. Performance is similar but DX is much better. Catches?", "tags": ["Web Dev"]}
+{"title": "Sorting network — what's the use beyond academia?", "body": "Comparator-only sort. Hardware? FPGAs? Anywhere else?", "tags": ["DSA"]}
+{"title": "Calibration in classification — what is it really?", "body": "Probabilistic outputs that match true frequencies. Why is this often wrong?", "tags": ["ML"]}
+{"title": "How do I structure a pgvector setup for RAG?", "body": "1M docs. Postgres. Want similarity search and SQL filters together.", "tags": ["DBMS", "ML", "System Design"]}
+{"title": "Cookies vs localStorage for auth tokens — 2026", "body": "I keep flipping. What's the current security consensus?", "tags": ["Web Dev", "System Design"]}
+{"title": "Gauss-Jordan vs LU decomposition", "body": "For solving linear systems. When does each win?", "tags": ["Math", "Algorithms"]}
+{"title": "Convolution arithmetic — output size formula", "body": "(W - F + 2P) / S + 1. Easy to plug in. What's the geometric reason for it?", "tags": ["ML", "Math"]}
+{"title": "Replication lag — how to detect and bound", "body": "Read from replica → user sees stale data. Read-your-writes consistency?", "tags": ["DBMS", "System Design"]}
+{"title": "Module federation vs ES modules native", "body": "Webpack's MF is mature. Native ESM is the future. Which today?", "tags": ["Web Dev"]}
+{"title": "Knuth-Morris-Pratt failure function intuition", "body": "I've seen the table. The 'longest proper prefix that is also suffix' description loses me.", "tags": ["DSA", "Algorithms"]}
+{"title": "Self-attention complexity is O(n^2) — what makes Linformer linear?", "body": "Read about efficient attention. Some papers reduce. How?", "tags": ["ML", "Algorithms"]}
+{"title": "Postgres NOT IN vs NOT EXISTS — gotchas", "body": "NOT IN with NULLs has surprising behavior. NOT EXISTS doesn't. Why?", "tags": ["SQL", "DBMS"]}
+{"title": "WebRTC for a small app — overkill?", "body": "Need video calls between 2 users. WebRTC vs hosted (Twilio)?", "tags": ["Web Dev", "System Design"]}
+{"title": "Heaps vs priority queues — same thing?", "body": "I keep using them interchangeably. Are they?", "tags": ["DSA"]}
+{"title": "Chain rule for vector-valued functions", "body": "Single-variable chain rule: easy. Vector: Jacobian. The matrix product part is fuzzy.", "tags": ["Math", "ML"]}
+{"title": "Why are ANALYZE statistics out of date by default", "body": "Auto-analyze runs on threshold. Threshold is 10% by default. Tunable?", "tags": ["DBMS"]}
+{"title": "Why do I need both unit and integration tests", "body": "Read this is best practice. Unit feel sufficient. What does integration catch?", "tags": ["Web Dev"]}
+{"title": "Bellman-Ford vs Dijkstra — practical performance", "body": "Bellman handles negatives. Dijkstra is faster. By how much typically?", "tags": ["DSA", "Algorithms"]}
+{"title": "Cross-entropy vs KL divergence — same thing?", "body": "Differ by entropy of true distribution. When does this matter?", "tags": ["ML", "Math"]}
+{"title": "Postgres COPY vs INSERT for bulk load", "body": "Million rows. COPY is famously fast. How much, in numbers?", "tags": ["DBMS"]}
+{"title": "Why does HTTP/2 multiplexing not always help?", "body": "Single TCP connection. Multiple streams. But with packet loss, head-of-line returns.", "tags": ["Web Dev", "System Design"]}
+{"title": "Why is bubble sort still in textbooks?", "body": "Strictly worse than insertion sort in practice. Pedagogy or actual use?", "tags": ["DSA"]}
+{"title": "Energy-based models vs probabilistic", "body": "Both train similarly. EBMs feel less interpretable. What's the appeal?", "tags": ["ML", "Math"]}
+{"title": "Replication topology choices for Postgres", "body": "Cascaded? Star? Logical fan-out? What works for ~5 read replicas?", "tags": ["DBMS", "System Design"]}
+{"title": "CSS-in-JS — is it a bad pattern in 2026?", "body": "Used to love it. Now CSS modules feel cleaner. What changed?", "tags": ["Web Dev"]}
+{"title": "How do I prove a problem is NP-hard?", "body": "Reduction from a known NP-hard. Sat. The mechanics elude me.", "tags": ["Algorithms", "Math"]}
+{"title": "When should I ensemble vs stack vs blend?", "body": "Three terms. They overlap. Distinct meanings?", "tags": ["ML"]}
+{"title": "VACUUM FULL vs VACUUM in Postgres", "body": "FULL rewrites the table. Locks. When is it actually necessary?", "tags": ["DBMS"]}
+{"title": "Why do I get CORS errors only sometimes?", "body": "Same fetch call. Sometimes CORS error, sometimes not. The intermittency is bizarre.", "tags": ["Web Dev"]}
+{"title": "Range tree vs segment tree", "body": "Both for range queries. Different interfaces. When to use each?", "tags": ["DSA"]}
+{"title": "Why is precision usually traded for recall in fraud", "body": "Catching fraud is high recall. False positives are precision. Why this trade?", "tags": ["ML"]}
+{"title": "Sequence in Postgres — gotchas", "body": "Used for IDs. They cache. Restart resets cache. Surprises?", "tags": ["DBMS", "SQL"]}
+{"title": "Vite plugin vs Webpack loader — mental model", "body": "Doing similar jobs. Different conceptual frameworks. Translate?", "tags": ["Web Dev"]}
+{"title": "Coinage — what's a number system that fails greedy?", "body": "Standard coins greedy works. (1, 3, 4) greedy fails for 6. Why?", "tags": ["DSA", "Math"]}
+{"title": "RAG vs fine-tuning for custom knowledge", "body": "I have 10000 docs. Build vector DB or fine-tune?", "tags": ["ML", "System Design"]}
+{"title": "Postgres prepared statements — automatic?", "body": "Some clients prepare. Others don't. Performance impact?", "tags": ["DBMS", "Web Dev"]}
+{"title": "Why is my server getting 502 in Kubernetes", "body": "Pod ready. Service routes. Still 502 from ingress. Liveness vs readiness probe?", "tags": ["System Design"]}
+{"title": "What's a good way to learn DSA in 3 months?", "body": "Have ~10 hours a week. Coming from Python web dev. Goal: SDE 1.", "tags": ["DSA", "Algorithms"]}
+{"title": "Data leakage — concrete examples I've seen", "body": "Splitting before scaling. Time leak in features. What else surprises beginners?", "tags": ["ML"]}
+{"title": "Postgres role inheritance — security model", "body": "GRANT options. Inherits. NOINHERIT. Mental model for production?", "tags": ["DBMS", "System Design"]}
+{"title": "Why is JSON.stringify slow on big objects?", "body": "Profiling shows 500ms for a 50MB object. Better serializers?", "tags": ["Web Dev", "Algorithms"]}
+{"title": "Trie compression — Patricia trie", "body": "Standard trie wastes nodes. Patricia compresses. Implementation surprises?", "tags": ["DSA"]}
+{"title": "Train/val/test on a 10k dataset — sane split", "body": "60/20/20? 80/10/10? Time-based?", "tags": ["ML"]}
+{"title": "How to handle long running queries in Postgres", "body": "Some run for hours. Should I run them on a replica?", "tags": ["DBMS", "System Design"]}
+{"title": "When is React Server Components actually useful", "body": "RSCs feel like a step backward to PHP. Where's the win?", "tags": ["Web Dev"]}
+{"title": "Why is shortest path NP-hard for negative cycles?", "body": "Bellman-Ford fails with negative cycle. Shortest path becomes ill-defined. Why?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Multi-task learning — when does it help?", "body": "Train on related tasks together. Sometimes helps, sometimes hurts. Rule?", "tags": ["ML"]}
+{"title": "When does CTE materialize vs inline?", "body": "Postgres 12+ inlines by default. Need explicit MATERIALIZED otherwise.", "tags": ["SQL", "DBMS"]}
+{"title": "WebAssembly — what's a real use case beyond demos?", "body": "Photo editing? Games? Beyond performance fanfare, who shipped it?", "tags": ["Web Dev"]}
+{"title": "Topological sort linearity vs DAG depth", "body": "Linear time. But depth matters for parallelism. Two different problems?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does standard scaling matter for KNN", "body": "Gradient methods don't always need it. KNN does. Distance is the reason?", "tags": ["ML", "Math"]}
+{"title": "Postgres advisory locks vs explicit table locks", "body": "Want app-level mutex. Advisory seems clean. Surprises?", "tags": ["DBMS", "System Design"]}
+{"title": "Error boundaries in React — best practices", "body": "Component fails, app shouldn't crash. Where to place boundaries?", "tags": ["Web Dev"]}
+{"title": "Big O of Floyd-Warshall step by step", "body": "Three nested loops. Each O(V). Total O(V^3). The justification of correctness?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why softmax for multi-class but sigmoid for multi-label", "body": "Softmax sums to 1. Sigmoid is independent. The semantic difference?", "tags": ["ML", "Math"]}
+{"title": "How to debug N+1 queries in Sequelize/TypeORM", "body": "ORM hides the queries. Debug logs show repetition. Eager loading patterns?", "tags": ["Web Dev", "DBMS"]}
+{"title": "Distributed locks: Redis vs Zookeeper", "body": "Redlock controversy. Zookeeper consensus. Real use cases differ?", "tags": ["System Design"]}
+{"title": "Sieve of Eratosthenes — why O(n log log n)?", "body": "Sounds like O(n log n) intuitively. The log log is precisely?", "tags": ["Algorithms", "Math"]}
+{"title": "Encoder-only vs decoder-only transformers", "body": "BERT vs GPT. Tasks differ. The architectural difference is...", "tags": ["ML"]}
+{"title": "Index-only scan in Postgres — when triggered", "body": "All needed cols are in index. Should be fast. Sometimes still hits heap. Why?", "tags": ["DBMS"]}
+{"title": "Why are class components 'legacy' in React", "body": "Hooks won. But classes still work. Should I refactor?", "tags": ["Web Dev"]}
+{"title": "Chebyshev's inequality — when does it matter?", "body": "Bounds on probability of deviation. Loose. Useful when?", "tags": ["Math"]}
+{"title": "Why is BCEWithLogitsLoss preferred over BCE + sigmoid?", "body": "Numerical stability supposedly. The fused operator. Mechanism?", "tags": ["ML"]}
+{"title": "Postgres write amplification — what causes it?", "body": "WAL + heap + indexes. Each write becomes many physical writes. How much?", "tags": ["DBMS"]}
+{"title": "Web Vitals: optimizing INP", "body": "INP replaced FID. New metric. Strategies that worked for FID still work?", "tags": ["Web Dev"]}
+{"title": "Lazy propagation in segment tree", "body": "Range updates. Lazy means defer. But how do I propagate at the right time?", "tags": ["DSA", "Algorithms"]}
+{"title": "Stochastic optimization — why does noise help?", "body": "Theoretically momentum + noise escapes local minima. Empirical evidence?", "tags": ["ML", "Math"]}
+{"title": "Postgres JIT compilation — when does it kick in?", "body": "Some queries faster, some slower with JIT. Configuration?", "tags": ["DBMS"]}
+{"title": "Why do we need both forwardRef and useImperativeHandle", "body": "ForwardRef passes ref. UseImperativeHandle customizes what's exposed. Combined?", "tags": ["Web Dev"]}
+{"title": "Why is Aho-Corasick faster than naive multi-pattern", "body": "Build automaton from patterns. Single pass over text. Time complexity?", "tags": ["DSA", "Algorithms"]}
+{"title": "Test set leakage in time series", "body": "Train on past, test on future. But what about features that include future info?", "tags": ["ML"]}
+{"title": "Postgres connection storms — how to handle", "body": "App restarts → 1000 simultaneous connect attempts. PgBouncer enough?", "tags": ["DBMS", "System Design"]}
+{"title": "Optimistic UI — when does the rollback strategy matter?", "body": "Show change immediately. If server fails, revert. Hard cases?", "tags": ["Web Dev"]}
+{"title": "DSU with rank vs union by size", "body": "Both prevent O(n) chains. By rank: simpler. By size: also valid. Pick which?", "tags": ["DSA", "Algorithms"]}
+{"title": "When does RNN beat transformer?", "body": "Transformer dominates NLP. Time series with very long sequences?", "tags": ["ML"]}
+{"title": "Postgres IDLE_IN_TRANSACTION — danger?", "body": "Transactions left open. Holds locks. Who in my app does this?", "tags": ["DBMS"]}
+{"title": "JSON.parse + JSON.stringify pitfalls", "body": "Lose Date, undefined, functions. Anything else surprising?", "tags": ["Web Dev"]}
+{"title": "Eulerian path vs Hamiltonian path complexity", "body": "Eulerian is poly. Hamiltonian is NP-complete. They look similar. Why so different?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "When does AdaBoost outperform random forest", "body": "AdaBoost focuses on hard examples. RF doesn't. Are there cases where RF wins?", "tags": ["ML"]}
+{"title": "Postgres LISTEN/NOTIFY payload limits", "body": "Trying to send JSON via NOTIFY. Is there a max size?", "tags": ["DBMS"]}
+{"title": "Why does my fetch with keepalive leak?", "body": "TCP connections accumulate even when I'm not making new requests.", "tags": ["Web Dev", "System Design"]}
+{"title": "Mo's algorithm — what is it for?", "body": "Offline range queries. Sqrt decomposition. When does this beat segment tree?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why fine-tuning small models is sometimes better than prompting big ones", "body": "Counter-intuitive. But several papers show this. Latency aside, why accuracy?", "tags": ["ML"]}
+{"title": "Postgres listen during long transaction", "body": "NOTIFY only delivered after commit. Surprises in patterns I've seen?", "tags": ["DBMS"]}
+{"title": "Why doesn't React batch in async functions", "body": "setState in async/await: not batched in React 17. Fixed in 18?", "tags": ["Web Dev"]}
+{"title": "Suffix automaton — what does it solve", "body": "All distinct substrings in O(n). Heavy machinery. Real use?", "tags": ["DSA", "Algorithms"]}
+{"title": "Supervised vs self-supervised — boundary blurring", "body": "Word2vec is technically self-supervised. What about contrastive learning?", "tags": ["ML"]}
+{"title": "Postgres auto_explain — production safe?", "body": "Want slow query logs with plans. Performance overhead?", "tags": ["DBMS"]}
+{"title": "Why does flexbox sometimes mess up text overflow", "body": "min-width: 0 trick. The default min-width: auto bites me weekly.", "tags": ["Web Dev"]}
+{"title": "Modular exponentiation — a^b mod m efficiently", "body": "Square and multiply. O(log b). What about avoiding overflow?", "tags": ["Math", "Algorithms"]}
+{"title": "Why does early stopping count as regularization", "body": "Stops training before convergence. Reduces overfit. Equivalence to L2?", "tags": ["ML", "Math"]}
+{"title": "Postgres pg_stat_statements — first thing to enable?", "body": "Want top slow queries. pg_stat_statements vs query log. Both?", "tags": ["DBMS"]}
+{"title": "useMemo and useCallback — when not to use", "body": "Premature optimization. But which exact cases waste effort?", "tags": ["Web Dev"]}
+{"title": "Heavy-light decomposition — only for competitive?", "body": "Tree algorithms. Saw it in problems. Useful in real systems?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does my CNN converge to all zeros", "body": "Output is identically zero. Bias init? Activation? Learning rate?", "tags": ["ML"]}
+{"title": "Read uncommitted in Postgres — does it exist?", "body": "Postgres doesn't really support it. Treats as read committed. Why?", "tags": ["DBMS"]}
+{"title": "Why is fetch's Response body a stream", "body": "Already-resolved Promise gives Response. But .json() is async. Internals?", "tags": ["Web Dev"]}
+{"title": "Sparse table for range minimum queries", "body": "O(n log n) preprocess, O(1) query. Beats segment tree when?", "tags": ["DSA", "Algorithms"]}
+{"title": "What's a good first ML project that's not Iris?", "body": "Tired of demo datasets. Want something with real data and real story.", "tags": ["ML"]}
+{"title": "Postgres backup with continuous archiving", "body": "WAL archiving + base backup. PITR. Setup complexity?", "tags": ["DBMS"]}
+{"title": "How do I make my React app accessible by default", "body": "Aware of WCAG. But what's the minimum I should do every component?", "tags": ["Web Dev"]}
+{"title": "What does 'amortized analysis' actually buy us", "body": "Average case vs amortized. The terminology confusion is real.", "tags": ["DSA", "Math"]}
+{"title": "Pretrained image model as feature extractor", "body": "Truncate ResNet at the penultimate layer. Use the embeddings. When does this break down?", "tags": ["ML"]}
+{"title": "Postgres pgAudit — overhead?", "body": "Audit DDL and DML. Compliance. Performance hit?", "tags": ["DBMS", "System Design"]}
+{"title": "When is XHR still better than fetch", "body": "Upload progress. Aborts. Other corner cases?", "tags": ["Web Dev"]}
+{"title": "Median of medians — does it actually achieve O(n)?", "body": "Worst-case linear selection. Constant factor monstrous. Practical?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Calibration via Platt scaling vs isotonic", "body": "Two methods to calibrate. When to use each?", "tags": ["ML"]}
+{"title": "Postgres connection limit reached — diagnosis", "body": "max_connections=100. App says 100. But idle connections also count.", "tags": ["DBMS"]}
+{"title": "When to use HTML form submission vs fetch", "body": "Native form submission has good defaults. But APIs use fetch. Hybrid?", "tags": ["Web Dev"]}
+{"title": "Why is Hopcroft-Karp's complexity O(E sqrt V)", "body": "Bipartite matching. Layered approach. The square root surprised me.", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "When does linear probing beat chaining for hash maps", "body": "Cache locality. Load factor. The crossover?", "tags": ["DSA"]}
+{"title": "Why does FAISS use product quantization", "body": "PQ is everywhere in vector search. Compression vs accuracy tradeoff?", "tags": ["ML", "Algorithms"]}
+{"title": "Postgres COPY FREEZE — what does it freeze", "body": "Avoid future vacuum work. The mechanism?", "tags": ["DBMS"]}
+{"title": "Async iterators in JavaScript — when do I need them?", "body": "Stream-like. for-await-of. Examples beyond reading files?", "tags": ["Web Dev"]}
+{"title": "What's the cleanest proof of Master theorem case 2", "body": "Three cases. Case 2 is the f(n) = Theta(n^log_b a). The proof is technical.", "tags": ["Algorithms", "Math"]}
+{"title": "Why do I need temperature scaling for confident wrong predictions", "body": "Model very confidently wrong. Scaling logits helps. Why does this work?", "tags": ["ML", "Math"]}
+{"title": "Postgres logical decoding — what can I do with it?", "body": "Stream changes. CDC. Build search indexes? Cache invalidation?", "tags": ["DBMS", "System Design"]}
+{"title": "When does code splitting actually help loading", "body": "Lazy load routes. Initial bundle smaller. But more network requests. Crossover?", "tags": ["Web Dev"]}
+{"title": "Why do we use entropy-based splits in decision trees", "body": "Gini and entropy. Both work. Why two metrics that agree mostly?", "tags": ["ML", "Math"]}
+{"title": "Foreign key referential actions — full list", "body": "CASCADE, SET NULL, RESTRICT, NO ACTION, SET DEFAULT. Differences?", "tags": ["DBMS", "SQL"]}
+{"title": "Server-sent events — keep-alive intervals", "body": "Connection drops after some idle time. How do other people configure?", "tags": ["Web Dev", "System Design"]}
+{"title": "Reservoir sampling proof — why is it uniform", "body": "Pick i with probability k/i for the kth slot. Why exactly is this fair?", "tags": ["DSA", "Math"]}
+{"title": "Continual learning — catastrophic forgetting", "body": "Train on task A then task B. Forget A. Surprising amount of work on this.", "tags": ["ML"]}
+{"title": "Postgres autovacuum cost-based delay", "body": "Vacuum doesn't take all the IO. Tunable. When do I touch this?", "tags": ["DBMS"]}
+{"title": "Why does fetch on the same origin still send CORS preflights sometimes", "body": "Cross-origin trigger. But same origin shouldn't. What about content-type?", "tags": ["Web Dev"]}
+{"title": "Probabilistic data structures family", "body": "Bloom, Count-Min, HyperLogLog. The connecting idea?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "Why does PCA fail for non-Gaussian data", "body": "Variance maximization is implicit Gaussian. ICA for non-Gaussian. When?", "tags": ["ML", "Math"]}
+{"title": "Postgres DEFERRABLE constraints", "body": "Defer FK check to commit time. Workaround for cycles?", "tags": ["DBMS"]}
+{"title": "When does GraphQL hurt", "body": "Caching. N+1 (DataLoader). Versioning. Where else?", "tags": ["Web Dev", "System Design"]}
+{"title": "Why is Kruskal's algorithm correct", "body": "Greedy on edges. Cycle check via DSU. The exchange argument proof?", "tags": ["DSA", "Algorithms", "Math"]}
+{"title": "What does 'distillation' mean in ML?", "body": "Big model → small model. Teacher/student. The loss specifically?", "tags": ["ML"]}
+{"title": "Postgres SHOW vs pg_settings", "body": "Both show config. Pg_settings has more. Why two interfaces?", "tags": ["DBMS"]}
+{"title": "Why does `==` work for objects in some cases in JS", "body": "{} == {} false. But ({} == {}).toString()?", "tags": ["Web Dev"]}
+{"title": "Square root decomposition — beyond range queries", "body": "Block-based. Useful for queries on arrays. What other data structures?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why is the F1 score harmonic mean specifically", "body": "Arithmetic, geometric, harmonic. Why harmonic for precision/recall?", "tags": ["ML", "Math"]}
+{"title": "Postgres tuple visibility map", "body": "Visibility map for index-only scans. Mechanic?", "tags": ["DBMS"]}
+{"title": "Frontend state mgmt — Zustand vs Jotai vs Redux 2026", "body": "All three modern. Picking one for a 5-person team. Pros/cons?", "tags": ["Web Dev"]}
+{"title": "Strassen's algorithm — does it actually run faster", "body": "O(n^2.81) vs O(n^3). The constant factor is large. When does it pay off in practice?", "tags": ["Algorithms", "Math"]}
+{"title": "Variational autoencoders — what's the trick", "body": "Sample from latent. Reparameterization. Why this specific formulation?", "tags": ["ML", "Math"]}
+{"title": "Postgres TOAST — what gets stored where?", "body": "Large values offline. Separate table. Implications for queries?", "tags": ["DBMS"]}
+{"title": "Why is fetch's Response body single-use", "body": "Read once, then can't again. Stream lifecycle. The reasoning?", "tags": ["Web Dev"]}
+{"title": "Why does selection sort exist", "body": "Strictly worse than insertion sort. Yet still in textbooks. Pedagogy only?", "tags": ["DSA"]}
+{"title": "Why is gradient clipping needed for RNNs but rarely transformers", "body": "Exploding gradients in RNNs. Transformers have residuals. Mechanism?", "tags": ["ML"]}
+{"title": "Postgres bgworkers — when do you write one", "body": "Background workers. Custom logic in DB. Real use cases beyond tutorials?", "tags": ["DBMS", "System Design"]}
+{"title": "Why is event delegation faster", "body": "One listener vs many. Event bubbling. Performance numbers?", "tags": ["Web Dev"]}
+{"title": "Dynamic programming on subsequences vs substrings", "body": "Longest common subsequence vs longest common substring. State space differs how?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does my F1 score differ between sklearn and my hand calculation", "body": "Computed F1 manually. Sklearn gives different. Average='binary' vs 'macro'?", "tags": ["ML"]}
+{"title": "Postgres replica promotion — automatic?", "body": "Streaming replication. Master fails. Manual promotion or auto?", "tags": ["DBMS", "System Design"]}
+{"title": "When does CSS containment help", "body": "contain: layout. Tells browser scope. Performance benefit when?", "tags": ["Web Dev"]}
+{"title": "Why do we count operations vs run time in algorithms", "body": "Asymptotics. But in practice we want wall time. The translation?", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does my LSTM converge slower than transformer", "body": "On the same data. Transformer faster. Recurrence is the bottleneck?", "tags": ["ML"]}
+{"title": "Postgres temporary tables across sessions", "body": "TEMPORARY tables are session-scoped. Need cross-session? Use UNLOGGED?", "tags": ["DBMS", "SQL"]}
+{"title": "Why does keep-alive sometimes hurt latency", "body": "Connection reuse should be faster. Some pathologies?", "tags": ["Web Dev"]}
+{"title": "Floyd's cycle finding — second phase intuition", "body": "After meeting, restart slow at head. Why does meeting again give the cycle start?", "tags": ["DSA", "Math"]}
+{"title": "Why does my model accuracy not improve after epoch 5", "body": "Train loss flat. Val loss flat. Plateau. Diagnose?", "tags": ["ML"]}
+{"title": "Postgres fillfactor — when to set lower", "body": "Pages allow updates in place. Update-heavy tables. What's a good fillfactor?", "tags": ["DBMS"]}
+{"title": "Why is concurrent rendering in React not free", "body": "Time-slicing. Pause work. But state inconsistencies arise. Tradeoffs?", "tags": ["Web Dev"]}
+{"title": "Why is the heap property weaker than BST property", "body": "BST: ordered. Heap: parent-child only. Different problems.", "tags": ["DSA"]}
+{"title": "Why do we still use ROC even when classes are imbalanced", "body": "PR curve more informative. ROC over-optimistic. But ROC ubiquitous. Why?", "tags": ["ML"]}
+{"title": "Postgres backup compression — gzip vs zstd vs lz4", "body": "Backup speed and storage. Modern compressors better. Numbers?", "tags": ["DBMS"]}
+{"title": "Why is my lazy-loaded image not cached", "body": "data-src to src swap. But cache miss every time. Headers?", "tags": ["Web Dev"]}
+{"title": "Why is convex optimization 'easy' in theory", "body": "Local min = global min. Provable convergence. But iteration count?", "tags": ["Math", "ML"]}
+{"title": "Postgres LIKE vs ILIKE vs ~", "body": "Three pattern matchers. Different escapes and behaviors.", "tags": ["SQL", "DBMS"]}
+{"title": "Why is React's reconciliation O(n) not O(n^3)", "body": "Tree diffing in general is cubic. React's heuristics make it linear. The shortcut?", "tags": ["Web Dev", "Algorithms"]}
+{"title": "Why do we need both BFS and DFS at all", "body": "If we have one, do we need the other? Different invariants serve different problems.", "tags": ["DSA", "Algorithms"]}
+{"title": "Why does temperature in transformers affect creativity vs accuracy", "body": "Lower temp → more deterministic. Higher → more diverse. Concrete behavior?", "tags": ["ML"]}
